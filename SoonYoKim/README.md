@@ -158,7 +158,7 @@
 
 - Memory-Based
   - User-Based
-    - 구매 기록 등을 통해 같은 제푸을 구매한 기록이 있는 사용자들을 찾고 이를 바탕으로 아이템을 추천하는 방식
+    - 구매 기록 등을 통해 같은 제품을 구매한 기록이 있는 사용자들을 찾고 이를 바탕으로 아이템을 추천하는 방식
   - Item-Based
     - 사용자를 중심으로 찾는 방식이 아닌 아이템 중심으로 추천하는 방식
 - Model-Based
@@ -167,7 +167,62 @@
 
 
 
-...
+### 협업 필터링 개념 정리
 
-...
+- https://realpython.com/build-recommendation-engine-collaborative-filtering/
+  - 협업 필터링 알고리즘 개념정리, 코드 예시
+  - 협업 필터링을 위해서는 아이템 set과 이 아이템에 반응하는 유저 set이 필요
+  - 반응(reaction)에는 explicit(ex_1점부터 5점까지 평점 매기기, 좋아요 누르기 등) 명시적인 반응과 implicit(아이템 조회, 위시 리스트에 추가, 기사를 본 시간) 묵시적인 반응이 있다.
+  - cosine distance를 통해 유저 행동 간 유사도를 계산 가능
+  - example) 다섯 명의 유저와 다섯 명의 아이템 평점 행렬
+    - ![image-20220316004120126](README.assets/image-20220316004120126.png)
+    - 대개 이러한 행렬의 대부분의 cell들은 비어있을 것(user들이 모든 아이템에 대해서 react를 잘해주는 것이 아니기 때문)
+      - 대부분 cell들이 비어있는 행렬을 sparse 행렬, 반대 개념을 dense 행렬이라고 부름
 
+
+
+### Memory Based CF
+
+- https://scvgoe.github.io/2017-02-01-%ED%98%91%EC%97%85-%ED%95%84%ED%84%B0%EB%A7%81-%EC%B6%94%EC%B2%9C-%EC%8B%9C%EC%8A%A4%ED%85%9C-(Collaborative-Filtering-Recommendation-System)/
+
+  - 협업 필터링 추천 시스템 개념 정리(한글)
+
+  - **Memory-based 협업 필터링**
+
+    - 유사도를 기반으로 동작
+
+    - 사용자-사용자 간 유사도를 기준으로 하면 User-based, 아이템-아이템 간 유사도를 기준으로 하면 Item-Based
+
+    - 사용자 기반(User-Based)
+
+      - 두 사용자가 얼마나 유사한 항목(아이템)을 선호했는지를 기준
+
+      - 두 사용자 간 유사도 = 두 벡터 간 유사도
+
+      - 대개 코사인 유사도, 피어슨 유사도가 사용된다.
+
+      - **코사인 유사도 공식**
+
+        ![image-20220316005402074](README.assets/image-20220316005402074.png)
+
+      - 해당 공식을 통해 구한 유사도 행렬 기반으로 weighted sum 값을 예측 점수로 사용할 수 있음
+
+    - 아이템 기반(Item-Based)
+
+      - 사용자 기반과 유사한 과정을 거침. 다만 아이템들에 대한 유사도를 구해서 계산
+      - 두 아이템 간 유사도가 높으면, A 아이템을 좋아하는 유저들이 B 아이템을 좋아할 확률(또는 반대)이 높음
+
+    - **코사인 유사도 기반 필터링 주의점**
+
+      - 극단적으로 다른 평가를 받은 두 아이템의 유사도는 1이 된다. 이처럼 코사인 유사도는 유저마다의 개인적인 평가 성향을 반영하지 못한다는 단점이 있다.
+
+      - 보완점으로 **피어슨 유사도**가 있다.
+
+      - 공식
+
+        ![image-20220316010052433](README.assets/image-20220316010052433.png)
+
+    - 이외에도 평가 인원 수나 아이템들이 너무 적으면 추천의 정확도가 매우 떨어질 수 있으므로 최소 평가 인원을 정해서 그 이상부터 유사도를 계산하고 이하는 유사도를 0으로 두는 것이 바람직
+
+- https://medium.com/sfu-cspmp/recommendation-systems-user-based-collaborative-filtering-using-n-nearest-neighbors-bf7361dc24e0
+  - 영화 평점 데이터를 User-Based 방식의 협업 필터링 알고리즘 구현 예시
