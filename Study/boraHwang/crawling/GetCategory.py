@@ -19,8 +19,6 @@ def get_urls_list(url):
     browser = webdriver.Chrome(chromedriver)
     browser.implicitly_wait(3)
 
-    # url = 'http://mticket.interpark.com/genre?Genre=MU&cat=11008'
-    # url = "http://mticket.interpark.com/genre?Genre=MU";
     browser.get(url)
 
     while 1:
@@ -42,4 +40,4 @@ def get_urls_list(url):
     browser.close()
     return urls_list
 
-print(get_urls_list("http://mticket.interpark.com/genre?Genre=MU"))
+# print(get_urls_list("http://mticket.interpark.com/genre?Genre=MU"))
