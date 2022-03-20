@@ -145,8 +145,27 @@
 #### Doc2Vec을 사용한 리뷰 감정 분류
 
 - Word2Vec의 일반화
-
 - https://ichi.pro/ko/doc2veceul-sayonghan-libyue-daehan-gamjeong-bunlyu-112200208663350
+
+
+
+#### LDA를 활용한 토픽 모델링 방법론
+
+- 말뭉치로부터 토픽을 추출하는 토픽 모델링 기법 중 하나인 LDA
+- 잠재 의미를 고려하여 토픽을 추출하는 방법
+
+- https://skb.skku.edu/sic/study.do?mode=view&articleNo=117911&article.offset=0&articleLimit=10#/list
+- 토픽 모델링
+  - 토픽 모델링에서 토픽은 어떤 주제를 구성하는 단어들
+  - 문서 집합에서 이 단어 집합을 찾는 것이 토픽 모델링
+  - 참고)
+    - https://blog.naver.com/PostView.naver?blogId=hobby-explorer&logNo=222219351460&categoryNo=13&parentCategoryNo=0
+    - http://bigdata.emforce.co.kr/wp-content/uploads/%EC%97%A0%ED%8F%AC%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%9E%A9_%ED%86%A0%ED%94%BD%EB%AA%A8%EB%8D%B8%EB%A7%81LDA%EB%B0%A9%EB%B2%95%EB%A1%A0-%EC%A0%95%EB%A6%AC.pdf
+    - https://dianakang.tistory.com/m/50
+
+
+
+
 
 
 
@@ -226,3 +245,103 @@
 
 - https://medium.com/sfu-cspmp/recommendation-systems-user-based-collaborative-filtering-using-n-nearest-neighbors-bf7361dc24e0
   - 영화 평점 데이터를 User-Based 방식의 협업 필터링 알고리즘 구현 예시
+
+
+
+### Model Based CF
+
+**기본 개념**
+
+- https://lsjsj92.tistory.com/564
+
+- 잠재 요인 협업 필터링(Latent Factor CF)
+  - 행렬 분해(matrix factorization)을 기반하여 사용
+  - 대규모 다차원 행렬을 SVD와 같은 차원 감소 기법으로 분해하는 과정에서 잠재 요인을 뽑아내는 방법
+- 사용자  - 아이템 행렬 데이터를 이용해 잠재 요인을 찾아냄
+  - `사용자 - 잠재요인`, `아이템 - 잠재요인` 으로 행렬을 분해
+  - 잠재 요인의 개수, 특성을 무엇으러 정할지는 사용자에 따라 다르다.(하이퍼 파라미터) 
+
+
+
+**SVD**
+
+- https://seing.tistory.com/67 (파이썬 코드 포함)
+
+  ![image-20220320225955626](README.assets/image-20220320225955626.png)
+
+- 평점을 기반으로 추천하려고 하는 경우, 모든 사용자들이 평점을 달거나 리뷰를 달진 않으므로 대부분의 유저-아이템 행렬이 sparse matrix(희소 행렬)이 된다.(대부분의 값이 비어있는 행렬)
+
+  - 이를 해결하기 위한 방법 중 하나가 SVD
+
+    ![image-20220320230011134](README.assets/image-20220320230011134.png)
+
+![image-20220320230042383](README.assets/image-20220320230042383.png)
+
+
+
+**경사하강법을 활용한 MF**
+
+- https://yamalab.tistory.com/92 (파이썬 코드 포함)
+
+
+
+
+
+## 추천 시스템 특화 라이브러리(파이썬)
+
+
+
+### 추천 라이브러리 비교
+
+- https://velog.io/@tobigs-recsys/RecommenderSystemLibraries
+
+
+
+### LightFM
+
+- https://towardsdatascience.com/recommendation-system-in-python-lightfm-61c85010ce17
+  - LightFM을 이용한 추천 시스템 예시 코드(평점 기반)
+
+
+
+### Surprise
+
+- https://blog.cambridgespark.com/tutorial-practical-introduction-to-recommender-systems-dbe22848392b
+  - Surprise를 이용한 추천 시스템 예시 코드 (평점 기반)
+
+
+
+### PySpark
+
+- https://www.youtube.com/watch?v=FgGjc5oabrA
+  - ALS 알고리즘 예시
+  - ALS 알고리즘
+    - MF 를 통해 나온 유저-잠재요인, 아이템-잠재요인 행렬을 번갈아가면서 학습시키는 것
+
+
+
+## 유사도 지표
+
+**기본 개념**
+
+- https://www.fun-coding.org/recommend_basic3.html
+  - 평균제곱차이 유사도, 코사인 유사도, 피어슨 유사도 개념 설명 및 코드 예시
+
+**유클리드 거리**
+
+**코사인 유사도**
+
+- https://wikidocs.net/24603
+  - 코사인 유사도를 이용한 추천 예시
+
+**피어슨 상관 계수**
+
+- https://towardsdatascience.com/collaborative-filtering-based-recommendation-systems-exemplified-ecbffe1c20b1
+  - 피어슨 상관 계수를 포함한 다양한 유사도 지표 개념 설명
+
+**유사도 지표 비교**
+
+- https://developers.google.com/machine-learning/recommendation/overview/candidate-generation
+
+
+
