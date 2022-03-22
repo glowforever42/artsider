@@ -1,12 +1,17 @@
 <template>
-  <nav class="pt-2">
-    <v-toolbar flat app>
-      <v-toolbar-title class="text-uppercase">
-        <span class="font-weight-light"> ArtSider </span>
-      </v-toolbar-title>
+  <v-card 
+  class="overflow-hidden pt-2"
+  flat>
+    <v-app-bar 
+    flat
+    hide-on-scroll
+    color="transparent"
+    >
+    <v-toolbar-title class="text-uppercase">
+      <span class="font-weight-light"> ArtSider </span>
+    </v-toolbar-title>
     
     <v-spacer></v-spacer>
-
     <v-menu
       bottom
     >
@@ -38,7 +43,7 @@
 
     </v-menu>
 
-     <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
 
     <v-text-field
       solo
@@ -71,12 +76,12 @@
         <span>로그아웃</span>
       </v-btn>
 
-       <v-btn text color="gray">
+        <v-btn text color="gray">
         <span>마이페이지</span>
       </v-btn>
 
-    </v-toolbar>
-  </nav>
+    </v-app-bar>
+  </v-card>
 </template>
 
 <script>
