@@ -1,6 +1,7 @@
 <template>
   <v-card 
   class="overflow-hidden pt-2"
+  style="background-color: #FEFEF4"
   flat>
     <v-app-bar 
     flat

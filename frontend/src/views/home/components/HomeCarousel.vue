@@ -28,7 +28,7 @@ export default {
 
       articles.forEach((article)=>{
         const articleWidth = article.clientWidth
-        const zDistance = parseInt(((articleWidth * 6) / 3.14) / 2) + 100
+        const zDistance = parseInt(((articleWidth * 6) / 3.14) / 2) + 130
         console.log('zDistance', zDistance)
 
         article.style.transform = `rotateY(${yDeg}deg) translateZ(-${zDistance}px)`
@@ -57,6 +57,7 @@ export default {
   position: absolute;  
   width: 40%;
   height: 100%;
+  top: 10%;
   left: 30%;
   transform-style: preserve-3d;
   animation: ani linear 30s infinite;

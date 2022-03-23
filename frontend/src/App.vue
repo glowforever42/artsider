@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app style="background-color: #FEFEF4">
+    <NavBar />
     <v-main>
-      <NavBar />
       <router-view/>
     </v-main>
   </v-app>
@@ -28,5 +28,6 @@ export default {
 html{
   overflow-y: auto !important;
 }
+
 
 </style>
