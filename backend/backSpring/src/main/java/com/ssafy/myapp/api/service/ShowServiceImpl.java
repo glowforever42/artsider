@@ -1,9 +1,12 @@
 package com.ssafy.myapp.api.service;
 
 
+import com.ssafy.myapp.api.response.ArtCenterDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowListGetRes;
+import com.ssafy.myapp.db.entity.ArtCenter;
 import com.ssafy.myapp.db.entity.Show;
+import com.ssafy.myapp.db.repository.ArtCenterRepository;
 import com.ssafy.myapp.db.repository.ShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class ShowServiceImpl implements ShowService{
 
     private final ShowRepository showRepository;
+    private final ArtCenterRepository artCenterRepository;
 
     // 전체 공연 목록 조회
     @Override
@@ -46,6 +50,7 @@ public class ShowServiceImpl implements ShowService{
 
         Show show = showRepository.findById(id).get();
         ShowDetailsGetRes showInfo = new ShowDetailsGetRes();
+
         showInfo.setId(show.getId());
         showInfo.setShow_id(show.getShow_id());
         showInfo.setShow_name(show.getShow_name());
@@ -63,5 +68,21 @@ public class ShowServiceImpl implements ShowService{
         showInfo.setMen_rate(show.getMen_rate());
         showInfo.setWomen_rate(show.getWomen_rate());
         return showInfo;
+    }
+
+    // 공연장 시설 조회
+    @Override
+    public ArtCenterDetailsGetRes getArtCenterDetails(String artCenterName) throws NoSuchElementException {
+
+        ArtCenter artCenter = artCenterRepository.findByartCenterName(artCenterName);
+        ArtCenterDetailsGetRes artCenterInfo = new ArtCenterDetailsGetRes();
+
+        artCenterInfo.setId(artCenter.getId());
+        artCenterInfo.setArtCenterName(artCenter.getArtCenterName());
+        artCenterInfo.setArtCenterAddress(artCenter.getArtCenterAddress());
+        artCenterInfo.setArtCenterTel(artCenter.getArtCenterTel());
+        artCenterInfo.setArtCenterWeb(artCenter.getArtCenterWeb());
+
+        return artCenterInfo;
     }
 }

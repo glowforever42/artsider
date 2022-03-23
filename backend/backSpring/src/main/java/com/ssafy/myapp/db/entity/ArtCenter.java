@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
+@Table(name = "art_center")
 public class ArtCenter {
 
     // 공연장 정보는 수정하지 않기 때문에 setter 생성x
@@ -17,12 +18,12 @@ public class ArtCenter {
     private Long id;
 
     @Column(nullable = false)
-    private String art_center_name;
+    private String artCenterName;
 
-    private String art_center_address;
+    private String artCenterAddress;
 
-    private String art_center_tel;
+    private String artCenterTel;
 
-    private String art_center_web;
+    private String artCenterWeb;
 
 }

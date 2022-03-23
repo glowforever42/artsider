@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArtCenterRepository extends JpaRepository<ArtCenter, Long> {
+    ArtCenter findByartCenterName(String artCenterName);
 }

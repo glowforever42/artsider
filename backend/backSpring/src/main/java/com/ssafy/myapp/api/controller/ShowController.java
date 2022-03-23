@@ -1,5 +1,6 @@
 package com.ssafy.myapp.api.controller;
 
+import com.ssafy.myapp.api.response.ArtCenterDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowListGetRes;
 import com.ssafy.myapp.api.service.ShowService;
@@ -70,5 +71,25 @@ public class ShowController {
         }
 
         return ResponseEntity.status(200).body(showDetails);
+    }
+
+    // 공연 시설 조회
+    @GetMapping("/{artcentername}/artcenter")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "공연시설 상세 정보 조회 성공"),
+            @ApiResponse(code = 401, message = "공연시설 상세 정보 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<ArtCenterDetailsGetRes> getArtCenterDetails(@PathVariable(value = "artcentername") String artCenterName) {
+
+        ArtCenterDetailsGetRes artCenterDetails = new ArtCenterDetailsGetRes();
+
+        try {
+            artCenterDetails = showService.getArtCenterDetails(artCenterName);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(401).body(artCenterDetails);
+        }
+
+        return ResponseEntity.status(200).body(artCenterDetails);
     }
 }

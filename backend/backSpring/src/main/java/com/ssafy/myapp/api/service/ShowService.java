@@ -1,6 +1,7 @@
 package com.ssafy.myapp.api.service;
 
 
+import com.ssafy.myapp.api.response.ArtCenterDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowListGetRes;
 
@@ -11,4 +12,5 @@ public interface ShowService {
     List<ShowListGetRes> getShowAllList();
     List<ShowListGetRes> getShowCategoryAllList(String category);
     ShowDetailsGetRes getShowDetails(Long id) throws NoSuchElementException;
+    ArtCenterDetailsGetRes getArtCenterDetails(String artCenterName) throws NoSuchElementException;
 }
