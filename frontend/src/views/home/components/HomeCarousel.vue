@@ -2,7 +2,6 @@
   <main class="carousel-wrapper">
     <section id="circle"> 
     </section>
-
   </main>
 </template>
 
@@ -29,7 +28,7 @@ export default {
 
       articles.forEach((article)=>{
         const articleWidth = article.clientWidth
-        const zDistance = parseInt((articleWidth * 6) / 3.14) / 2
+        const zDistance = parseInt(((articleWidth * 6) / 3.14) / 2) + 100
         console.log('zDistance', zDistance)
 
         article.style.transform = `rotateY(${yDeg}deg) translateZ(-${zDistance}px)`
@@ -52,6 +51,7 @@ export default {
   width: 100%;
   height: 70%;
   perspective: 1300px;
+  overflow: hidden;
 }
 .carousel-wrapper #circle{
   position: absolute;  
