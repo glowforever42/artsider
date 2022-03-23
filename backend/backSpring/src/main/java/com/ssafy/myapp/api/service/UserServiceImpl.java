@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean chkDplByEmail(String email) {
-		if(userRepository.findUserByEmail(email).isPresent()) // 이메일이 존재하면
+		if(userRepository.findUserByEmail(email).isPresent())
 			return true;
 		else return false;
 	}
@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 
 		user.setEmail(userRegisterInfo.getEmail());
-		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setNickname(userRegisterInfo.getNickname());
 		user.setTelNum(userRegisterInfo.getTelNum());
