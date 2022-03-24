@@ -12,6 +12,7 @@ import com.ssafy.myapp.db.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  *	
@@ -24,11 +25,11 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	@Override
-	public User getUserById(Long id) {
-		User user = userRepository.findUserById(id).get();
-		return user;
-	}
+//	@Override
+//	public User getUserById(Long id) {
+//		User user = userRepository.findUserById(id).get();
+//		return user;
+//	}
 
 	@Override
 	public User getUserByEmail(String email) {
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean chkDplByEmail(String email) {
-		if(userRepository.findUserByEmail(email).isPresent()) // ÀÌ¸ŞÀÏÀÌ Á¸ÀçÇÏ¸é
+		if(userRepository.findUserByEmail(email).isPresent()) 
 			return true;
 		else return false;
 	}
@@ -47,7 +48,6 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 
 		user.setEmail(userRegisterInfo.getEmail());
-		// º¸¾ÈÀ» À§ÇØ¼­ À¯Àú ÆĞ½º¿öµå ¾ÏÈ£È­ ÇÏ¿© µğºñ¿¡ ÀúÀå.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setNickname(userRegisterInfo.getNickname());
 		user.setTelNum(userRegisterInfo.getTelNum());
@@ -56,8 +56,38 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	@Override
+	public void updatePassword(String email, String password) {
+		User updateUser = userRepository.findUserByEmail(email).get();
+		updateUser.setPassword(passwordEncoder.encode(password));
+		userRepository.save(updateUser);
+		
+	}
 
+	@Override
+	public String createAuthNum() {
+		Random rand = new Random();
 
+        String numStr = ""; //ë‚œìˆ˜ê°€ ì €ì¥ë  ë³€ìˆ˜
+        for(int i=0;i<6;i++) {
+            //0~9 ê¹Œì§€ ë‚œìˆ˜ ìƒì„±
+            String ran = Integer.toString(rand.nextInt(10));
+            if(!numStr.contains(ran)) {
+                //ì¤‘ë³µëœ ê°’ì´ ì—†ìœ¼ë©´ numStrì— append
+                numStr += ran;
+            }else {
+                //ìƒì„±ëœ ë‚œìˆ˜ê°€ ì¤‘ë³µë˜ë©´ ë£¨í‹´ì„ ë‹¤ì‹œ ì‹¤í–‰í•œë‹¤
+                i-=1;
+            }
+        }
+        return numStr;
+	}
+	
+	@Override
+	public void deleteUser(String email) {
+		User deleteUser = userRepository.findUserByEmail(email).get();
+		userRepository.deleteById(deleteUser.getId());
+	}
 
 
 }
