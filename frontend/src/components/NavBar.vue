@@ -5,7 +5,7 @@
   flat>
     <v-app-bar 
     flat
-    hide-on-scroll
+    inverted-scroll
     color="transparent"
     >
     <v-toolbar-title class="text-uppercase">
