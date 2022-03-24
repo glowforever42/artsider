@@ -2,26 +2,28 @@ package com.ssafy.myapp.api.service;
 
 
 import com.ssafy.myapp.api.response.ArtCenterDetailsGetRes;
+import com.ssafy.myapp.api.response.PopularShowListGetRes;
 import com.ssafy.myapp.api.response.ShowDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowListGetRes;
 import com.ssafy.myapp.db.entity.ArtCenter;
+import com.ssafy.myapp.db.entity.PopularShow;
 import com.ssafy.myapp.db.entity.Show;
 import com.ssafy.myapp.db.repository.ArtCenterRepository;
+import com.ssafy.myapp.db.repository.PopularShowRepository;
 import com.ssafy.myapp.db.repository.ShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ShowServiceImpl implements ShowService{
 
-    private final ShowRepository showRepository;
     private final ArtCenterRepository artCenterRepository;
+    private final PopularShowRepository popularShowRepository;
+    private final ShowRepository showRepository;
 
     // 전체 공연 목록 조회
     @Override
@@ -42,6 +44,45 @@ public class ShowServiceImpl implements ShowService{
             }
         }
         return showCategoryAllList;
+    }
+
+    // 전체 인기 공연 목록
+    @Override
+    public List<PopularShowListGetRes> getPopularShowList() {
+
+        List<PopularShowListGetRes> popularShowAllList = new ArrayList<PopularShowListGetRes>();
+        List<PopularShow> popularShowList = popularShowRepository.findAll();
+
+        for (PopularShow popularShow : popularShowList) {
+            if (popularShow.getRank() < 5) {
+                PopularShowListGetRes popularShowInfo = new PopularShowListGetRes(popularShow);
+                popularShowAllList.add(popularShowInfo);
+            }
+        }
+
+        // 정렬하기(랭크, pk(뮤지컬 < 콘서트 < 연극 < 클래식/무용 < 아동/가족))
+        popularShowAllList.sort(Comparator.comparing(PopularShowListGetRes::getRank).thenComparing(PopularShowListGetRes::getId));
+
+        return popularShowAllList;
+    }
+
+    // 카테고리별 인기 공연 목록()
+    @Override
+    public List<PopularShowListGetRes> getPopularShowCategoryList(String category) {
+
+        List<PopularShowListGetRes> popularShowCategoryAllList = new ArrayList<PopularShowListGetRes>();
+        List<PopularShow> popularShowCategoryList = popularShowRepository.findAll();
+
+//        for (PopularShow popularShow : popularShowCategoryList) {
+//            if (popularShow.getCategory().equals(category)) {
+//                PopularShowListGetRes showInfo = new PopularShowListGetRes(popularShow);
+//                popularShowCategoryAllList.add(showInfo);
+//            }
+//        }
+
+//        popularShowCategoryAllList.sort(Comparator.comparing(PopularShowListGetRes::getRank));
+
+        return popularShowCategoryAllList;
     }
 
     // 공연 상세 조회
@@ -74,7 +115,7 @@ public class ShowServiceImpl implements ShowService{
     @Override
     public ArtCenterDetailsGetRes getArtCenterDetails(String artCenterName) throws NoSuchElementException {
 
-        ArtCenter artCenter = artCenterRepository.findByartCenterName(artCenterName);
+        ArtCenter artCenter = artCenterRepository.findByArtCenterName(artCenterName);
         ArtCenterDetailsGetRes artCenterInfo = new ArtCenterDetailsGetRes();
 
         artCenterInfo.setId(artCenter.getId());
@@ -85,4 +126,5 @@ public class ShowServiceImpl implements ShowService{
 
         return artCenterInfo;
     }
+
 }

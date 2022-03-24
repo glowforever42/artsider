@@ -1,9 +1,11 @@
 package com.ssafy.myapp.api.controller;
 
 import com.ssafy.myapp.api.response.ArtCenterDetailsGetRes;
+import com.ssafy.myapp.api.response.PopularShowListGetRes;
 import com.ssafy.myapp.api.response.ShowDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowListGetRes;
 import com.ssafy.myapp.api.service.ShowService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 
+@Api(value = "공연 API", tags = {"Show"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/show")
@@ -53,6 +56,34 @@ public class ShowController {
     }
 
 
+    // 전체 인기 공연 목록
+    @GetMapping("/popular")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "인기공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "인기공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<List<PopularShowListGetRes>> getPopularShowAllList() {
+        List<PopularShowListGetRes> popularShowList = new ArrayList<PopularShowListGetRes>();
+        popularShowList = showService.getPopularShowList();
+        return ResponseEntity.status(200).body(popularShowList);
+    }
+
+
+    // 카테고리별 인기 공연 목록()
+    @GetMapping("/{category}/popular")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "카테고리별 인기공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "카테고리별 인기공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<List<PopularShowListGetRes>> getPopularShowCategoryList(@PathVariable String category) {
+        List<PopularShowListGetRes> popularShowCategoryList = new ArrayList<PopularShowListGetRes>();
+        popularShowCategoryList = showService.getPopularShowCategoryList(category);
+        return ResponseEntity.status(200).body(popularShowCategoryList);
+    }
+
+
     // 공연 상세 조회
     @GetMapping("/{showId}")
     @ApiResponses({
@@ -72,6 +103,7 @@ public class ShowController {
 
         return ResponseEntity.status(200).body(showDetails);
     }
+
 
     // 공연 시설 조회
     @GetMapping("/{artcentername}/artcenter")
