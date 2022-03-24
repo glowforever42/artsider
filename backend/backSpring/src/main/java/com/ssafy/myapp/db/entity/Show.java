@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter    // getter 자동 추가
 @Entity    // entity
 @NoArgsConstructor    // 기본생성자 자동 추가
-@Table(name = "show")
+@Table(name = "performance")
 public class Show {
 
     // 공연정보는 수정하지 않기 때문에 setter 생성x
@@ -18,17 +18,17 @@ public class Show {
     private Long id;    // PK(auto increment) 공연 id
 
     @Column(nullable = false)    // null 허용 불가능
-    private String show_name;    // 공연이름
+    private String showName;    // 공연이름
 
     @Column(nullable = false)
-    private String show_id;    // 인터파크 기준 공연 id => 리뷰, 출연진 join 하기 위함.
+    private String showId;    // 인터파크 기준 공연 id => 리뷰, 출연진 join 하기 위함.
 
     @Column(nullable = false)
-    private String start_date;    // 공연시작일
+    private String startDate;    // 공연시작일
 
-    private String end_date;    // 공연 종료일
+    private String endDate;    // 공연 종료일
 
-    private String openrun;    // 오픈런 여부
+    private String openRun;    // 오픈런 여부
 
     @Column(nullable = false)
     private String producer;    // 제작사
@@ -43,20 +43,20 @@ public class Show {
     private String price;    // 가격정보
 
     @Column(length = 500, nullable = false)
-    private String poster_path;    // 포스터 경로
+    private String posterPath;    // 포스터 경로
 
-    private String show_day;    // 공연상세일시
+    private String showDay;    // 공연상세일시
 
     @Column(nullable = false)
     private String category;    // 공연 카테고리
 
     @Column(nullable = false)
-    private String art_center_name;    // 공연장
+    private String artCenterName;    // 공연장
 
     @Column(nullable = false)
-    private String men_rate;    // 남성이용자 예매율
+    private String menRate;    // 남성 이용자 예매율
 
     @Column(nullable = false)
-    private String women_rate;    // 여성 이용자 예매율
+    private String womenRate;    // 여성 이용자 예매율
 
 }

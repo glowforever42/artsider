@@ -52,21 +52,21 @@ public class ShowServiceImpl implements ShowService{
         ShowDetailsGetRes showInfo = new ShowDetailsGetRes();
 
         showInfo.setId(show.getId());
-        showInfo.setShow_id(show.getShow_id());
-        showInfo.setShow_name(show.getShow_name());
-        showInfo.setStart_date(show.getStart_date());
-        showInfo.setEnd_date(show.getEnd_date());
-        showInfo.setOpenrun(show.getOpenrun());
+        showInfo.setShowId(show.getShowId());
+        showInfo.setShowName(show.getShowName());
+        showInfo.setStartDate(show.getStartDate());
+        showInfo.setEndDate(show.getEndDate());
+        showInfo.setOpenRun(show.getOpenRun());
         showInfo.setProducer(show.getProducer());
         showInfo.setAge(show.getAge());
         showInfo.setRuntime(show.getRuntime());
         showInfo.setPrice(show.getPrice());
-        showInfo.setPoster_path(show.getPoster_path());
-        showInfo.setShow_day(show.getShow_day());
+        showInfo.setPosterPath(show.getPosterPath());
+        showInfo.setShowDay(show.getShowDay());
         showInfo.setCategory(show.getCategory());
-        showInfo.setArt_center_name(show.getArt_center_name());
-        showInfo.setMen_rate(show.getMen_rate());
-        showInfo.setWomen_rate(show.getWomen_rate());
+        showInfo.setArtCenterName(show.getArtCenterName());
+        showInfo.setMenRate(show.getMenRate());
+        showInfo.setWomenRate(show.getWomenRate());
         return showInfo;
     }
 
