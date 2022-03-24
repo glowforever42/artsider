@@ -32,17 +32,26 @@
         <div
           class="other-options-wrapper"
         >
-          <p class="option"> 비밀번호 찾기 </p>
+          <p 
+            class="option"
+            @click="passwordSearchDialog = true"
+          >
+           비밀번호 찾기 </p>
+          <v-spacer></v-spacer>
           <p 
             class="option" 
-            @click="signUpDialog=true"
-          > 회원가입 </p>
+            @click="signUpDialog = true"
+          > 
+            회원가입 
+          </p>
         </div>
         <v-card-actions
         class="px-0"
         >
           <v-btn
             outlined
+            width="100%"
+            @click="login"
           >
             로그인
           </v-btn>
@@ -55,11 +64,17 @@
       @close-sign-up="() => { signUpDialog = false }"
     />
 
+    <PasswordSearch 
+      :open="passwordSearchDialog"
+      @close-password-search="() => { passwordSearchDialog = false }"
+    />
+
   </v-dialog>
 </template>
 
 <script>
 import SignUp from './SignUp'
+import PasswordSearch from './PasswordSearch'
 
 export default { 
   name:'Login',
@@ -67,15 +82,24 @@ export default {
     open : Boolean
   },
   components:{
-    SignUp
+    SignUp,
+    PasswordSearch
   },
 
   data(){
     return{
       signUpDialog: false,
+      passwordSearchDialog: false,
+
       userEmail: '',
       userPassword: '',
       passwordShow: false
+    }
+  },
+
+  methods:{
+    login(){
+        this.$store.dispatch()
     }
   },
 
@@ -90,6 +114,7 @@ export default {
 
 <style>
 .option{
+  display: inline-block;
   cursor: pointer;
 }
 
