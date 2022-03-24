@@ -49,14 +49,14 @@ export default {
 .carousel-wrapper{
   position: relative;
   width: 100%;
-  height: 70%;
+  height: 90%;
   perspective: 1300px;
   overflow: hidden;
 }
 .carousel-wrapper #circle{
   position: absolute;  
   width: 40%;
-  height: 100%;
+  height: 80%;
   top: 10%;
   left: 30%;
   transform-style: preserve-3d;
