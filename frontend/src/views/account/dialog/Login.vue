@@ -1,33 +1,96 @@
 <template>
   <v-dialog
-  v-model="loginDialog"
+  :value="loginDialog"
   dark
   max-width="500px"
-  @close:outside="() => { $emit('close-login') }"
+  @click:outside="() => { $emit('close-login') }"
   >
-  <v-card>
-    <v-card-title>
-      <span class="text-h2"> 로그인 </span>
-    </v-card-title>
+    <v-card>
+      <v-card-title>
+        <span class="text-h2"> 로그인 </span>
+      </v-card-title>
 
-    <v-container>
+      <v-container>
+        <v-form>
+          <v-text-field
+            v-model="userEmail"
+            label="이메일"
+            required
+          ></v-text-field>
 
-    </v-container>
-  </v-card>
+
+          <v-text-field
+            v-model="userPassword"
+            :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="passwordShow ? 'text' : 'password'"
+            label="비밀번호"
+            counter
+            required
+            @click:append="passwordShow = !passwordShow"
+          ></v-text-field>
+        </v-form>
+        <div
+          class="other-options-wrapper"
+        >
+          <p class="option"> 비밀번호 찾기 </p>
+          <p 
+            class="option" 
+            @click="signUpDialog=true"
+          > 회원가입 </p>
+        </div>
+        <v-card-actions
+        class="px-0"
+        >
+          <v-btn
+            outlined
+          >
+            로그인
+          </v-btn>
+        </v-card-actions>
+      </v-container>
+    </v-card>
+
+    <SignUp 
+      :open="signUpDialog"
+      @close-sign-up="() => { signUpDialog = false }"
+    />
 
   </v-dialog>
 </template>
 
 <script>
+import SignUp from './SignUp'
+
 export default { 
   name:'Login',
   props:{
-    loginDialog : Boolean
+    open : Boolean
+  },
+  components:{
+    SignUp
+  },
+
+  data(){
+    return{
+      signUpDialog: false,
+      userEmail: '',
+      userPassword: '',
+      passwordShow: false
+    }
+  },
+
+  computed:{
+    loginDialog(){
+      return this.open ? true : false
+    }
   }
 
 }
 </script>
 
 <style>
+.option{
+  cursor: pointer;
+}
 
 </style>
