@@ -69,6 +69,7 @@
           outlined
           :disabled="!valid"
           @click="submitSignUpForm"
+          width="100%"
           >
             회원가입
           </v-btn>
