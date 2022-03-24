@@ -52,7 +52,7 @@ public class AuthController {
 		String password = loginInfo.getPassword();
 		User user ;
 		try {
-			user = userService.getUserByEmail(email);
+			user = userService.findUserByEmail(email);
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.status(404).body(UserLoginPostRes.of(404, "user doesn't exist", null));
 		}

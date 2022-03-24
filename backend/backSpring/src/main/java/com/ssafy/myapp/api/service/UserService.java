@@ -6,12 +6,14 @@ import com.ssafy.myapp.db.entity.User;
 
 public interface UserService {
 //	User getUserById(Long Id);
-	User getUserByEmail(String email);
-	boolean chkDplByEmail(String userEmail);
-	User createUser(UserRegisterPostReq userRegisterInfo);
-	void updatePassword(String userId, String password);
+	User findUserByEmail(String email);
+	User addUser(UserRegisterPostReq userRegisterInfo);
+	void modifyPassword(String userId, String password);
+	void removeUser(String userId);
 	String createAuthNum();
-	void deleteUser(String userId);
+	boolean chkDplByEmail(String userEmail);
+	String sendNewPass(String email);
+	String sendAuthNum(String email);
 //	void updatePassword(String userId, String password);
 //	void deleteUser(String userId);
 	

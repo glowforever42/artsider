@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiResponses;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 
@@ -42,8 +43,6 @@ public class UserController {
 	private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     
-    @Autowired
-    private JavaMailSender sender;
     
     @Autowired
     public UserController(UserService userService,PasswordEncoder passwordEncoder) {
@@ -69,7 +68,7 @@ public class UserController {
         	resultMap.put("message", "fail");
             return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
         }
-        User user = userService.createUser(registerInfo);
+        User user = userService.addUser(registerInfo);
         resultMap.put("message", "success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
@@ -108,40 +107,23 @@ public class UserController {
             @PathVariable @ApiParam(value = "비밀번호 찾기 정보", required = true) String userEmail
     ) {
     	Map<String, Object> resultMap = new HashMap<>();
-        User user = userService.getUserByEmail(userEmail);
+    	User user=null;
+    	try {
+    		user = userService.findUserByEmail(userEmail);
+		} catch (NoSuchElementException e) {
+			resultMap.put("message", "invailed user");
+            return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+		}
 
-        if(user == null){
-        	resultMap.put("message", "invailed user");
+        String newPass=userService.sendNewPass(userEmail);
+        if(newPass==null) {
+        	resultMap.put("message", "Failed to send email");
             return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
         }
-       
-        String uuid = UUID.randomUUID().toString();
-        String setfrom = "artsider_ssafy@naver.com";
-        String tomail = user.getEmail();// 받는사람
-        String title = "[Artsider] 임시 비밀번호 이메일 입니다";
-        String content =
-                System.getProperty("line.separator") + "안녕하세요 회원님"
-                        + System.getProperty("line.separator") + "임시 비밀번호는 " + uuid + " 입니다."
-                        + System.getProperty("line.separator") + "로그인을 하시고 꼭 비밀번호를 바꿔주세요 :)";
-
-        try {
-            SimpleMailMessage simpleMessage = new SimpleMailMessage();
-            simpleMessage.setFrom(setfrom); 
-            simpleMessage.setTo(tomail);
-            simpleMessage.setSubject(title);
-            simpleMessage.setText(content);
-            sender.send(simpleMessage);
-
-            userService.updatePassword(userEmail, uuid);
-            resultMap.put("message", "success");
-            return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
-        }
-        resultMap.put("message", "Failed to Find the Password");
-        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+        
+        
+        resultMap.put("message", "success");
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
     
     
@@ -157,35 +139,18 @@ public class UserController {
             @PathVariable @ApiParam(value = "인증번호 발송 이메일", required = true) String userEmail
     ) {
     	Map<String, Object> resultMap = new HashMap<>();
-       
-        String emailNumber = userService.createAuthNum();
-        String setfrom = "artsider_ssafy@naver.com";
-        String tomail = userEmail;// 받는사람
-        String title = "[Artsider] 인증번호가 발송되었습니다.";
-        String content =
-                System.getProperty("line.separator") + "안녕하세요 "
-                        + System.getProperty("line.separator") + "인증 번호는 " + emailNumber + " 입니다."
-                        + System.getProperty("line.separator") + "아트사이더에서 인증번호를 입력해주세요.";
-
-        try {
-            SimpleMailMessage simpleMessage = new SimpleMailMessage();
-            simpleMessage.setFrom(setfrom); 
-            simpleMessage.setTo(tomail);
-            simpleMessage.setSubject(title);
-            simpleMessage.setText(content);
-            sender.send(simpleMessage);
-
-            resultMap.put("message", "success");
-            resultMap.put("emailNumber", emailNumber);
-            return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
-        }
-        resultMap.put("message", "Failed to send email");
-        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+    	String emailNumber=userService.sendAuthNum(userEmail);
+    	if(emailNumber==null) {
+    		resultMap.put("message", "Failed to send email");
+            return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+    	}
+        resultMap.put("message", "success");
+        resultMap.put("emailNumber", emailNumber);
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
     }
+    
+    
+    
     
     @DeleteMapping("/{userEmail}")
     @ApiOperation(value = "유저 정보 삭제", notes = "유저 정보를 삭제 후 응답한다")
@@ -194,12 +159,12 @@ public class UserController {
             @ApiResponse(code = 401, message = "유저 정보 삭제(탈퇴) 실패"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<Map<String, Object>> deleteUser(
+    public ResponseEntity<Map<String, Object>> userRemove(
             @PathVariable("userEmail") String userEmail
     ) {
     	Map<String, Object> resultMap = new HashMap<>();
 
-        userService.deleteUser(userEmail);
+        userService.removeUser(userEmail);
         resultMap.put("message", "success");
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
 
@@ -212,7 +177,7 @@ public class UserController {
             @ApiResponse(code = 401, message = "비밀번호 변경 실패"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<Map<String, Object>> updatePassword(Authentication authentication,
+    public ResponseEntity<Map<String, Object>> passwordModify(Authentication authentication,
             @RequestBody @ApiParam(value = "비밀번호 정보", required = true) UserpassPatchReq userpassPatchReq) {
 
     	Map<String, Object> resultMap = new HashMap<>();
@@ -223,7 +188,7 @@ public class UserController {
         // 비밀번호 변경 요청한 유저로부터 입력된 패스워드 와 디비에 저장된 유저의 암호화된 패스워드가 같은지 확인.(유효한 패스워드인지 여부 확인)
         if(passwordEncoder.matches(userpassPatchReq.getCurrentPass(), user.getPassword())) {
             // 유효한 패스워드가 맞는 경우
-            userService.updatePassword(user.getEmail(), userpassPatchReq.getNewPass());
+            userService.modifyPassword(user.getEmail(), userpassPatchReq.getNewPass());
             resultMap.put("message", "success");
             return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
         }
