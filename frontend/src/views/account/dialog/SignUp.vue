@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="signUpDialog"
+    :value="signUpDialog"
     dark
     max-width="500px"
     @click:outside="() => { $emit('close-sign-up') }"
@@ -43,7 +43,7 @@
             @click:append="passwordShow = !passwordShow"
           ></v-text-field>
 
-            <v-text-field
+          <v-text-field
             v-model="userPasswordConfirmation"
             :rules="userPasswordConfirmationRules"
             label="비밀번호 확인"
@@ -51,8 +51,20 @@
             counter
             required
           ></v-text-field>
+
+          <v-text-field
+            v-model="userTelNum"
+            :rules="userTelNumRules"
+            label="전화번호"
+            type="tel"
+            required
+          ></v-text-field>
+
+          
         </v-form>
-        
+        <v-card-actions
+          class="px-0"
+        >
           <v-btn 
           outlined
           :disabled="!valid"
@@ -60,6 +72,7 @@
           >
             회원가입
           </v-btn>
+        </v-card-actions>
       </v-container>
     </v-card>
     
@@ -73,6 +86,7 @@
 </template>
 
 <script>
+// import $axios from 'axios'
 import EmailConfirmation from '@/views/account/dialog/EmailConfirmation'
 
 export default {
@@ -82,7 +96,7 @@ export default {
   },
 
   props:{
-    signUpDialog : Boolean
+    open : Boolean
   },
   data(){
     return{
@@ -112,7 +126,19 @@ export default {
       userPasswordConfirmationRules: [
         v => v.trim() !== '' || '비밀번호를 입력해주세요.',
         v => v === this.userPassword || '비밀번호가 일치하지 않습니다.'
+      ],
+
+      userTelNum: '',
+      userTelNumRules: [
+        v => v.trim() !== '' || '전화번호를 입력해주세요.',
+        v => /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/.test(v) || '휴대폰 번호만 입력해주세요'
       ]
+    }
+  },
+
+  computed:{
+    signUpDialog(){
+      return this.open ? true : false
     }
   },
 
@@ -125,9 +151,9 @@ export default {
         this.userData = {
           'userName' : this.userName,
           'userPassword' : this.userPassword,
-          'userEmail' : this.userEmail
+          'userEmail' : this.userEmail,
+          'telNum' :  this.userTelNum.replaceAll('-', '')
         }
-
         this.confirmDialog = true
       }
 
