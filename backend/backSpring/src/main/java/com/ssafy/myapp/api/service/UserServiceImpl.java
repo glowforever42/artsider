@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean chkDplByEmail(String email) {
-		if(userRepository.findUserByEmail(email).isPresent())
+		if(userRepository.findUserByEmail(email).isPresent()) // �̸����� �����ϸ�
 			return true;
 		else return false;
 	}
@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 
 		user.setEmail(userRegisterInfo.getEmail());
+		// ������ ���ؼ� ���� �н����� ��ȣȭ �Ͽ� ��� ����.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setNickname(userRegisterInfo.getNickname());
 		user.setTelNum(userRegisterInfo.getTelNum());
