@@ -35,7 +35,7 @@
   color="warning"
 ></v-btn>
 
-    <div class="etiquetteDetail">
+    <div class="etiquette-detail">
             <!-- 버튼 태그로 변경해주는게 나을듯 -->
         <!-- v-btn @click 이벤트  -->
         <!-- 클릭한 애들은 true 아닌애들은 false -->

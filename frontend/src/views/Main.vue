@@ -6,7 +6,7 @@
   <div class='wrapper'>
     <section id='category-section1'>
       <v-btn
-        class="arrow__btn left-arrow"
+        class="arrow-btn left-arrow"
       >‹</v-btn>
       <!-- <a href="#category-section3" class="arrow__btn left-arrow">‹</a> -->
       <!-- 제가 이거 버튼으로 바꿔놓겠습니다. -->
@@ -620,7 +620,7 @@ img {
       
     }
 
-    .arrow__btn {
+    .arrow-btn {
       position: absolute;
       color: #ff0000;
       text-decoration: none;
