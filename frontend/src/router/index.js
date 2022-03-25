@@ -23,6 +23,8 @@ import EtiquetteDetail from './etiquetteDetail'
 // import Time from './'
 // import Food from './'
 
+import ShowDetail from './showDetail'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -47,6 +49,7 @@ const routes = [
   // ...Time,
   // ...Food,
   ...Home,
+  ...ShowDetail,
 ]
 
 const router = new VueRouter({
