@@ -35,25 +35,35 @@
   color="warning"
 ></v-btn>
 
-<a href="">
-<img src="https://cdn4.iconfinder.com/data/icons/covid-19-62/512/covid-coronavirus-20-256.png">
-</a>
-<a href="">
-<img src="https://cdn4.iconfinder.com/data/icons/airport-and-travel-2/85/burger_hamburger_drink_soda_fast_food-256.png">
-</a>
-<a href="">
-<img src="https://cdn1.iconfinder.com/data/icons/aami-flat-message-bubbles/64/message-46-256.png">
-</a>
-<a href="">
-<img src="https://cdn1.iconfinder.com/data/icons/hand-gestures-color/128/hand-clap-y-256.png">
-</a>
-<a href="">
-<img src="https://cdn0.iconfinder.com/data/icons/simple-basic-i/32/05-256.png">
-</a>
-<a href="">
-<img src="https://cdn2.iconfinder.com/data/icons/basic-flat-icon-set/128/clock-256.png">
-</a>
-  </div>
+    <div class="etiquetteDetail">
+            <!-- 버튼 태그로 변경해주는게 나을듯 -->
+        <!-- v-btn @click 이벤트  -->
+        <!-- 클릭한 애들은 true 아닌애들은 false -->
+        <!-- true면 보여주고 아니면 안보여주고 -->
+        <!-- this.route로 path name 뽑아오기 가능 -->
+        <!-- pathname으로 뽑아오는 부분 활용 -->
+        <!-- btn에 대한 부분도 -->
+        <!-- v-if 말고 v-show 사용 -->
+    <router-link :to="{ name: 'covid-19' }"  style="text-decoration: none; color: inherit;"
+    ><img src="https://cdn2.iconfinder.com/data/icons/coronavirus-covid-19-7/128/coronavirus_covid-19_disease_pandemic_epidemic_injury-256.png">
+    </router-link>
+    <router-link :to="{ name: 'clap' }"  style="text-decoration: none; color: inherit;"
+    ><img src="https://cdn1.iconfinder.com/data/icons/hand-gestures-color/128/hand-clap-y-256.png">
+    </router-link>
+    <router-link :to="{ name: 'food' }"  style="text-decoration: none; color: inherit;"
+    ><img src="https://cdn4.iconfinder.com/data/icons/airport-and-travel-2/85/burger_hamburger_drink_soda_fast_food-256.png">
+    </router-link>
+    <router-link :to="{ name: 'phone' }"  style="text-decoration: none; color: inherit;"
+    ><img src="https://cdn4.iconfinder.com/data/icons/prohibited-red-signs/122/Prohibition_sign_044-256.png">
+    </router-link>
+    <router-link :to="{ name: 'talk' }"  style="text-decoration: none; color: inherit;"
+    ><img src="https://cdn2.iconfinder.com/data/icons/prohibited-forbidden-signs/100/Prohibited-23-256.png">
+    </router-link>
+    <router-link :to="{ name: 'time' }"  style="text-decoration: none; color: inherit;"
+    ><img src="https://cdn3.iconfinder.com/data/icons/start-up-4/44/watch-256.png">
+    </router-link>
+    </div>
+    </div>
   
 </template>
 
