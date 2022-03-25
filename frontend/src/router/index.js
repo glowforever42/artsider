@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home from '../views/home/Home.vue'
 import Intro from '../views/home/Intro.vue'
+import Home from './home'
 // import Intro from './intro'
 import Main from './main'
 
@@ -45,6 +46,7 @@ const routes = [
   // ...Talk,
   // ...Time,
   // ...Food,
+  ...Home,
 ]
 
 const router = new VueRouter({
