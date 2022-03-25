@@ -14,39 +14,39 @@
           </div>
 
           <ul class="d-flex flex-column mt-6 ml-10 pb-2" style="min-width:400px; width:100%; max-width:400px">
-            <li class="liInfo">
-              <strong class="mainLabel">장소</strong>
-              <div class="subLabel">
+            <li class="li-info">
+              <strong class="main-label">장소</strong>
+              <div class="sub-label">
                 {{ concertHall }}
               </div>
             </li>
-            <li class="liInfo">
-              <strong class="mainLabel">공연 카테고리</strong>
-              <div class="subLabel">
+            <li class="li-info">
+              <strong class="main-label">공연 카테고리</strong>
+              <div class="sub-label">
                 {{ category }}
               </div>
             </li>
-            <li class="liInfo">
-              <strong class="mainLabel">공연기간</strong>
-              <div class="subLabel">
+            <li class="li-info">
+              <strong class="main-label">공연기간</strong>
+              <div class="sub-label">
                 {{ start_date }} ~ {{ end_date }}
               </div>
             </li>
-            <li class="liInfo">
-              <strong class="mainLabel">공연시간</strong>
-              <div class="subLabel">
+            <li class="li-info">
+              <strong class="main-label">공연시간</strong>
+              <div class="sub-label">
                 {{ runTime }}
               </div>
             </li>
-            <li class="liInfo">
-              <strong class="mainLabel">관람연령</strong>
-              <div class="subLabel">
+            <li class="li-info">
+              <strong class="main-label">관람연령</strong>
+              <div class="sub-label">
                 {{ age }}
               </div>
             </li>
-            <li class="liInfo">
-              <strong class="mainLabel">가격</strong>
-              <div class="subLabel">
+            <li class="li-info">
+              <strong class="main-label">가격</strong>
+              <div class="sub-label">
                 {{ price }}원
               </div>
             </li>
@@ -105,43 +105,43 @@
       </div>
       <div style="max-width:1000px; min-width:1000px;">
         <div style="margin-left:170px; margin-top:30px">
-          <li class="liBtn">
-            <v-btn text @click="changeShow(1)" class="btnDetail">공연정보</v-btn>
+          <li class="li-btn">
+            <v-btn text @click="changeShow(1)" class="btn-detail">공연정보</v-btn>
           </li>
-          <li class="liBtn">
-            <v-btn text @click="changeShow(2)" class="btnDetail">관람후기</v-btn>
+          <li class="li-btn">
+            <v-btn text @click="changeShow(2)" class="btn-detail">관람후기</v-btn>
           </li>
-          <li class="liBtn">
-            <v-btn text @click="changeShow(3)" class="btnDetail">기대평</v-btn>
+          <li class="li-btn">
+            <v-btn text @click="changeShow(3)" class="btn-detail">기대평</v-btn>
           </li>
-          <li class="liBtn">
-            <v-btn text @click="changeShow(4)" class="btnDetail">공연장 위치</v-btn>
+          <li class="li-btn">
+            <v-btn text @click="changeShow(4)" class="btn-detail">공연장 위치</v-btn>
           </li>
           <hr>
           <!-- router-view -->
-          <show-info
+          <ShowInfo
             :showId="showId"
             v-if="number == 1"
             :subPosterPath = subPosterPath
             :story = story
             :cast = cast
             :producer = producer
-          ></show-info>
+          ></ShowInfo>
 
-          <show-reviews
+          <ShowReviews
             :showId="showId"
             v-if="number == 2"
-          ></show-reviews>
+          ></ShowReviews>
 
-          <show-expectations
+          <ShowExpectations
             :showId="showId"
             v-if="number == 3"
-          ></show-expectations>
+          ></ShowExpectations>
 
-          <show-art-center
+          <ShowArtCenter
             :ArtCenterName="this.concertHall"
             v-if="number == 4"
-          ></show-art-center>
+          ></ShowArtCenter>
         </div>
       </div>
     </div>
@@ -249,24 +249,24 @@ export default {
 </script>
 
 <style>
-  .liInfo {
+  .li-info {
     list-style: none;
     margin-top: 16px;
   }
-  .mainLabel {
+  .main-label {
     display: inline-block;
     width: 9rem;
     padding-right: 0.5rem;
     color: #000;
   }
-  .subLabel {  
+  .sub-label {  
     display: inline-block;
     max-width: 39rem;
   }
-  .liBtn{
+  .li-btn{
     display: inline-block;
   }
-  .btnDetail{
+  .btn-detail{
     display: inline-block;
   }
 </style>

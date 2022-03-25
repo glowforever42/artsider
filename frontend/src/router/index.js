@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Home from './home'
-import ShowDetail from './showdetail'
+import ShowDetail from './showDetail'
 
 Vue.use(VueRouter)
 
