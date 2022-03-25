@@ -3,25 +3,26 @@
       <h1>공연 에티켓</h1>
 <v-btn
   elevation="2"
-><router-link to="/musical"  style="text-decoration: none; color: inherit;"
+><router-link :to="{ name: 'musical' }"  style="text-decoration: none; color: inherit;"
 >뮤지컬</router-link></v-btn>
 <v-btn
   elevation="2"
-  color="warning"  
-><router-link to="/theatre"  style="text-decoration: none; color: inherit;"
+  color="warning"
+><router-link :to="{ name: 'theatre' }"  style="text-decoration: none; color: inherit;"
 >연극</router-link></v-btn>
 <v-btn
   elevation="2"
-><router-link to="/classic"  style="text-decoration: none; color: inherit;"
+><router-link :to="{ name: 'classic' }"  style="text-decoration: none; color: inherit;"
 >클래식</router-link></v-btn>
 <v-btn
   elevation="2"
-><router-link to="/opera"  style="text-decoration: none; color: inherit;"
+><router-link :to="{ name: 'opera' }"  style="text-decoration: none; color: inherit;"
 >오페라</router-link></v-btn>
 <v-btn
   elevation="2"
-><router-link to="/ktraditionalmusic"  style="text-decoration: none; color: inherit;"
->국악</router-link></v-btn>
+><router-link :to="{ name: 'ktraditionalmusic' }"  style="text-decoration: none; color: inherit;"
+>국악</router-link>
+</v-btn>
 
     <v-img
     height="500px"
