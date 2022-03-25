@@ -1,13 +1,5 @@
 package com.ssafy.myapp.db.entity;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.*;
-
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -15,27 +7,22 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Setter @Getter
 @ToString
-public class User {
-
-    @Id 
+@Table(name = "Performance")
+public class Show {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "User_ID")
+    @Column(name = "show_Id")
     private Long id;
 
-    private String email;
-    private String password;
-    private String nickname;
-    private String telNum;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private String showName;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "show")
     private List<Review> reviews = new ArrayList<>();
-
 }
