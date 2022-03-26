@@ -1,5 +1,4 @@
 <template>
-<!-- 로그인이 안되있을때 메인페이지 -->
   <v-parallax
     dark
     src="../../assets/hall_image.svg"
