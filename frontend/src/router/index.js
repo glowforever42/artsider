@@ -25,6 +25,9 @@ import EtiquetteDetail from './etiquetteDetail'
 
 import ShowDetail from './showDetail'
 
+import profile from './profile'
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -50,6 +53,10 @@ const routes = [
   // ...Food,
   ...Home,
   ...ShowDetail,
+
+
+  //profile
+  ...profile
 ]
 
 const router = new VueRouter({
