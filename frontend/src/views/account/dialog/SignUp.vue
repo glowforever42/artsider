@@ -185,10 +185,10 @@ export default {
       if (validate){
         // 유호성 통과
         this.userData = {
-          'userName' : this.userName,
-          'userPassword' : this.userPassword,
-          'userEmail' : this.userEmail,
-          'telNum' :  this.userTelNum.replaceAll('-', '')
+          userName : this.userName,
+          password : this.userPassword,
+          userEmail : this.userEmail,
+          telNum :  this.userTelNum.replaceAll('-', '')
         }
         return true
       } else{
@@ -204,11 +204,12 @@ export default {
         }
       } else if(this.step === 2){
         if(this.inputNumber === this.confirmationNumber){
+          this.$store.dispatch('createUser', {userData: this.userData, this: this})
           alert('회원가입 성공!')
-          this.confirmationNumber = ''
-          this.inputNumber = ''
-          this.step = 1
-          this.$emit('close-sign-up')
+          // this.confirmationNumber = ''
+          // this.inputNumber = ''
+          // this.step = 1
+          // this.$emit('close-sign-up')
         } else{
           alert('이메일 인증 실패')
           this.confirmationNumber = ''
@@ -218,7 +219,7 @@ export default {
       }
     },
 
-    startTimer(){
+    setTimer(){
       if(this.timerCount > 0){
           this.timer = setInterval(() => {
                 this.timerCount -= 1
@@ -233,7 +234,7 @@ export default {
           this.timerCount = 180
           this.minutes = 3
           this.seconds = 30
-          this.startTimer()
+          this.setTimer()
         } else{
           clearInterval(this.timer)
         }

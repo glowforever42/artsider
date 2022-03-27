@@ -85,8 +85,8 @@ export default {
   },
 
   methods:{
-    login(){
-        this.$store.dispatch()
+    getToken(){
+        this.$store.dispatch('getToken', {userEmail: this.userEmail, password: this.userPassword})
     }
   },
 
