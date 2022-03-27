@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -55,6 +56,57 @@ public class ShowController {
         return ResponseEntity.status(200).body(showCategoryAllList);
     }
 
+    // 개막 예정 공연 목록
+    @GetMapping("startDate")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<List<ShowListGetRes>> getShowStartList() throws ParseException {
+        List<ShowListGetRes> showStartList = new ArrayList<ShowListGetRes>();
+        showStartList = showService.getShowStartList();
+        return ResponseEntity.status(200).body(showStartList);
+    }
+
+    // 카테고리별 개막 예정 공연 목록
+    @GetMapping("/{category}/startDate")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<List<ShowListGetRes>> getShowCategoryStartList(@PathVariable String category) throws ParseException {
+        List<ShowListGetRes> showCategoryStartList = new ArrayList<ShowListGetRes>();
+        showCategoryStartList = showService.getShowCategoryStartList(category);
+        return ResponseEntity.status(200).body(showCategoryStartList);
+    }
+
+    // 종료 임박 공연 목록
+    @GetMapping("endDate")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<List<ShowListGetRes>> getShowEndList() throws ParseException {
+        List<ShowListGetRes> showEndList = new ArrayList<ShowListGetRes>();
+        showEndList = showService.getShowEndList();
+        return ResponseEntity.status(200).body(showEndList);
+    }
+
+    // 카테고리별 종료 임박 공연 목록
+    @GetMapping("/{category}/endDate")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<List<ShowListGetRes>> getShowCategoryEndList(@PathVariable String category) throws ParseException {
+        List<ShowListGetRes> showCategoryEndList = new ArrayList<ShowListGetRes>();
+        showCategoryEndList = showService.getShowCategoryEndList(category);
+        return ResponseEntity.status(200).body(showCategoryEndList);
+    }
 
     // 전체 인기 공연 목록
     @GetMapping("/popular")

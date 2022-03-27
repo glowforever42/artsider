@@ -6,14 +6,18 @@ import com.ssafy.myapp.api.response.PopularShowListGetRes;
 import com.ssafy.myapp.api.response.ShowDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowListGetRes;
 import com.ssafy.myapp.db.entity.ArtCenter;
+import com.ssafy.myapp.db.entity.CastingList;
 import com.ssafy.myapp.db.entity.PopularShow;
 import com.ssafy.myapp.db.entity.Show;
 import com.ssafy.myapp.db.repository.ArtCenterRepository;
+import com.ssafy.myapp.db.repository.CastingListRepository;
 import com.ssafy.myapp.db.repository.PopularShowRepository;
 import com.ssafy.myapp.db.repository.ShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,6 +28,7 @@ public class ShowServiceImpl implements ShowService{
     private final ArtCenterRepository artCenterRepository;
     private final PopularShowRepository popularShowRepository;
     private final ShowRepository showRepository;
+    private final CastingListRepository castingListRepository;
 
     // 전체 공연 목록 조회
     @Override
@@ -35,15 +40,124 @@ public class ShowServiceImpl implements ShowService{
     @Override
     public List<ShowListGetRes> getShowCategoryAllList(String category) {
         List<ShowListGetRes> showCategoryAllList = new ArrayList<ShowListGetRes>();
-        List<Show> ShowAllList = showRepository.findAll();
+        List<Show> showAllList = showRepository.findAll();
 
-        for (Show show : ShowAllList) {
+        for (Show show : showAllList) {
             if (show.getCategory().equals(category)) {
                 ShowListGetRes showInfo = new ShowListGetRes(show);
                 showCategoryAllList.add(showInfo);
             }
         }
         return showCategoryAllList;
+    }
+
+
+    // 개막 예정 공연 목록
+    @Override
+    public List<ShowListGetRes> getShowStartList() throws ParseException {
+        List<ShowListGetRes> showStartList = new ArrayList<ShowListGetRes>();
+        List<Show> showAllList = showRepository.findAll();
+
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",  Locale.KOREA );
+        String dateNow = dateFormat.format(today);
+        Date now = new Date(dateFormat.parse(dateNow).getTime());
+
+        // 오늘 날짜 기준으로 걸러내고 추가하기
+        for (Show show : showAllList) {
+            Date startDate = new Date(dateFormat.parse(show.getStartDate()).getTime());
+
+            int compare = startDate.compareTo(now);
+
+            if (compare > 0) {
+                ShowListGetRes showInfo = new ShowListGetRes(show);
+                showStartList.add(showInfo);
+            }
+        }
+        showStartList.sort(Comparator.comparing(ShowListGetRes::getStartDate).thenComparing(ShowListGetRes::getEndDate));
+        return showStartList;
+    }
+
+    // 카테고리별 개막 예정 목록
+    @Override
+    public List<ShowListGetRes> getShowCategoryStartList(String category) throws ParseException {
+        List<ShowListGetRes> showCategoryStartList = new ArrayList<ShowListGetRes>();
+        List<Show> showAllList = showRepository.findAll();
+
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",  Locale.KOREA );
+        String dateNow = dateFormat.format(today);
+        Date now = new Date(dateFormat.parse(dateNow).getTime());
+
+        // 오늘 날짜 기준으로 걸러내고 추가하기
+        for (Show show : showAllList) {
+            if (show.getCategory().equals(category)) {
+                Date startDate = new Date(dateFormat.parse(show.getStartDate()).getTime());
+
+                int compare = startDate.compareTo(now);
+
+                if (compare > 0) {
+                    ShowListGetRes showInfo = new ShowListGetRes(show);
+                    showCategoryStartList.add(showInfo);
+                }
+            }
+        }
+        showCategoryStartList.sort(Comparator.comparing(ShowListGetRes::getStartDate).thenComparing(ShowListGetRes::getEndDate));
+        return showCategoryStartList;
+    }
+
+    // 종료 임박 공연 목록
+    @Override
+    public List<ShowListGetRes> getShowEndList() throws ParseException {
+        List<ShowListGetRes> showEndList = new ArrayList<ShowListGetRes>();
+        List<Show> showAllList = showRepository.findAll();
+        // 오늘 날짜 HH:mm:ss
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",  Locale.KOREA );
+        String dateNow = dateFormat.format(today);
+        Date now = new Date(dateFormat.parse(dateNow).getTime());
+
+        for (Show show : showAllList) {
+            if (show.getEndDate() != null) {
+                Date endDate = new Date(dateFormat.parse(show.getEndDate()).getTime());
+
+                int compare = endDate.compareTo(now);
+
+                if (compare > 0) {
+                    ShowListGetRes showInfo = new ShowListGetRes(show);
+                    showEndList.add(showInfo);
+                }
+            }
+        }
+        showEndList.sort(Comparator.comparing(ShowListGetRes::getEndDate));
+        return showEndList;
+    }
+
+    // 카테고리별 종료 임박 공연 목록
+    @Override
+    public List<ShowListGetRes> getShowCategoryEndList(String category) throws ParseException {
+        List<ShowListGetRes> showCategoryEndList = new ArrayList<ShowListGetRes>();
+        List<Show> showAllList = showRepository.findAll();
+        // 오늘 날짜 HH:mm:ss
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",  Locale.KOREA );
+        String dateNow = dateFormat.format(today);
+        Date now = new Date(dateFormat.parse(dateNow).getTime());
+
+        for (Show show : showAllList) {
+            if (show.getCategory().equals(category) && show.getEndDate() != null) {
+                Date endDate = new Date(dateFormat.parse(show.getEndDate()).getTime());
+
+                int compare = endDate.compareTo(now);
+
+                if (compare > 0) {
+                    ShowListGetRes showInfo = new ShowListGetRes(show);
+                    showCategoryEndList.add(showInfo);
+                }
+            }
+        }
+        showCategoryEndList.sort(Comparator.comparing(ShowListGetRes::getEndDate));
+        return showCategoryEndList;
     }
 
     // 전체 인기 공연 목록
@@ -90,6 +204,7 @@ public class ShowServiceImpl implements ShowService{
     public ShowDetailsGetRes getShowDetails(Long id) throws NoSuchElementException {
 
         Show show = showRepository.findById(id).get();
+
         ShowDetailsGetRes showInfo = new ShowDetailsGetRes();
 
         showInfo.setId(show.getId());
@@ -108,6 +223,7 @@ public class ShowServiceImpl implements ShowService{
         showInfo.setArtCenterName(show.getArtCenterName());
         showInfo.setMenRate(show.getMenRate());
         showInfo.setWomenRate(show.getWomenRate());
+        showInfo.setCastingLists(show.getCastingLists());
         return showInfo;
     }
 
