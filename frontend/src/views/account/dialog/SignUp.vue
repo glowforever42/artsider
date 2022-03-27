@@ -31,7 +31,15 @@
                 :rules="userEmailRules"
                 label="이메일"
                 required
-              ></v-text-field>
+              >
+                <v-btn
+                  slot="append"
+                  outlined
+                  @click="checkMultiEmail"
+                >
+                  중복 검사
+                </v-btn>
+              </v-text-field>
 
 
               <v-text-field
@@ -158,6 +166,8 @@ export default {
       confirmationNumber: '123',
       inputNumber: '',
 
+      IsMultiEmail : false,
+
       timerCount: 180,
       minutes: 3,
       seconds: 30,
@@ -180,9 +190,13 @@ export default {
   },
 
   methods:{
-    setSignUpForm(){
+    checkMultiEmail(inputEmail){
+      return this.$store.dispatch('checkMultiEmail', inputEmail)
+    },
+
+    checkSignUpForm(){
       const validate =  this.$refs.form.validate()
-      if (validate){
+      if (validate && this.checkMultiEmail(this.userEmail)){
         // 유호성 통과
         this.userData = {
           userName : this.userName,
@@ -198,7 +212,7 @@ export default {
 
     getNextStep(){
       if(this.step === 1){
-        const checkResult = this.setSignUpForm()
+        const checkResult = this.checkSignUpForm()
         if(checkResult){
           this.step += 1
         }

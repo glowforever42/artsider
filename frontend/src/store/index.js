@@ -23,6 +23,26 @@ export default new Vuex.Store({
 
   },
   actions: {
+    // 이메일 체크
+    checkMultiEmail({state}, inputEmail){
+      state
+      const url = `/api/users/${inputEmail}`
+      axios.get(url)
+      .then((res) => {
+        if(res.data.emailCheck){
+          alert('이메일 중복검사 통과')
+          return true
+        } else{
+          alert('이메일 중복검사 실패')
+          return false
+        }
+      })
+      .catch(() => {
+        alert('이메일 중복검사 실패')
+        return false
+      })
+    },
+
     createUser({dispatch}, data){
       const userData = data.userData
       const signUpVue = data.this
