@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,10 +44,8 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<ShowListGetRes>> getShowAllList() {
-        List<ShowListGetRes> showAllList = new ArrayList<ShowListGetRes>();
-        showAllList = showService.getShowAllList();
-        return ResponseEntity.status(200).body(showAllList);
+    public ResponseEntity<List<ShowListGetRes>> showAllList() {
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowAllList(),HttpStatus.OK);
     }
 
 
@@ -57,10 +56,8 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<ShowListGetRes>> getShowCategoryList(@PathVariable String category) {
-        List<ShowListGetRes> showCategoryAllList = new ArrayList<ShowListGetRes>();
-        showCategoryAllList = showService.getShowCategoryAllList(map.get(category));
-        return ResponseEntity.status(200).body(showCategoryAllList);
+    public ResponseEntity<List<ShowListGetRes>> showCategoryList(@PathVariable String category) {
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowCategoryAllList(map.get(category)),HttpStatus.OK);
     }
 
     // 개막 예정 공연 목록
@@ -70,10 +67,8 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<ShowListGetRes>> getShowStartList() throws ParseException {
-        List<ShowListGetRes> showStartList = new ArrayList<ShowListGetRes>();
-        showStartList = showService.getShowStartList();
-        return ResponseEntity.status(200).body(showStartList);
+    public ResponseEntity<List<ShowListGetRes>> showStartList() throws ParseException {
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowStartList(),HttpStatus.OK);
     }
 
     // 카테고리별 개막 예정 공연 목록
@@ -83,10 +78,8 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<ShowListGetRes>> getShowCategoryStartList(@PathVariable String category) throws ParseException {
-        List<ShowListGetRes> showCategoryStartList = new ArrayList<ShowListGetRes>();
-        showCategoryStartList = showService.getShowCategoryStartList(map.get(category));
-        return ResponseEntity.status(200).body(showCategoryStartList);
+    public ResponseEntity<List<ShowListGetRes>> showCategoryStartList(@PathVariable String category) throws ParseException {
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowCategoryStartList(map.get(category)), HttpStatus.OK);
     }
 
     // 종료 임박 공연 목록
@@ -96,10 +89,8 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<ShowListGetRes>> getShowEndList() throws ParseException {
-        List<ShowListGetRes> showEndList = new ArrayList<ShowListGetRes>();
-        showEndList = showService.getShowEndList();
-        return ResponseEntity.status(200).body(showEndList);
+    public ResponseEntity<List<ShowListGetRes>> showEndList() throws ParseException {
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowEndList(), HttpStatus.OK);
     }
 
     // 카테고리별 종료 임박 공연 목록
@@ -109,10 +100,8 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<ShowListGetRes>> getShowCategoryEndList(@PathVariable String category) throws ParseException {
-        List<ShowListGetRes> showCategoryEndList = new ArrayList<ShowListGetRes>();
-        showCategoryEndList = showService.getShowCategoryEndList(map.get(category));
-        return ResponseEntity.status(200).body(showCategoryEndList);
+    public ResponseEntity<List<ShowListGetRes>> showCategoryEndList(@PathVariable String category) throws ParseException {
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowCategoryEndList(map.get(category)), HttpStatus.OK);
     }
 
     // 전체 인기 공연 목록
@@ -122,10 +111,10 @@ public class ShowController {
             @ApiResponse(code = 401, message = "인기공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<PopularShowListGetRes>> getPopularShowAllList() {
+    public ResponseEntity<List<PopularShowListGetRes>> popularShowAllList() {
         List<PopularShowListGetRes> popularShowList = new ArrayList<PopularShowListGetRes>();
-        popularShowList = showService.getPopularShowList();
-        return ResponseEntity.status(200).body(popularShowList);
+        popularShowList = showService.findPopularShowList();
+        return new ResponseEntity<List<PopularShowListGetRes>>(showService.findPopularShowList(), HttpStatus.OK);
     }
 
 
@@ -136,10 +125,8 @@ public class ShowController {
             @ApiResponse(code = 401, message = "카테고리별 인기공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<List<PopularShowListGetRes>> getPopularShowCategoryList(@PathVariable String category) {
-        List<PopularShowListGetRes> popularShowCategoryList = new ArrayList<PopularShowListGetRes>();
-        popularShowCategoryList = showService.getPopularShowCategoryList(map.get(category));
-        return ResponseEntity.status(200).body(popularShowCategoryList);
+    public ResponseEntity<List<PopularShowListGetRes>> popularShowCategoryList(@PathVariable String category) {
+        return new ResponseEntity<List<PopularShowListGetRes>>(showService.findPopularShowCategoryList(map.get(category)), HttpStatus.OK);
     }
 
 
@@ -150,17 +137,15 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연 상세 정보 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<ShowDetailsGetRes> getShowDetails(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<ShowDetailsGetRes> showDetails(@PathVariable(value = "id") Long id) {
 
         ShowDetailsGetRes showDetails = new ShowDetailsGetRes();
 
         try {
-            showDetails = showService.getShowDetails(id);
+            return new ResponseEntity<ShowDetailsGetRes>(showService.findShowDetails(id), HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(401).body(showDetails);
+            return new ResponseEntity<ShowDetailsGetRes>(showService.findShowDetails(id), HttpStatus.BAD_REQUEST);
         }
-
-        return ResponseEntity.status(200).body(showDetails);
     }
 
 
@@ -171,16 +156,11 @@ public class ShowController {
             @ApiResponse(code = 401, message = "공연시설 상세 정보 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    public ResponseEntity<ArtCenterDetailsGetRes> getArtCenterDetails(@PathVariable(value = "artcentername") String artCenterName) {
-
-        ArtCenterDetailsGetRes artCenterDetails = new ArtCenterDetailsGetRes();
-
+    public ResponseEntity<ArtCenterDetailsGetRes> artCenterDetails(@PathVariable(value = "artcentername") String artCenterName) {
         try {
-            artCenterDetails = showService.getArtCenterDetails(artCenterName);
+            return new ResponseEntity<ArtCenterDetailsGetRes>(showService.findArtCenterDetails(artCenterName), HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(401).body(artCenterDetails);
+            return new ResponseEntity<ArtCenterDetailsGetRes>(showService.findArtCenterDetails(artCenterName), HttpStatus.BAD_REQUEST);
         }
-
-        return ResponseEntity.status(200).body(artCenterDetails);
     }
 }

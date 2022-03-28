@@ -29,13 +29,13 @@ public class ShowServiceImpl implements ShowService{
 
     // 전체 공연 목록 조회
     @Override
-    public List<ShowListGetRes> getShowAllList() {
+    public List<ShowListGetRes> findShowAllList() {
         return showRepository.findAll().stream().map(ShowListGetRes::new).collect(Collectors.toList());
     }
 
     // 카테고리별 전체 공연 목록 조회
     @Override
-    public List<ShowListGetRes> getShowCategoryAllList(String category) {
+    public List<ShowListGetRes> findShowCategoryAllList(String category) {
         List<ShowListGetRes> showCategoryAllList = new ArrayList<ShowListGetRes>();
         List<Show> showAllList = showRepository.findAll();
 
@@ -51,7 +51,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 개막 예정 공연 목록
     @Override
-    public List<ShowListGetRes> getShowStartList() throws ParseException {
+    public List<ShowListGetRes> findShowStartList() throws ParseException {
         List<ShowListGetRes> showStartList = new ArrayList<ShowListGetRes>();
         List<Show> showAllList = showRepository.findAll();
 
@@ -78,7 +78,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 카테고리별 개막 예정 목록
     @Override
-    public List<ShowListGetRes> getShowCategoryStartList(String category) throws ParseException {
+    public List<ShowListGetRes> findShowCategoryStartList(String category) throws ParseException {
         List<ShowListGetRes> showCategoryStartList = new ArrayList<ShowListGetRes>();
         List<Show> showAllList = showRepository.findAll();
 
@@ -106,7 +106,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 종료 임박 공연 목록
     @Override
-    public List<ShowListGetRes> getShowEndList() throws ParseException {
+    public List<ShowListGetRes> findShowEndList() throws ParseException {
         List<ShowListGetRes> showEndList = new ArrayList<ShowListGetRes>();
         List<Show> showAllList = showRepository.findAll();
         // 오늘 날짜 HH:mm:ss
@@ -133,7 +133,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 카테고리별 종료 임박 공연 목록
     @Override
-    public List<ShowListGetRes> getShowCategoryEndList(String category) throws ParseException {
+    public List<ShowListGetRes> findShowCategoryEndList(String category) throws ParseException {
         List<ShowListGetRes> showCategoryEndList = new ArrayList<ShowListGetRes>();
         List<Show> showAllList = showRepository.findAll();
         // 오늘 날짜 HH:mm:ss
@@ -161,7 +161,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 전체 인기 공연 목록
     @Override
-    public List<PopularShowListGetRes> getPopularShowList() {
+    public List<PopularShowListGetRes> findPopularShowList() {
 
         List<PopularShowListGetRes> popularShowAllList = new ArrayList<PopularShowListGetRes>();
         List<PopularShow> popularShowList = popularShowRepository.findAll();
@@ -184,7 +184,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 카테고리별 인기 공연 목록()
     @Override
-    public List<PopularShowListGetRes> getPopularShowCategoryList(String category) {
+    public List<PopularShowListGetRes> findPopularShowCategoryList(String category) {
 
         List<PopularShowListGetRes> popularShowCategoryAllList = new ArrayList<PopularShowListGetRes>();
         List<PopularShow> popularShowCategoryList = popularShowRepository.findAll();
@@ -209,7 +209,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 공연 상세 조회
     @Override
-    public ShowDetailsGetRes getShowDetails(Long id) throws NoSuchElementException {
+    public ShowDetailsGetRes findShowDetails(Long id) throws NoSuchElementException {
 
         Show show = showRepository.findById(id).get();
         ArtCenter artCenter = artCenterRepository.findByArtCenterName(show.getArtCenterName());
@@ -244,7 +244,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 공연장 시설 조회
     @Override
-    public ArtCenterDetailsGetRes getArtCenterDetails(String artCenterName) throws NoSuchElementException {
+    public ArtCenterDetailsGetRes findArtCenterDetails(String artCenterName) throws NoSuchElementException {
 
         ArtCenter artCenter = artCenterRepository.findByArtCenterName(artCenterName);
         ArtCenterDetailsGetRes artCenterInfo = new ArtCenterDetailsGetRes();
