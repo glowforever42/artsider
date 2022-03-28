@@ -36,31 +36,11 @@
         </div>
       </div>
 
-      <div class="profile-menu" style="margin-top:50px">
-        <li 
-          class="li-btn mr-5 p-4" 
-          :class="{'click-item': clickItem1}"
-          @click="() => { clickItem1 = true, clickItem2 = false, clickItem3 = false}"
-        >
-          <span> 공연 보관함 </span>
-        </li>
-        <li 
-          class="li-btn mr-5 p-4"
-          :class="{'click-item': clickItem2}"
-          @click="() => { clickItem1 = false, clickItem2 = true, clickItem3 = false}"  
-        >
-          <span> 리뷰 보관함 </span>
-        </li>
-        <li 
-          class="li-btn mr-5 p-4"
-          :class="{'click-item': clickItem3}"
-          @click="() => { clickItem1 = false, clickItem2 = false, clickItem3 = true}"
-        >
-          <span> 관심 공연 캘린더</span>
-        </li>
-      </div>
+   
+      <router-link :to="{name: 'ProfileMyContents'}"> 공연 보관함 </router-link>
 
-    <hr>
+      <router-view/>
+
     </v-container>
   </div>
 </template>
@@ -77,7 +57,6 @@ export default {
       clickItem3: false
     }
   },
-
 
 }
 </script>
