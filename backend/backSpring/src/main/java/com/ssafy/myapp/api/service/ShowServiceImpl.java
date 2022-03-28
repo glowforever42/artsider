@@ -5,14 +5,8 @@ import com.ssafy.myapp.api.response.ArtCenterDetailsGetRes;
 import com.ssafy.myapp.api.response.PopularShowListGetRes;
 import com.ssafy.myapp.api.response.ShowDetailsGetRes;
 import com.ssafy.myapp.api.response.ShowListGetRes;
-import com.ssafy.myapp.db.entity.ArtCenter;
-import com.ssafy.myapp.db.entity.CastingList;
-import com.ssafy.myapp.db.entity.PopularShow;
-import com.ssafy.myapp.db.entity.Show;
-import com.ssafy.myapp.db.repository.ArtCenterRepository;
-import com.ssafy.myapp.db.repository.CastingListRepository;
-import com.ssafy.myapp.db.repository.PopularShowRepository;
-import com.ssafy.myapp.db.repository.ShowRepository;
+import com.ssafy.myapp.db.entity.*;
+import com.ssafy.myapp.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +20,12 @@ import java.util.stream.Collectors;
 public class ShowServiceImpl implements ShowService{
 
     private final ArtCenterRepository artCenterRepository;
+    private final CastingListRepository castingListRepository;
+    private final NoticeImgRepository noticeImgRepository;
     private final PopularShowRepository popularShowRepository;
     private final ShowRepository showRepository;
-    private final CastingListRepository castingListRepository;
+    private final ShowDetailImgRepository showDetailImgRepository;
+
 
     // 전체 공연 목록 조회
     @Override
@@ -74,9 +71,10 @@ public class ShowServiceImpl implements ShowService{
                 showStartList.add(showInfo);
             }
         }
-        showStartList.sort(Comparator.comparing(ShowListGetRes::getStartDate).thenComparing(ShowListGetRes::getEndDate));
+        showStartList.sort(Comparator.comparing(ShowListGetRes::getStartDate));
         return showStartList;
     }
+
 
     // 카테고리별 개막 예정 목록
     @Override
@@ -102,7 +100,7 @@ public class ShowServiceImpl implements ShowService{
                 }
             }
         }
-        showCategoryStartList.sort(Comparator.comparing(ShowListGetRes::getStartDate).thenComparing(ShowListGetRes::getEndDate));
+        showCategoryStartList.sort(Comparator.comparing(ShowListGetRes::getStartDate));
         return showCategoryStartList;
     }
 
@@ -152,6 +150,7 @@ public class ShowServiceImpl implements ShowService{
 
                 if (compare > 0) {
                     ShowListGetRes showInfo = new ShowListGetRes(show);
+
                     showCategoryEndList.add(showInfo);
                 }
             }
@@ -169,7 +168,10 @@ public class ShowServiceImpl implements ShowService{
 
         for (PopularShow popularShow : popularShowList) {
             if (popularShow.getRank() < 5) {
+                Show showInfo = showRepository.findByShowId(popularShow.getShowId());
                 PopularShowListGetRes popularShowInfo = new PopularShowListGetRes(popularShow);
+                popularShowInfo.setShow(showInfo);
+
                 popularShowAllList.add(popularShowInfo);
             }
         }
@@ -187,14 +189,20 @@ public class ShowServiceImpl implements ShowService{
         List<PopularShowListGetRes> popularShowCategoryAllList = new ArrayList<PopularShowListGetRes>();
         List<PopularShow> popularShowCategoryList = popularShowRepository.findAll();
 
-//        for (PopularShow popularShow : popularShowCategoryList) {
-//            if (popularShow.getCategory().equals(category)) {
-//                PopularShowListGetRes showInfo = new PopularShowListGetRes(popularShow);
-//                popularShowCategoryAllList.add(showInfo);
-//            }
-//        }
+        for (PopularShow popularShow : popularShowCategoryList) {
+            Show showInfo = showRepository.findByShowId(popularShow.getShowId());
+            if (showInfo.getCategory().equals(category)) {
 
-//        popularShowCategoryAllList.sort(Comparator.comparing(PopularShowListGetRes::getRank));
+                ArtCenter artCenter = artCenterRepository.findByArtCenterName(showInfo.getShowId());
+
+                PopularShowListGetRes popularShowInfo = new PopularShowListGetRes(popularShow);
+
+                popularShowInfo.setArtCenter(artCenter);
+                popularShowInfo.setShow(showInfo);
+                popularShowCategoryAllList.add(popularShowInfo);
+            }
+        }
+        popularShowCategoryAllList.sort(Comparator.comparing(PopularShowListGetRes::getRank));
 
         return popularShowCategoryAllList;
     }
@@ -204,6 +212,10 @@ public class ShowServiceImpl implements ShowService{
     public ShowDetailsGetRes getShowDetails(Long id) throws NoSuchElementException {
 
         Show show = showRepository.findById(id).get();
+        ArtCenter artCenter = artCenterRepository.findByArtCenterName(show.getArtCenterName());
+        List<CastingList> casting = castingListRepository.findByShowId(show.getShowId());
+        List<NoticeImg> notice = noticeImgRepository.findByShowId(show.getShowId());
+        List<ShowDetailImg> showDetail = showDetailImgRepository.findByShowId(show.getShowId());
 
         ShowDetailsGetRes showInfo = new ShowDetailsGetRes();
 
@@ -223,7 +235,10 @@ public class ShowServiceImpl implements ShowService{
         showInfo.setArtCenterName(show.getArtCenterName());
         showInfo.setMenRate(show.getMenRate());
         showInfo.setWomenRate(show.getWomenRate());
-        showInfo.setCastingLists(show.getCastingLists());
+        showInfo.setCastingLists(casting);
+        showInfo.setNoticeImg(notice);
+        showInfo.setShowDetailImg(showDetail);
+        showInfo.setArtCenter(artCenter);
         return showInfo;
     }
 

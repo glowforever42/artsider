@@ -23,4 +23,5 @@ public class PopularShow {
 
     @Column(nullable = false)
     private String sellRate;    // 판매점유율
+
 }

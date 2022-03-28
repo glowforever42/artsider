@@ -1,10 +1,18 @@
 package com.ssafy.myapp.api.response;
 
+import com.ssafy.myapp.db.entity.ArtCenter;
+import com.ssafy.myapp.db.entity.CastingList;
+import com.ssafy.myapp.db.entity.NoticeImg;
+import com.ssafy.myapp.db.entity.ShowDetailImg;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ShowDetailsGetRes {
     private Long id;    // id
     private String showName;    // 공연이름
@@ -22,7 +30,10 @@ public class ShowDetailsGetRes {
     private String artCenterName;    // 공연장
     private String menRate;    // 남성이용자 예매율
     private String womenRate;    // 여성 이용자 예매율
-
+    private ArtCenter artCenter;    // 공연장 정보
+    private List<CastingList> castingLists;    // 출연진
+    private List<NoticeImg> noticeImg;    // 공지사항 이미지
+    private List<ShowDetailImg> showDetailImg;    // 공연 상세 정보 이미지
 }
 
 

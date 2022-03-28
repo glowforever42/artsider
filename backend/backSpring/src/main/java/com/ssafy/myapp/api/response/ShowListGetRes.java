@@ -1,11 +1,15 @@
 package com.ssafy.myapp.api.response;
 
-import com.ssafy.myapp.db.entity.Show;
+import com.ssafy.myapp.db.entity.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ShowListGetRes {
 
     private Long id;    // id

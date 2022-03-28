@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter    // getter 자동 추가
 @Entity    // entity
@@ -39,18 +41,18 @@ public class Show {
     @Column(nullable = false)
     private String runtime;    // 공연시간
 
-    @Column(length = 500, nullable = false)
+    @Column(length = 500)
     private String price;    // 가격정보
 
     @Column(length = 500, nullable = false)
     private String posterPath;    // 포스터 경로
 
+    @Column(columnDefinition = "TEXT")
     private String showDay;    // 공연상세일시
 
     @Column(nullable = false)
     private String category;    // 공연 카테고리
 
-    @Column(nullable = false)
     private String artCenterName;    // 공연장
 
     @Column(nullable = false)
@@ -59,4 +61,11 @@ public class Show {
     @Column(nullable = false)
     private String womenRate;    // 여성 이용자 예매율
 
+//    @OneToMany(mappedBy = "show")
+//    private List<CastingList> castingLists = new ArrayList<CastingList>();
+//
+//    public void addCasting(CastingList castingList) {
+//        castingList.setShow(this);
+//        getCastingLists().add(castingList);
+//    }
 }
