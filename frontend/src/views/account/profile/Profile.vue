@@ -1,6 +1,8 @@
 <template>
   <div id="profile">
-    <v-container>
+    <v-container
+      class="profile-wrapper"
+    >
       <div class="profile-info d-flex flex-wrap">
         <v-card
           width="300"
@@ -38,16 +40,22 @@
 
    
       <router-link :to="{name: 'ProfileMyContents'}"> 공연 보관함 </router-link>
-
+      <hr>
       <router-view/>
+      <ProfileMyContents/>
 
     </v-container>
   </div>
 </template>
 
 <script>
+import ProfileMyContents from './ProfileMyContents'
+
 export default {
   name: 'Profile',
+  components: {
+    ProfileMyContents
+  },
   data(){
     return{
       userName: '김공연',
@@ -62,6 +70,16 @@ export default {
 </script>
 
 <style>
+#profile{
+  width: 100%;
+  height: 100%;
+}
+
+.profile-wrapper{
+  width: 100%;
+  height: 100%;
+}
+
 .li-btn{
   display: inline-block;
   list-style: none;
