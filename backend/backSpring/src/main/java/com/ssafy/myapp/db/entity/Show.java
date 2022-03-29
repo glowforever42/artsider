@@ -7,8 +7,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Getter    // getter 자동 추가
 @Entity    // entity
-@Getter   // getter 자동 추가
 @NoArgsConstructor    // 기본생성자 자동 추가
 @Table(name = "performance")
 public class Show {
@@ -72,3 +73,4 @@ public class Show {
 //        getCastingLists().add(castingList);
 //    }
 }
+
