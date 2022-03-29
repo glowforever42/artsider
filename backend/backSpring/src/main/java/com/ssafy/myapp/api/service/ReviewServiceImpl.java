@@ -8,6 +8,7 @@ import com.ssafy.myapp.db.repository.ReviewRepository;
 import com.ssafy.myapp.db.repository.ShowRepository;
 import com.ssafy.myapp.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,19 +26,18 @@ public class ReviewServiceImpl implements ReviewService {
 
     // 조회
     @Override
-    public List<Review> findReview(Long showId) {
-        Optional<Show> oShow = showRepository.findById(showId);
-        return oShow.get().getReviews();
+    public List<Review> findReview(Long id, Pageable pageable) {
+        return reviewRepository.findAll(pageable).getContent();
     }
 
     @Override
     @Transactional
-    public Long addReview(Long showId, ReviewRegisterReq reviewInfo) {
+    public Long addReview(Long id, ReviewRegisterReq reviewInfo) {
         // 엔티티 조회
         Long userId = reviewInfo.getUserId();
         User findUser = userRepository.findById(userId).get();
 
-        Show findShow = showRepository.findById(showId).get();
+        Show findShow = showRepository.findById(id).get();
 
         // 리뷰 생성
         Review review = Review.createReview(findUser, findShow, reviewInfo);

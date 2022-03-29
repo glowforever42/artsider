@@ -1,9 +1,6 @@
 package com.ssafy.myapp.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ssafy.myapp.api.request.ReviewRegisterReq;
 import lombok.*;
 
@@ -18,26 +15,29 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Review_ID")
+    @Column(name = "review_id")
     private Long id;
 
     @Column(length = 100, nullable = false)
     private String title;
 
-    @Column(length = 500, nullable = false)
+    @Column(columnDefinition = "TEXT", length = 500, nullable = false)
+//    @Column(length = 500, nullable = false)
     private String contents;
 
     private int rating;
 
+    @Column(nullable = false)
     private LocalDateTime createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "User_ID")
+    @JoinColumn(name = "user_id")
     @JsonIgnore // 순환참조 방지
     private User user;
 
+    // show 테이블의 기본키와 연결
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Show_Id")
+    @JoinColumn(name = "id")
     @JsonIgnore // 순환참조 방지
     private Show show;
 
@@ -69,5 +69,4 @@ public class Review {
         review.setCreateDate(LocalDateTime.now());
         return review;
     }
-
 }

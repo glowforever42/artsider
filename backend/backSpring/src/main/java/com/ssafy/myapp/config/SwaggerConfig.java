@@ -60,7 +60,7 @@ public class SwaggerConfig {
     @Bean
     UiConfiguration uiConfig() {
         return UiConfigurationBuilder.builder()
-//                .supportedSubmitMethods(newArrayList("get").toArray(new String[0])) // try it 기능 ?��?��?�� 범위
+//                .supportedSubmitMethods(newArrayList("get").toArray(new String[0]))
 //                .operationsSorter(METHOD)
                 .build();
     }
