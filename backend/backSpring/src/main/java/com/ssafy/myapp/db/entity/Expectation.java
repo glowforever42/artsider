@@ -21,7 +21,7 @@ public class Expectation {
     @Column(length = 100, nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT", length = 500, nullable = false)
+//    @Column(columnDefinition = "TEXT", length = 500, nullable = false)
     private String contents;
 
     @Column(nullable = false)
@@ -33,7 +33,7 @@ public class Expectation {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "show_id")
     @JsonIgnore // 순환참조 방지
     private Show show;
 

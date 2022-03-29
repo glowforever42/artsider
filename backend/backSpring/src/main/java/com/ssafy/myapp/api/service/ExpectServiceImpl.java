@@ -1,6 +1,7 @@
 package com.ssafy.myapp.api.service;
 
 import com.ssafy.myapp.api.request.ReviewRegisterReq;
+import com.ssafy.myapp.api.response.ExpectListGetRes;
 import com.ssafy.myapp.db.entity.Expectation;
 import com.ssafy.myapp.db.entity.Show;
 import com.ssafy.myapp.db.entity.User;
@@ -8,11 +9,15 @@ import com.ssafy.myapp.db.repository.ExpectRepository;
 import com.ssafy.myapp.db.repository.ShowRepository;
 import com.ssafy.myapp.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service("expectService")
 @Transactional(readOnly = true)
@@ -24,9 +29,13 @@ public class ExpectServiceImpl implements ExpectService {
     private final ShowRepository showRepository;
 
     @Override
-    public List<Expectation> findExpectation(Long id) {
-        Optional<Show> oExpect = showRepository.findById(id);
-        return oExpect.get().getExpectations();
+    public Page<ExpectListGetRes> findExpectation(Long id, Pageable pageable) {
+        Page<Expectation> page = expectRepository.findById(id, pageable);
+        return new PageImpl<ExpectListGetRes>(page.getContent()
+                                                .stream()
+                                                .map(ExpectListGetRes::new)
+                                                .collect(Collectors.toList())
+                                                ,pageable, page.getTotalElements());
     }
 
     @Override
@@ -53,6 +62,8 @@ public class ExpectServiceImpl implements ExpectService {
         if(!oExpect.isPresent()) return false;
 
         Expectation expectation = oExpect.get();
+
+        if(expectation.getUser().getId() != expectInfo.getUserId()) return false;
 
         expectation.setTitle(expectInfo.getTitle());
         expectation.setContents(expectInfo.getContents());

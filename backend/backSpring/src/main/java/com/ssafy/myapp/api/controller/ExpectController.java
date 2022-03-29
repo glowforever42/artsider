@@ -1,10 +1,12 @@
 package com.ssafy.myapp.api.controller;
 
 import com.ssafy.myapp.api.request.ReviewRegisterReq;
+import com.ssafy.myapp.api.response.ExpectListGetRes;
 import com.ssafy.myapp.api.service.ExpectService;
 import com.ssafy.myapp.db.entity.Expectation;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -35,10 +37,15 @@ public class ExpectController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     @GetMapping("/expectations/{id}")
-    public ResponseEntity<List<Expectation>> expectationList(
+    public ResponseEntity<Map<String, Object>> expectationList(
             @ApiParam(value = "공연번호", required = true) @PathVariable("id") Long id,
             @PageableDefault(size = 5, sort = "createDate", direction = Sort.Direction.DESC)Pageable pageable) {
-        return new ResponseEntity<List<Expectation>>(expectService.findExpectation(id), HttpStatus.OK);
+        Map<String, Object> resultMap = new HashMap<>();
+
+        Page<ExpectListGetRes> expectation = expectService.findExpectation(id, pageable);
+        resultMap.put("length", expectation.getTotalElements());
+        resultMap.put("items", expectation.getContent());
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
     @ApiOperation(value = "기대평 작성", notes = "<strong>공연번호 showId</strong>의 기대평을 작성한다.")
