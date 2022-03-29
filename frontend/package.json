@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "d3": "^7.4.0",
     "d3-cloud": "^1.2.5",
+    "swiper": "^5.3.7",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.4.0",
     "vue-router": "^3.2.0",
@@ -35,4 +36,5 @@
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"
   }
+  
 }

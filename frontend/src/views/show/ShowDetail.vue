@@ -8,7 +8,7 @@
             <v-img :src="posterPath" style="max-width:300px; width:100%; min-width:300px; height:100%; min-height:400px; max-height:400px"></v-img>
             <div class="d-flex flex-wrap justify-center" style="max-width:300px;">
               <span v-for="(Tag,idx) in hashTag" :key="idx" class="py-2">
-                <v-btn rounded text>#{{ Tag }}</v-btn>
+                <v-chip label color="pink" draggable text-color="white" class="mr-1"><v-icon left>mdi-label</v-icon>{{ Tag }}</v-chip>
               </span>
             </div>
           </div>
@@ -118,9 +118,8 @@
             <v-btn text @click="changeShow(4)" class="btn-detail">공연장 위치</v-btn>
           </li>
           <hr>
-          <!-- router-view -->
           <ShowInfo
-            :showId="showId"
+            :id="id"
             v-if="number == 1"
             :subPosterPath = subPosterPath
             :story = story
@@ -129,12 +128,12 @@
           ></ShowInfo>
 
           <ShowReviews
-            :showId="showId"
+            :id="id"
             v-if="number == 2"
           ></ShowReviews>
 
           <ShowExpectations
-            :showId="showId"
+            :id="id"
             v-if="number == 3"
           ></ShowExpectations>
 
@@ -145,8 +144,16 @@
         </div>
       </div>
     </div>
-    <div style="margin-left:300px;">
-      우측 리모컨
+    <div style="margin-left:100px;">
+      <div class="container" style="border: 1px solid rgba(0, 0, 0, .3); position: sticky; top: 150px;">
+        <p class="d-flex justify-center">연관공연</p>
+        <div v-for="(show, idx) in relatedShow" :key="idx">
+          <div @click="moveToShow(show.id)">
+            <v-img :src="show.posterPath" contain max-height="200" max-width="150"></v-img>
+          </div>
+          <br>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -170,7 +177,7 @@ export default {
 
   data: function () {
     return {
-      showId: '',
+      id: '',
       showName : '지킬 앤 하이드',
       state: '공연중',
       age: '9세 이상',
@@ -189,7 +196,13 @@ export default {
       ticketingUrl: 'https://interpark.com',
       cast: [ '배우1', '배우2', '배우3'],
       producer: ['제작사1', '제작사2'],
-      relatedShow: [],
+      relatedShow: [{
+        id: '1',
+        posterPath: '//ticketimage.interpark.com/Play/image/large/21/21007693_p.gif',
+      },{
+        id: '2',
+        posterPath: '//ticketimage.interpark.com/Play/image/large/21/21007693_p.gif',
+      }],
       isEnd: false,
       number: 1,
       dialog: false,
@@ -205,10 +218,10 @@ export default {
       }
       return config
     },
-    getDetail(showId) {
+    getDetail(id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/api/show/${showId}`,
+        url: `http://127.0.0.1:8000/api/show/${id}`,
       })
       .then(res => {
         console.log(res)
@@ -221,28 +234,44 @@ export default {
     goTicketSite: function(number) {
       if (number == 1) {
         axios({
-            method: 'post',
-            url: `http://127.0.0.1:8000/api/show/${this.showId}/preference`,
-            headers: this.setToken(),
-            data: {
-              userId: ''
-            }
-          })
-        }
+          method: 'post',
+          url: `http://127.0.0.1:8000/api/show/${this.id}/preference`,
+          headers: this.setToken(),
+          data: {
+            userId: ''
+          }
+        })
+      }
       // 예매사이트로 가게 하기
+      window.location.href=`https://interpark.com/${this.showId}`
     },
     // 조회한 공연 추가
     addLookUp: function () {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/api/show/${this.showId}`,
+        url: `http://127.0.0.1:8000/api/show/${this.id}`,
         headers: this.setToken(),
       })
     },
+    // 연관 공연 추가
+    addRelatedShow: function () {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/api/${this.id}/hashTag`,
+      })
+      .then((res) => {
+        console.log(res)
+        // this.relatedShow = res.data
+      })
+    },
+    // 연관 공연 상세보기 페이지로 이동
+    moveToShow: function(id) {
+      this.$router.push({name: 'ShowDetail', params: {id : id}})
+    }
   },
   created: function () {
-    this.showId = this.$route.params.showId
-    this.getDetail(this.showId)
+    this.id = this.$route.params.id
+    this.getDetail(this.id)
     
   }
 }
@@ -265,6 +294,7 @@ export default {
   }
   .li-btn{
     display: inline-block;
+    color: rgb(246, 247, 235)
   }
   .btn-detail{
     display: inline-block;
