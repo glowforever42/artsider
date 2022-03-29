@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Getter    // getter 자동 추가
 @Entity    // entity
 @NoArgsConstructor    // 기본생성자 자동 추가
@@ -73,4 +72,3 @@ public class Show {
 //        getCastingLists().add(castingList);
 //    }
 }
-
