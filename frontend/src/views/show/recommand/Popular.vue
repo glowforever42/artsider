@@ -3,8 +3,9 @@
   <h1 class="ml-4 mb-4">인기 순위</h1> 
   <div class="swiper-wrapper">
     <div class="swiper-slide">
+      <!-- name: 에 params를 주는걸 권장 -->
       <v-img
-        @click="$router.push({path: `show-detail/${showId}`})"
+        @click="$router.push({ name: 'ShowDetail', params: `${showId}`})"
         :aspect-ratio="3/4"
         src="https://w.namu.la/s/1837eead0acfe94c64358c7662f75cc5af8a71765f05e2ff9f2ee8558ef463f51cac6f7b60f9d5b11461a754629d5c70c944a241ce5bf5d0b3bbb884fb06674db0e1a93c30a5f5b808cd2ba4f39943fb"    
         >

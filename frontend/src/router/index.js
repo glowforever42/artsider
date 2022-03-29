@@ -24,7 +24,6 @@ import EtiquetteDetail from './etiquettes/etiquetteDetail'
 // import Food from './'
 
 // 추천 목록
-import Popular from './recommand/popular'
 
 import ShowDetail from './showDetail'
 
@@ -58,7 +57,6 @@ const routes = [
   // ...Food,
   ...Home,
   ...ShowDetail,
-  ...Popular
 ]
 
 
