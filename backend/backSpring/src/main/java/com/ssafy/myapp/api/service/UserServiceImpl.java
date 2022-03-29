@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setNickname(userRegisterInfo.getNickname());
 		user.setTelNum(userRegisterInfo.getTelNum());
-		user.setCreateDate(Calendar.getInstance().getTime());
+		user.setCreateDate(LocalDateTime.now());
 
 		return userRepository.save(user);
 	}
@@ -93,7 +93,6 @@ public class UserServiceImpl implements UserService {
 		User updateUser = userRepository.findUserByEmail(email).get();
 		updateUser.setPassword(passwordEncoder.encode(password));
 		userRepository.save(updateUser);
-
 	}
 
 	@Override

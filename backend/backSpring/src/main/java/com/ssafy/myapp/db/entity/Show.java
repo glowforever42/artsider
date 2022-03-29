@@ -69,6 +69,12 @@ public class Show {
     @Column(nullable = false)
     private String womenRate;    // 여성 이용자 예매율
 
+    @OneToMany(mappedBy = "show")
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "show")
+    private List<Expectation> expectations = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "show")
 //    private List<CastingList> castingLists = new ArrayList<CastingList>();
 //
@@ -76,6 +82,7 @@ public class Show {
 //        castingList.setShow(this);
 //        getCastingLists().add(castingList);
 //    }
+
     
     @OneToMany(mappedBy = "show")
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -87,3 +94,4 @@ public class Show {
     @JsonBackReference //추가
     private List<Viewed> viewed = new ArrayList<>();
 }
+

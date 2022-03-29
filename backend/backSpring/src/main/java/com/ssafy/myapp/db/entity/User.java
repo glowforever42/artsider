@@ -22,11 +22,14 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import java.util.List;
+
+import javax.persistence.*;
+
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 
 @Entity
 @Getter
@@ -35,17 +38,15 @@ public class User {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long id;
 
     private String email;
     private String password;
     private String nickname;
     private String telNum;
+
     private String profileImg;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
     
     @OneToMany(mappedBy = "user")//뒤의 fetch 안했을 시에 에러나서 추가해줌
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -62,5 +63,13 @@ public class User {
     @JsonBackReference //무한 호출 방지
     private List<UserTag> userTag = new ArrayList<>();
 
-   
+
+    private LocalDateTime createDate;
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Expectation> expectations = new ArrayList<>();
+
 }

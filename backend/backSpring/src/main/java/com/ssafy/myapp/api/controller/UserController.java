@@ -54,7 +54,6 @@ public class UserController {
     
     @Autowired
     public UserController(UserService userService,PasswordEncoder passwordEncoder) {
-
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
