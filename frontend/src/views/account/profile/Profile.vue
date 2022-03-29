@@ -38,23 +38,25 @@
         </div>
       </div>
 
-   
-      <router-link :to="{name: 'ProfileMyContents'}"> 공연 보관함 </router-link>
-      <hr>
-      <router-view/>
-      <ProfileMyContents/>
+      <div>
+        <router-link :to="{name: 'ProfileDefault'}"> 공연 보관함 </router-link>
+        <router-link :to="{name: 'ProfileMyReviews'}"> 리뷰 보관함 </router-link> 
+        <router-link :to="{name: 'ProfileCalendar'}"> 캘린더 </router-link>  
+      </div>
 
+      <hr/>
+      <router-view></router-view>
     </v-container>
   </div>
 </template>
 
 <script>
-import ProfileMyContents from './ProfileMyContents'
+// import ProfileMyContents from './ProfileMyContents'
 
 export default {
   name: 'Profile',
   components: {
-    ProfileMyContents
+    // ProfileMyContents
   },
   data(){
     return{
@@ -80,17 +82,4 @@ export default {
   height: 100%;
 }
 
-.li-btn{
-  display: inline-block;
-  list-style: none;
-  cursor: pointer;
-}
-
-.li-btn span{
-  font-size: 1.5rem;
-}
-
-.click-item{
-  font-weight: bold;
-}
 </style>

@@ -24,13 +24,7 @@ import EtiquetteDetail from './etiquetteDetail'
 // import Food from './'
 
 import ShowDetail from './showDetail'
-// import Profile from './profile'
-
-import Profile from '@/views/account/profile/Profile.vue'
-import ProfileMyContents from '@/views/account/profile/ProfileMyContents.vue'
-import ProfileMyReviews from '@/views/account/profile/ProfileMyReviews.vue'
-import ProfileCalendar from '@/views/account/profile/ProfileCalendar.vue'
-
+import Profile from './profile'
 
 
 Vue.use(VueRouter)
@@ -61,29 +55,8 @@ const routes = [
 
 
   //profile
-  // ...Profile
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
-    children: [
-      {
-        path: 'my-contents',
-        name: 'ProfileMyContents',
-        conmponent: ProfileMyContents
-      },
-      {
-        path: 'my-reviews',
-        name: 'ProfileMyReviews',
-        component: ProfileMyReviews
-      }, 
-      {
-        path: 'calendar',
-        name: 'ProfileCalendar',
-        component: ProfileCalendar
-      }
-    ],
-},
+  ...Profile
+  
 ]
 
 const router = new VueRouter({

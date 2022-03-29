@@ -1,11 +1,12 @@
 <template>
-  <div class="my-contents-wrapper">
+   <div class="my-contents-wrapper mt-5">
     <div
       class="preference"
     >
       <h1> 관심 콘텐츠 </h1>
       <v-container
         class="preference-contents-box"
+
       >
         <!-- <v-img
           width="300"
@@ -71,28 +72,12 @@
 
 <script>
 export default {
-  name: 'ProfileMyContents',
+  name: 'ProfileDefault',
   data(){
     return{
       posters: ['poster1', 'poster2', 'poster3', 'poster4', 'poster5', 'poster6', 'poster7']
     }
   },
-
-  // computed: {
-  //   posters(){
-  //     return this.$store.state.myContents
-  //   },
-
-  // },
-
-  // created(){
-  //   const token = JSON.parse(localStorage.getItem('userInfo')).token
-  //   console.log(token)
-  //   if(token){
-  //     this.$store.dispatch('getMyContents', token)
-  //   }
-  // },
-
 }
 </script>
 
@@ -113,5 +98,4 @@ export default {
   background-color: #FFF0E2;
   overflow-y: auto;
 }
-
 </style>
