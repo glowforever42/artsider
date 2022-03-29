@@ -9,6 +9,7 @@ import com.ssafy.myapp.db.entity.*;
 import com.ssafy.myapp.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,22 @@ public class ShowServiceImpl implements ShowService{
     private final ShowRepository showRepository;
     private final ShowDetailImgRepository showDetailImgRepository;
 
+
+    // 검색 기능(제목)
+    @Override
+    @Transactional
+    public List<ShowListGetRes> findShowName(String keyword) {
+        List<Show> shows = showRepository.findByShowNameContaining(keyword);
+        List<ShowListGetRes> showList = new ArrayList<>();
+
+        if (shows.isEmpty()) return showList;
+
+        for (Show show : shows) {
+            ShowListGetRes showInfo = new ShowListGetRes(show);
+            showList.add(showInfo);
+        }
+        return showList;
+    }
 
     // 전체 공연 목록 조회
     @Override
@@ -109,7 +126,7 @@ public class ShowServiceImpl implements ShowService{
     public List<ShowListGetRes> findShowEndList() throws ParseException {
         List<ShowListGetRes> showEndList = new ArrayList<ShowListGetRes>();
         List<Show> showAllList = showRepository.findAll();
-        // 오늘 날짜 HH:mm:ss
+        // 오늘 날짜
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",  Locale.KOREA );
         String dateNow = dateFormat.format(today);
@@ -136,7 +153,7 @@ public class ShowServiceImpl implements ShowService{
     public List<ShowListGetRes> findShowCategoryEndList(String category) throws ParseException {
         List<ShowListGetRes> showCategoryEndList = new ArrayList<ShowListGetRes>();
         List<Show> showAllList = showRepository.findAll();
-        // 오늘 날짜 HH:mm:ss
+        // 오늘 날짜
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",  Locale.KOREA );
         String dateNow = dateFormat.format(today);
@@ -182,7 +199,7 @@ public class ShowServiceImpl implements ShowService{
         return popularShowAllList;
     }
 
-    // 카테고리별 인기 공연 목록()
+    // 카테고리별 인기 공연 목록
     @Override
     public List<PopularShowListGetRes> findPopularShowCategoryList(String category) {
 
@@ -193,11 +210,8 @@ public class ShowServiceImpl implements ShowService{
             Show showInfo = showRepository.findByShowId(popularShow.getShowId());
             if (showInfo.getCategory().equals(category)) {
 
-                ArtCenter artCenter = artCenterRepository.findByArtCenterName(showInfo.getShowId());
-
                 PopularShowListGetRes popularShowInfo = new PopularShowListGetRes(popularShow);
 
-                popularShowInfo.setArtCenter(artCenter);
                 popularShowInfo.setShow(showInfo);
                 popularShowCategoryAllList.add(popularShowInfo);
             }

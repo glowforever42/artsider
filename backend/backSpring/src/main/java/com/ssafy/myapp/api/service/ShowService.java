@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public interface ShowService {
+    List<ShowListGetRes> findShowName(String keyword);
     List<ShowListGetRes> findShowAllList();
     List<ShowListGetRes> findShowCategoryAllList(String category);
     List<ShowListGetRes> findShowStartList() throws ParseException;

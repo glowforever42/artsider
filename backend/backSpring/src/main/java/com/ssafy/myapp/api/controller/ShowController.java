@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.*;
@@ -28,24 +25,37 @@ public class ShowController {
 
     private final ShowService showService;
 
-    HashMap<String,String> map = new HashMap<String,String>(){{
-        put("MU","뮤지컬");
-        put("CO","콘서트");
-        put("CL","클래식/오페라");
-        put("DA","무용/전통예술");
-        put("DR","연극");
-        put("FA","아동/가족");
+    HashMap<String, String> map = new HashMap<String, String>() {{
+        put("MU", "뮤지컬");
+        put("CO", "콘서트");
+        put("CL", "클래식/오페라");
+        put("DA", "무용/전통예술");
+        put("DR", "연극");
+        put("FA", "아동/가족");
     }};
 
-    // 전체 공연 목록 조회
-    @GetMapping("/all")
+
+    // 검색 기능
+    @GetMapping("/search")
     @ApiResponses({    // Api가 붙은 annotation은 swagger와 설정과 관련된 Annotation
             @ApiResponse(code = 200, message = "공연 목록 조회 성공"),
             @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
+    public ResponseEntity<List<ShowListGetRes>> searchList(@RequestParam(value = "keyword") String keyword) {
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowName(keyword), HttpStatus.OK);
+    }
+
+
+    // 전체 공연 목록 조회
+    @GetMapping("/all")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
     public ResponseEntity<List<ShowListGetRes>> showAllList() {
-        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowAllList(),HttpStatus.OK);
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowAllList(), HttpStatus.OK);
     }
 
 
@@ -57,7 +67,7 @@ public class ShowController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
     public ResponseEntity<List<ShowListGetRes>> showCategoryList(@PathVariable String category) {
-        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowCategoryAllList(map.get(category)),HttpStatus.OK);
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowCategoryAllList(map.get(category)), HttpStatus.OK);
     }
 
     // 개막 예정 공연 목록
@@ -68,7 +78,7 @@ public class ShowController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
     public ResponseEntity<List<ShowListGetRes>> showStartList() throws ParseException {
-        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowStartList(),HttpStatus.OK);
+        return new ResponseEntity<List<ShowListGetRes>>(showService.findShowStartList(), HttpStatus.OK);
     }
 
     // 카테고리별 개막 예정 공연 목록
