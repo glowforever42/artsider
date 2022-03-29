@@ -147,6 +147,7 @@ export default {
     this.swiper = new Swiper('.swiper', {
       slidesPerView: 7,
       slidePerGroup: 5,
+      spaceBetween : 20,
       direction: 'horizontal',
       navigation: {
         nextEl: '.swiper-button-next',

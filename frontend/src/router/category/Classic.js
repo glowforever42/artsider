@@ -1,7 +1,7 @@
 export default [
   {
-    path: '/show-list/classic',
+    path: 'show-list/classic',
     name: 'classic',
-      component: () => import('@/views/show/category/Classic.vue')
+      component: () => import('../../views/show/category/Classic.vue')
   }
 ]

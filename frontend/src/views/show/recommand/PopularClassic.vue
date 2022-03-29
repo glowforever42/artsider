@@ -6,7 +6,6 @@
       <v-img
         :aspect-ratio="3/4"
         src="https://w.namu.la/s/1837eead0acfe94c64358c7662f75cc5af8a71765f05e2ff9f2ee8558ef463f51cac6f7b60f9d5b11461a754629d5c70c944a241ce5bf5d0b3bbb884fb06674db0e1a93c30a5f5b808cd2ba4f39943fb"
-        clic
         >
         <h1 class="rank">1</h1>
         </v-img>
@@ -133,7 +132,6 @@
 import Swiper from 'swiper/js/swiper.esm.bundle'
 import 'swiper/css/swiper.css'
 
-
 export default {
   name: 'Popular',
   data(){
@@ -148,13 +146,14 @@ export default {
     this.swiper = new Swiper('.swiper', {
       slidesPerView: 7,
       slidePerGroup: 5,
+      spaceBetween : 30,
       direction: 'horizontal',
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev'
       },
     })
-  }
+  },
 }
 </script>
 

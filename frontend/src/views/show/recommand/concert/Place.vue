@@ -1,6 +1,6 @@
 <template>
 <div class="swiper mt-6">
-  <h1 class="ml-4 mb-4">인기 순위</h1> 
+  <h1 class="ml-4 mb-4">김공연 님 근처에서 이런 공연이 하고 있네요!</h1> 
   <div class="swiper-wrapper">
     <div class="swiper-slide">
       <v-img

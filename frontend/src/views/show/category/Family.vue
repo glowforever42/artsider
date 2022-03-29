@@ -1,46 +1,53 @@
 <template>
 <div>
-  <div>
-    <!-- <div class="gcse-search"></div> -->
+  <div class=recommand-list>
+  <FamilyPopular />
   </div>
   <div class=recommand-list>
-  <Popular />
+  <FamilyComingEnd />
   </div>
   <div class=recommand-list>
-  <ComingEnd />
+  <FamilyComingSoon />
   </div>
   <div class=recommand-list>
-  <ComingSoon />
+  <FamilyPreferenceTag />
   </div>
   <div class=recommand-list>
-  <PreferenceTag />
+  <FamilySimilar />
+  </div>
+  <div class=recommand-list>
+  <FamilyPlace />
   </div>
 </div>
 </template>
 
 <script>
-import Swiper from 'swiper/js/swiper.esm.bundle'
-import 'swiper/css/swiper.css'
+// import Swiper from 'swiper/js/swiper.esm.bundle'
+// import 'swiper/css/swiper.css'
 
-import Popular from '../views/show/recommand/Popular.vue'
-import ComingEnd from '../views/show/recommand/ComingSoon.vue'
-import ComingSoon from '../views/show/recommand/ComingEnd.vue'
-import PreferenceTag from '../views/show/recommand/PreferenceTag.vue'
+import FamilyPopular from '../views/show/recommand/family/Popular.vue'
+import FamilyComingEnd from '../views/show/recommand/family/ComingSoon.vue'
+import FamilyComingSoon from '../views/show/recommand/family/ComingEnd.vue'
+import FamilyPreferenceTag from '../views/show/recommand/family/PreferenceTag.vue'
+import FamilySimilar from '../views/show/recommand/family/Similar.vue'
+import FamilyPlace from '../views/show/recommand/family/Place.vue'
 
 
 export default {
   name: 'swiperTest',
   data(){
     return{
-      swiper: null,
+      // swiper: null,
     }
   },
 
   components: {
-    Popular,
-    ComingEnd,
-    ComingSoon,
-    PreferenceTag,
+    FamilyPopular,
+    FamilyComingEnd,
+    FamilyComingSoon,
+    FamilyPreferenceTag,
+    FamilySimilar,
+    FamilyPlace,
   },
   // axios 로직 
   // 클릭했을때 상세정보로 이동
@@ -49,22 +56,22 @@ export default {
   // 카테고리 별 createHook 포스터 정보 받아오게
   // 일단 에티켓 쳐내고 
   // 
-  mounted(){
-    this.swiper = new Swiper('.swiper', {
-      slidesPerView: 9,
-      slidePerGroup: 6,
-      direction: 'horizontal',
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      },
-    })
-  }
+  // mounted(){
+  //   this.swiper = new Swiper('.swiper', {
+  //     slidesPerView: 9,
+  //     slidePerGroup: 6,
+  //     direction: 'horizontal',
+  //     navigation: {
+  //       nextEl: '.swiper-button-next',
+  //       prevEl: '.swiper-button-prev'
+  //     },
+  //   })
+  // }
 }
 </script>
 <style>
 
-.swiper {
+/* .swiper {
   position: relative;
   width: 100%;
   height: 40%;
@@ -99,6 +106,6 @@ export default {
 
 .recommand-list {
   margin-bottom: 4rem;
-}
+} */
 
 </style>
