@@ -44,12 +44,6 @@ public class ShowServiceImpl implements ShowService{
         return showList;
     }
 
-    // 전체 공연 목록 조회
-    @Override
-    public List<ShowListGetRes> findShowAllList() {
-        return showRepository.findAll().stream().map(ShowListGetRes::new).collect(Collectors.toList());
-    }
-
     // 카테고리별 전체 공연 목록 조회
     @Override
     public List<ShowListGetRes> findShowCategoryAllList(String category) {
@@ -64,7 +58,6 @@ public class ShowServiceImpl implements ShowService{
         }
         return showCategoryAllList;
     }
-
 
     // 개막 예정 공연 목록
     @Override
@@ -91,7 +84,6 @@ public class ShowServiceImpl implements ShowService{
         showStartList.sort(Comparator.comparing(ShowListGetRes::getStartDate));
         return showStartList;
     }
-
 
     // 카테고리별 개막 예정 목록
     @Override
@@ -223,7 +215,7 @@ public class ShowServiceImpl implements ShowService{
 
     // 공연 상세 조회
     @Override
-    public ShowDetailsGetRes findShowDetails(Long id) throws NoSuchElementException {
+    public List<ShowDetailsGetRes> findShowDetails(Long id) throws NoSuchElementException {
 
         Show show = showRepository.findById(id).get();
         ArtCenter artCenter = artCenterRepository.findByArtCenterName(show.getArtCenterName());
@@ -231,6 +223,7 @@ public class ShowServiceImpl implements ShowService{
         List<NoticeImg> notice = noticeImgRepository.findByShowId(show.getShowId());
         List<ShowDetailImg> showDetail = showDetailImgRepository.findByShowId(show.getShowId());
 
+        List<ShowDetailsGetRes> showList = new ArrayList<>();
         ShowDetailsGetRes showInfo = new ShowDetailsGetRes();
 
         showInfo.setId(show.getId());
@@ -253,12 +246,15 @@ public class ShowServiceImpl implements ShowService{
         showInfo.setNoticeImg(notice);
         showInfo.setShowDetailImg(showDetail);
         showInfo.setArtCenter(artCenter);
-        return showInfo;
+
+        showList.add(showInfo);
+        return showList;
     }
 
     // 공연장 시설 조회
     @Override
-    public ArtCenterDetailsGetRes findArtCenterDetails(String artCenterName) throws NoSuchElementException {
+    public List<ArtCenterDetailsGetRes> findArtCenterDetails(String artCenterName) throws NoSuchElementException {
+        List<ArtCenterDetailsGetRes> artCenterList = new ArrayList<>();
 
         ArtCenter artCenter = artCenterRepository.findByArtCenterName(artCenterName);
         ArtCenterDetailsGetRes artCenterInfo = new ArtCenterDetailsGetRes();
@@ -269,7 +265,8 @@ public class ShowServiceImpl implements ShowService{
         artCenterInfo.setArtCenterTel(artCenter.getArtCenterTel());
         artCenterInfo.setArtCenterWeb(artCenter.getArtCenterWeb());
 
-        return artCenterInfo;
+        artCenterList.add(artCenterInfo);
+        return artCenterList;
     }
 
 }

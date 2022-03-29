@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 
 public interface ShowService {
     List<ShowListGetRes> findShowName(String keyword);
-    List<ShowListGetRes> findShowAllList();
     List<ShowListGetRes> findShowCategoryAllList(String category);
     List<ShowListGetRes> findShowStartList() throws ParseException;
     List<ShowListGetRes> findShowCategoryStartList(String category) throws ParseException;
@@ -20,6 +19,6 @@ public interface ShowService {
     List<ShowListGetRes> findShowCategoryEndList(String category) throws ParseException;
     List<PopularShowListGetRes> findPopularShowList();
     List<PopularShowListGetRes> findPopularShowCategoryList(String category);
-    ShowDetailsGetRes findShowDetails(Long id) throws NoSuchElementException;
-    ArtCenterDetailsGetRes findArtCenterDetails(String artCenterName) throws NoSuchElementException;
+    List<ShowDetailsGetRes> findShowDetails(Long id) throws NoSuchElementException;
+    List<ArtCenterDetailsGetRes> findArtCenterDetails(String artCenterName) throws NoSuchElementException;
 }
