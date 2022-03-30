@@ -71,8 +71,14 @@ public class ShowController {
     })
     public ResponseEntity<Map<String , List<ShowListGetRes>>> showStartList() throws ParseException {
         Map<String, List<ShowListGetRes>> resultMap = new HashMap<>();
-        resultMap.put("items", showService.findShowStartList());
-        return new ResponseEntity<Map<String , List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("items", showService.findShowStartList());
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        } catch (ParseException e) {
+            resultMap.put("items", showService.findShowStartList());
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.BAD_REQUEST);
+
+        }
     }
 
     // 카테고리별 개막 예정 공연 목록
@@ -84,8 +90,13 @@ public class ShowController {
     })
     public ResponseEntity<Map<String , List<ShowListGetRes>>> showCategoryStartList(@PathVariable String category) throws ParseException {
         Map<String, List<ShowListGetRes>> resultMap = new HashMap<>();
-        resultMap.put("items", showService.findShowCategoryStartList(map.get(category)));
-        return new ResponseEntity<Map<String , List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("items", showService.findShowCategoryStartList(category));
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        } catch (ParseException e) {
+            resultMap.put("items", showService.findShowCategoryStartList(category));
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.BAD_REQUEST);
+        }
     }
 
     // 종료 임박 공연 목록
@@ -97,8 +108,13 @@ public class ShowController {
     })
     public ResponseEntity<Map<String , List<ShowListGetRes>>> showEndList() throws ParseException {
         Map<String, List<ShowListGetRes>> resultMap = new HashMap<>();
-        resultMap.put("items", showService.findShowEndList());
-        return new ResponseEntity<Map<String , List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("items", showService.findShowEndList());
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        } catch (ParseException e) {
+            resultMap.put("items", showService.findShowEndList());
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.BAD_REQUEST);
+        }
     }
 
     // 카테고리별 종료 임박 공연 목록
@@ -110,8 +126,13 @@ public class ShowController {
     })
     public ResponseEntity<Map<String , List<ShowListGetRes>>> showCategoryEndList(@PathVariable String category) throws ParseException {
         Map<String, List<ShowListGetRes>> resultMap = new HashMap<>();
-        resultMap.put("items", showService.findShowCategoryEndList(map.get(category)));
-        return new ResponseEntity<Map<String , List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("items", showService.findShowCategoryEndList(map.get(category)));
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+        } catch (ParseException e) {
+            resultMap.put("items", showService.findShowCategoryEndList(map.get(category)));
+            return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.BAD_REQUEST);
+        }
     }
 
     // 전체 인기 공연 목록
