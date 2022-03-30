@@ -1,15 +1,22 @@
 <template>
 <div>
   <div class=recommand-list>
-  <ConcertPopular />
+  <Popular 
+  :num = num
+  :genre = genre
+  />
   </div>
   <div class=recommand-list>
-  <ConcertComingEnd />
+  <ComingEnd 
+  :num = num
+  />
   </div>
   <div class=recommand-list>
-  <ConcertComingSoon />
+  <ComingSoon 
+  :num = num
+  />
   </div>
-  <div class=recommand-list>
+  <!-- <div class=recommand-list>
   <ConcertPreferenceTag />
   </div>
   <div class=recommand-list>
@@ -17,7 +24,7 @@
   </div>
   <div class=recommand-list>
   <ConcertPlace />
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -25,29 +32,31 @@
 // import Swiper from 'swiper/js/swiper.esm.bundle'
 // import 'swiper/css/swiper.css'
 
-import ConcertPopular from '../views/show/recommand/concert/Popular.vue'
-import ConcertComingEnd from '../views/show/recommand/concert/ComingSoon.vue'
-import ConcertComingSoon from '../views/show/recommand/concert/ComingEnd.vue'
-import ConcertPreferenceTag from '../views/show/recommand/concert/PreferenceTag.vue'
-import ConcertSimilar from '../views/show/recommand/concert/Similar.vue'
-import ConcertPlace from '../views/show/recommand/concert/Place.vue'
+import Popular from '../views/show/recommand/category/Popular.vue'
+import ComingEnd from '../views/show/recommand/category/ComingSoon.vue'
+import ComingSoon from '../views/show/recommand/category/ComingEnd.vue'
+// import ConcertPreferenceTag from '../views/show/recommand/concert/PreferenceTag.vue'
+// import ConcertSimilar from '../views/show/recommand/concert/Similar.vue'
+// import ConcertPlace from '../views/show/recommand/concert/Place.vue'
 
 
 export default {
-  name: 'Main',
+  name: 'Concert',
   data(){
     return{
+      num : 2,
+      genre: '콘서트'
       // swiper: null,
     }
   },
 
   components: {
-    ConcertPopular,
-    ConcertComingEnd,
-    ConcertComingSoon,
-    ConcertPreferenceTag,
-    ConcertSimilar,
-    ConcertPlace,
+    Popular,
+    ComingEnd,
+    ComingSoon,
+    // ConcertPreferenceTag,
+    // ConcertSimilar,
+    // ConcertPlace,
   },
   // axios 로직 
   // 클릭했을때 상세정보로 이동

@@ -1,15 +1,22 @@
 <template>
 <div>
   <div class=recommand-list>
-  <ClassicPopular />
+  <Popular 
+  :num = num
+  :genre = genre
+  />
   </div>
   <div class=recommand-list>
-  <ClassicComingEnd />
+  <ComingEnd 
+  :num = num
+  />
   </div>
   <div class=recommand-list>
-  <ClassicComingSoon />
+  <ComingSoon 
+  :num = num
+  />
   </div>
-  <div class=recommand-list>
+  <!-- <div class=recommand-list>
   <ClassicPreferenceTag />
   </div>
   <div class=recommand-list>
@@ -17,7 +24,7 @@
   </div>
   <div class=recommand-list>
   <ClassicPlace />
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -25,29 +32,31 @@
 // import Swiper from 'swiper/js/swiper.esm.bundle'
 // import 'swiper/css/swiper.css'
 
-import ClassicPopular from '../views/show/recommand/classic/Popular.vue'
-import ClassicComingEnd from '../views/show/recommand/classic/ComingSoon.vue'
-import ClassicComingSoon from '../views/show/recommand/classic/ComingEnd.vue'
-import ClassicPreferenceTag from '../views/show/recommand/classic/PreferenceTag.vue'
-import ClassicSimilar from '../views/show/recommand/classic/Similar.vue'
-import ClassicPlace from '../views/show/recommand/classic/Place.vue'
+import Popular from '../views/show/recommand/category/Popular.vue'
+import ComingEnd from '../views/show/recommand/category/ComingSoon.vue'
+import ComingSoon from '../views/show/recommand/category/ComingEnd.vue'
+// import ClassicPreferenceTag from '../views/show/recommand/classic/PreferenceTag.vue'
+// import ClassicSimilar from '../views/show/recommand/classic/Similar.vue'
+// import ClassicPlace from '../views/show/recommand/classic/Place.vue'
 
 
 export default {
-  name: 'Main',
+  name: 'Classic',
   data(){
     return{
+      num : 1,
+      genre: '클래식'
       // swiper: null,
     }
   },
 
   components: {
-    ClassicPopular,
-    ClassicComingEnd,
-    ClassicComingSoon,
-    ClassicPreferenceTag,
-    ClassicSimilar,
-    ClassicPlace,
+    Popular,
+    ComingEnd,
+    ComingSoon,
+    // ClassicPreferenceTag,
+    // ClassicSimilar,
+    // ClassicPlace,
   },
   // axios 로직 
   // 클릭했을때 상세정보로 이동

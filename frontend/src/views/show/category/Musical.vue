@@ -1,15 +1,22 @@
 <template>
 <div>
   <div class=recommand-list>
-  <MusicalPopular />
+  <Popular 
+  :num = num
+  :genre = genre
+  />
   </div>
   <div class=recommand-list>
-  <MusicalComingEnd />
+  <ComingEnd 
+  :num = num
+  />
   </div>
   <div class=recommand-list>
-  <MusicalComingSoon />
+  <ComingSoon 
+  :num = num
+  />
   </div>
-  <div class=recommand-list>
+  <!-- <div class=recommand-list>
   <MusicalPreferenceTag />
   </div>
   <div class=recommand-list>
@@ -17,34 +24,36 @@
   </div>
   <div class=recommand-list>
   <MusicalPlace />
-  </div>
+  </div> -->
 </div>
 </template>
 
 <script>
-import MusicalPopular from '../views/show/recommand/musical/Popular.vue'
-import MusicalComingEnd from '../views/show/recommand/musical/ComingSoon.vue'
-import MusicalComingSoon from '../views/show/recommand/musical/ComingEnd.vue'
-import MusicalPreferenceTag from '../views/show/recommand/musical/PreferenceTag.vue'
-import MusicalSimilar from '../views/show/recommand/musical/Similar.vue'
-import MusicalPlace from '../views/show/recommand/musical/Place.vue'
+import Popular from '../views/show/recommand/category/Popular.vue'
+import ComingEnd from '../views/show/recommand/category/ComingSoon.vue'
+import ComingSoon from '../views/show/recommand/category/ComingEnd.vue'
+// import MusicalPreferenceTag from '../views/show/recommand/musical/PreferenceTag.vue'
+// import MusicalSimilar from '../views/show/recommand/musical/Similar.vue'
+// import MusicalPlace from '../views/show/recommand/musical/Place.vue'
 
 
 export default {
-  name: 'Main',
+  name: 'Musical',
   data(){
     return{
+      num: 4,
+      genre: '뮤지컬'
       // swiper: null,
     }
   },
 
   components: {
-    MusicalPopular,
-    MusicalComingEnd,
-    MusicalComingSoon,
-    MusicalPreferenceTag,
-    MusicalSimilar,
-    MusicalPlace,
+    Popular,
+    ComingEnd,
+    ComingSoon,
+    // MusicalPreferenceTag,
+    // MusicalSimilar,
+    // MusicalPlace,
   },
   // axios 로직 
   // 클릭했을때 상세정보로 이동

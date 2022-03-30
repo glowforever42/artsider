@@ -1,15 +1,23 @@
 <template>
 <div>
   <div class=recommand-list>
-  <TheatrePopular />
+  <Popular 
+    :num = num
+    :genre = genre
+  />
+  <!-- 하위 컴포넌트에 num 값을 내려줌 -->
   </div>
   <div class=recommand-list>
-  <TheatreComingEnd />
+  <ComingEnd 
+    :num = num
+  />
   </div>
   <div class=recommand-list>
-  <TheatreComingSoon />
+  <ComingSoon 
+    :num = num
+  />
   </div>
-  <div class=recommand-list>
+  <!-- <div class=recommand-list>
   <TheatrePreferenceTag />
   </div>
   <div class=recommand-list>
@@ -17,7 +25,7 @@
   </div>
   <div class=recommand-list>
   <TheatrePlace />
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -25,29 +33,31 @@
 // import Swiper from 'swiper/js/swiper.esm.bundle'
 // import 'swiper/css/swiper.css'
 
-import TheatrePopular from '../views/show/recommand/theatre/Popular.vue'
-import TheatreComingEnd from '../views/show/recommand/theatre/ComingSoon.vue'
-import TheatreComingSoon from '../views/show/recommand/theatre/ComingEnd.vue'
-import TheatrePreferenceTag from '../views/show/recommand/theatre/PreferenceTag.vue'
-import TheatreSimilar from '../views/show/recommand/theatre/Similar.vue'
-import TheatrePlace from '../views/show/recommand/theatre/Place.vue'
+import Popular from '../views/show/recommand/category/Popular.vue'
+import ComingEnd from '../views/show/recommand/category/ComingSoon.vue'
+import ComingSoon from '../views/show/recommand/category/ComingEnd.vue'
+// import TheatrePreferenceTag from '../views/show/recommand/theatre/PreferenceTag.vue'
+// import TheatreSimilar from '../views/show/recommand/theatre/Similar.vue'
+// import TheatrePlace from '../views/show/recommand/theatre/Place.vue'
 
 
 export default {
-  name: 'Main',
+  name: 'Theatre',
   data(){
     return{
       // swiper: null,
+      num: 5,
+      genre: '연극'
     }
   },
 
   components: {
-    TheatrePopular,
-    TheatreComingEnd,
-    TheatreComingSoon,
-    TheatrePreferenceTag,
-    TheatreSimilar,
-    TheatrePlace,
+    Popular,
+    ComingEnd,
+    ComingSoon,
+    // TheatrePreferenceTag,
+    // TheatreSimilar,
+    // TheatrePlace,
   },
   // axios 로직 
   // 클릭했을때 상세정보로 이동

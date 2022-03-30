@@ -1,23 +1,30 @@
 <template>
 <div>
   <div class=recommand-list>
-  <FamilyPopular />
+  <Popular 
+  :num = num
+  :genre = genre
+  />
   </div>
   <div class=recommand-list>
-  <FamilyComingEnd />
+  <ComingEnd 
+  :num = num
+  />
   </div>
   <div class=recommand-list>
-  <FamilyComingSoon />
+  <ComingSoon 
+  :num = num
+  />
   </div>
-  <div class=recommand-list>
-  <FamilyPreferenceTag />
+  <!-- <div class=recommand-list>
+  <PreferenceTag />
   </div>
   <div class=recommand-list>
   <FamilySimilar />
   </div>
   <div class=recommand-list>
   <FamilyPlace />
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -25,29 +32,31 @@
 // import Swiper from 'swiper/js/swiper.esm.bundle'
 // import 'swiper/css/swiper.css'
 
-import FamilyPopular from '../views/show/recommand/family/Popular.vue'
-import FamilyComingEnd from '../views/show/recommand/family/ComingSoon.vue'
-import FamilyComingSoon from '../views/show/recommand/family/ComingEnd.vue'
-import FamilyPreferenceTag from '../views/show/recommand/family/PreferenceTag.vue'
-import FamilySimilar from '../views/show/recommand/family/Similar.vue'
-import FamilyPlace from '../views/show/recommand/family/Place.vue'
+import Popular from '../views/show/recommand/category/Popular.vue'
+import ComingEnd from '../views/show/recommand/category/ComingSoon.vue'
+import ComingSoon from '../views/show/recommand/category/ComingEnd.vue'
+// import FamilyPreferenceTag from '../views/show/recommand/family/PreferenceTag.vue'
+// import FamilySimilar from '../views/show/recommand/family/Similar.vue'
+// import FamilyPlace from '../views/show/recommand/family/Place.vue'
 
 
 export default {
-  name: 'Main',
+  name: 'Family',
   data(){
     return{
+      num : 3,
+      genre: '가족/어린이'
       // swiper: null,
     }
   },
 
   components: {
-    FamilyPopular,
-    FamilyComingEnd,
-    FamilyComingSoon,
-    FamilyPreferenceTag,
-    FamilySimilar,
-    FamilyPlace,
+    Popular,
+    ComingEnd,
+    ComingSoon,
+    // FamilyPreferenceTag,
+    // FamilySimilar,
+    // FamilyPlace,
   },
   // axios 로직 
   // 클릭했을때 상세정보로 이동
