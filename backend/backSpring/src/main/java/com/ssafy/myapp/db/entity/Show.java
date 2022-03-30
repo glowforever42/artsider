@@ -4,6 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +72,9 @@ public class Show {
     @OneToMany(mappedBy = "show")
     private List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "show")
+    private List<Expectation> expectations = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "show")
 //    private List<CastingList> castingLists = new ArrayList<CastingList>();
 //
@@ -71,4 +82,16 @@ public class Show {
 //        castingList.setShow(this);
 //        getCastingLists().add(castingList);
 //    }
+
+    
+    @OneToMany(mappedBy = "show")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonBackReference //추가
+    private List<Favorite> favorite = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "show")//뒤의 fetch 안했을 시에 에러나서 추가해줌
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonBackReference //추가
+    private List<Viewed> viewed = new ArrayList<>();
 }
+
