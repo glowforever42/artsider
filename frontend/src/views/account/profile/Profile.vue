@@ -75,6 +75,8 @@ export default {
 #profile{
   width: 100%;
   height: 100%;
+  overflow-y: auto;
+
 }
 
 .profile-wrapper{

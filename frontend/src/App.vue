@@ -5,7 +5,7 @@
     style="background-color: #FEFEF4">
     <NavBar />
     <v-sheet max-height="100vh" id="main" style="overflow: auto">
-      <v-main>
+      <v-main style="height: 100vh; overflow-y:auto;" >
         <router-view/>
       </v-main>
     </v-sheet>

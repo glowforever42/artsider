@@ -5,12 +5,12 @@ import Home from './home'
 import Main from './main'
 
 // 에티켓
-import Etiquette from './etiquette'
-import Classic from './etiquettes/etiquetteClassic'
-import KTraditionalMusic from './etiquettes/etiquetteKTraditionalMusic'
-import Musical from './etiquettes/etiquetteMusical'
-import Opera from './etiquettes/etiquetteOpera'
-import Theatre from './etiquettes/etiquetteTheatre'
+// import Etiquette from './etiquette'
+// import Classic from './etiquettes/etiquetteClassic'
+// import KTraditionalMusic from './etiquettes/etiquetteKTraditionalMusic'
+// import Musical from './etiquettes/etiquetteMusical'
+// import Opera from './etiquettes/etiquetteOpera'
+// import Theatre from './etiquettes/etiquetteTheatre'
 
 /// 에티켓 디테일
 // import EtiquetteDetail from './etiquettes/etiquetteDetail'
@@ -30,13 +30,13 @@ const routes = [
     name: 'Intro',
     component: Intro
   },
-  ...Etiquette,
+  // ...Etiquette,
   ...Main,
-  ...Classic,
-  ...KTraditionalMusic,
-  ...Musical,
-  ...Opera,
-  ...Theatre,
+  // ...Classic,
+  // ...KTraditionalMusic,
+  // ...Musical,
+  // ...Opera,
+  // ...Theatre,
 
   // ...EtiquetteDetail,
 
