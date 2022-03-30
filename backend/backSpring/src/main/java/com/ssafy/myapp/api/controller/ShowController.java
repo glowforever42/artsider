@@ -127,7 +127,6 @@ public class ShowController {
         return new ResponseEntity<Map<String , List<PopularShowListGetRes>>>(resultMap, HttpStatus.OK);
     }
 
-
     // 카테고리별 인기 공연 목록()
     @GetMapping("/{category}/popular")
     @ApiResponses({
@@ -140,7 +139,6 @@ public class ShowController {
         resultMap.put("items", showService.findPopularShowCategoryList(map.get(category)));
         return new ResponseEntity<Map<String , List<PopularShowListGetRes>>>(resultMap, HttpStatus.OK);
     }
-
 
     // 공연 상세 조회
     @GetMapping("/{id}")
@@ -159,7 +157,6 @@ public class ShowController {
             return new ResponseEntity<Map<String , List<ShowDetailsGetRes>>>(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
-
 
     // 공연 시설 조회
     @GetMapping("/{artcentername}/artcenter")
