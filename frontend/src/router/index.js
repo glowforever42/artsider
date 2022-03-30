@@ -19,6 +19,8 @@ import EtiquetteDetail from './etiquettes/etiquetteDetail'
 // 추천 목록
 
 import ShowDetail from './showDetail'
+import Profile from './profile'
+
 
 Vue.use(VueRouter)
 
@@ -40,6 +42,11 @@ const routes = [
 
   ...Home,
   ...ShowDetail,
+
+
+  //profile
+  ...Profile
+  
 ]
 
 
