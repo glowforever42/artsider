@@ -151,7 +151,7 @@ import 'swiper/css/swiper.css'
 
 
 export default {
-  name: 'Popular',
+  name: 'Similar',
   data(){
     return{
       swiper: null,

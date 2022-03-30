@@ -13,7 +13,7 @@ import Opera from './etiquettes/etiquetteOpera'
 import Theatre from './etiquettes/etiquetteTheatre'
 
 /// 에티켓 디테일
-import EtiquetteDetail from './etiquettes/etiquetteDetail'
+// import EtiquetteDetail from './etiquettes/etiquetteDetail'
 
 
 // 추천 목록
@@ -38,7 +38,7 @@ const routes = [
   ...Opera,
   ...Theatre,
 
-  ...EtiquetteDetail,
+  // ...EtiquetteDetail,
 
   ...Home,
   ...ShowDetail,
