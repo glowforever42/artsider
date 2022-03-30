@@ -8,12 +8,15 @@ export default new Vuex.Store({
   state: {
     token : '',
     myContents: [],
+
+    preferencePosters: [],
+    historyPosters : []
+
   },
 
   getters: {
-    loginStatus(){
-      const token = JSON.parse(localStorage.getItem('userInfo')).accessToken
-      return !!token
+    loginStatus(state){
+      return !!state.token
     }
   },
 
@@ -22,9 +25,13 @@ export default new Vuex.Store({
       state.token = token
     },
 
-    SET_MY_CONTENTS(state, posters){
-      state.myContents = posters
+    SET_MY_PREFERENCE(state, posters){
+      state.preferencePosters = posters
     },
+
+    SET_MY_HISTORY(state, history){
+      state.historyPosters = history
+    }
   },
 
   actions: {
@@ -71,30 +78,48 @@ export default new Vuex.Store({
       })
     },
 
+    setToken({commit}, token){
+      commit('SET_MY_TOKEN', token)
+    },
+
     getToken({commit}, inputData){
       const url = '/api/auth/login'
       axios.post(url, {...inputData})
       .then((res) => {
-        localStorage.setItem('userInfo', JSON.stringify(res.data))
-        commit('SET_MY_TOKEN')
+        localStorage.setItem('accessToken', res.data.accessToken)
+        commit('SET_MY_TOKEN', res.data.accessToken)
       })
 
     },
 
-    getMyContents({commit}, token){
+    getMyPreference({commit, state}){
       const url = '/api/users/profile/preference'
       axios.get(url, {
         headers: {
-          Authorization : `Bearer ${token}`
+          Authorization : `Bearer ${state.token}`
         }
       })
       .then((res) => {
-        commit('SET_MY_CONTENTS', res.data.items)
+        commit('SET_MY_PREFERENCE', res.data.items)
       })
       .catch((err) => {
         console.log(err)
       })
+    },
+
+    getMyHistory({commit, state}){
+        const url = '/api/users/profile/watchHistory'
+        axios.get(url, {
+          headers: {
+            Authorization : `Bearer ${state.token}`
+          }
+        })
+        .then((res) => {
+          commit('SET_MY_HISTORY', res.data.items)
+        })
     }
+
+
 
   },
   modules: {

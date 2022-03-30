@@ -25,6 +25,14 @@ export default {
   data(){
     return{
     }
+  },
+
+  created(){
+    console.log('로그인!')
+    // const token = localStorage.getItem('accessToken')
+    // if(token){
+    //   this.$store.dispatch('setToken', token)
+    // } 
   }
 }
 </script>
