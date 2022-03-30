@@ -65,7 +65,7 @@ public class PhotoController {
 			  produces = MediaType.IMAGE_JPEG_VALUE
 			)
 	@ApiOperation(value = "사용자 프로필 이미지 가져오기", notes = "회원의 프로필 이미지를 가져온다.")
-	public byte[] getImageWithMediaType(@PathVariable String profileImg) throws IOException {
+	public byte[] imageWithMediaTypeGet(@PathVariable String profileImg) throws IOException {
 		String absolutePath = new File("").getAbsolutePath() + "\\images\\";
 		InputStream in = new FileInputStream(absolutePath+profileImg);
 		byte[] imageByteArray = IOUtils.toByteArray(in);
