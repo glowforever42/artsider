@@ -24,8 +24,6 @@
 <script>
 import Swiper from 'swiper/js/swiper.esm.bundle'
 import 'swiper/css/swiper.css'
-// import axios from'axios'
-
 
 export default {
   name: 'Popular',
@@ -64,9 +62,7 @@ export default {
     })
   },
   created: function() {
-    // 새로 시작할 때 발생하는 이벤트
-    // 페이지 처음 들어올때 수행하는 이벤트
-    this.getPopularShow() 
+    this.getCategoryPopularShow() 
   }
 }
 </script>

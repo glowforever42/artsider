@@ -21,7 +21,6 @@
 <script>
 import Swiper from 'swiper/js/swiper.esm.bundle'
 import 'swiper/css/swiper.css'
-// import axios from'axios'
 
 
 export default {
@@ -33,8 +32,6 @@ export default {
     }
   },
 
-  components: {
-  },
   methods: {
     getPopularShow: function() {
       this.$store.dispatch('getPopularShow')
