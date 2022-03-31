@@ -18,9 +18,11 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r FROM Review r INNER JOIN r.show s WHERE s.id = :id")
     Page<Review> findByPerformanceId(@Param("id") Long id, Pageable pageable);
+
     
     @Query(value = "SELECT new map(r.rating as rating, count(r) as cnt) FROM Review r INNER JOIN r.user u WHERE u.id = :id GROUP BY r.rating ")
     public List<?> findReviewRatingCnt(@Param("id") Long id);
     
     List<UserReviewMapping> findByUser(User user);
 }
+
