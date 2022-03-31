@@ -12,10 +12,12 @@ import com.ssafy.myapp.api.request.UserpassPatchReq;
 import com.ssafy.myapp.api.service.UserService;
 import com.ssafy.myapp.common.auth.SsafyUserDetails;
 import com.ssafy.myapp.db.entity.Favorite;
+import com.ssafy.myapp.db.entity.Review;
 import com.ssafy.myapp.db.entity.Show;
 import com.ssafy.myapp.db.entity.User;
 import com.ssafy.myapp.db.entity.Viewed;
 import com.ssafy.myapp.db.mapping.ShowMapping;
+import com.ssafy.myapp.db.mapping.UserReviewMapping;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -394,6 +396,50 @@ public class UserController {
 
     }
     
+    
+    @GetMapping("/profile/reviewList")
+    @ApiOperation(value = "유저 리뷰 조회", notes = "유저가 작성한 리뷰를 수정한다. ")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "유저 정보 수정 성공"),
+            @ApiResponse(code = 401, message = "유저 정보 수정 실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<Map<String, Object>> userReiviewList(@ApiIgnore Authentication authentication) {
+    	Map<String, Object> resultMap = new HashMap<>();
+    	
+    	SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user =userDetails.getUser();
+        
+        user=userService.findUserByEmail(user.getEmail());
+        
+        List<UserReviewMapping> reviews=userService.findUserReview(user);
+        resultMap.put("message", "success");
+        resultMap.put("items",reviews);
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
+
+    }
+    
+    @GetMapping("/review/ratingStars")
+    @ApiOperation(value = "유저 리뷰 별점대 별 개수 목록 조회 ", notes = "유저가 작성한 리뷰의 평점별 개수를 조회한다.  ")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "조회 성공"),
+            @ApiResponse(code = 401, message = "조회 실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<Map<String, Object>> userReviewRatingCntList(@ApiIgnore Authentication authentication) {
+    	Map<String, Object> resultMap = new HashMap<>();
+    	
+    	SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user =userDetails.getUser();
+        
+        user=userService.findUserByEmail(user.getEmail());
+        
+        List<?> result=userService.findUserReviewRatingCnt(user);
+        resultMap.put("message", "success");
+        resultMap.put("items",result);
+        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
+
+    }
     
     
     

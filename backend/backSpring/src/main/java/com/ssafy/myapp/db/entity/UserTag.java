@@ -22,6 +22,7 @@ public class UserTag {
     private Long id;
 	
 	private String tag;
+	private int weight;
 	
 	@ManyToOne
     @JoinColumn(name = "user_id")
