@@ -8,14 +8,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.myapp.db.entity.User;
 
 public interface UserReviewMapping {
+	
 	Long getId();
 	String getTitle();
 	String getContents();
 	int getRating();
 	LocalDateTime getCreateDate();
 	Long getShowId();
+	
+
+	
+	
+
+	
+	
 
 }

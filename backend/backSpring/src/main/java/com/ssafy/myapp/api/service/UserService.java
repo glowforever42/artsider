@@ -35,5 +35,6 @@ public interface UserService {
 	User modifyUserProfileImg(User user,String profileImg);
 	List<UserReviewMapping> findUserReview(User user);
 	List<?> findUserReviewRatingCnt(User user);
+	List<?> findFavoriteShowTagCnt(User user);
 	
 }

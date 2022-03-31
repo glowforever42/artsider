@@ -21,6 +21,7 @@ import com.ssafy.myapp.db.mapping.UserReviewMapping;
 import com.ssafy.myapp.db.repository.FavoriteRepository;
 import com.ssafy.myapp.db.repository.ReviewRepository;
 import com.ssafy.myapp.db.repository.ShowRepository;
+import com.ssafy.myapp.db.repository.ShowTagRepository;
 import com.ssafy.myapp.db.repository.UserRepository;
 import com.ssafy.myapp.db.repository.ViewedRepository;
 
@@ -54,6 +55,9 @@ public class UserServiceImpl implements UserService {
 	ReviewRepository reviewRepository;
 	
 	@Autowired
+	ShowTagRepository showTagRepository;
+	
+	@Autowired
 	ShowRepository showRepository;
 	
 	@Autowired
@@ -85,10 +89,10 @@ public class UserServiceImpl implements UserService {
 	public User addUser(UserRegisterPostReq userRegisterInfo) {
 		User user = new User();
 
-		user.setEmail(userRegisterInfo.getEmail());
+		user.setEmail(userRegisterInfo.getUserEmail());
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
-		user.setNickname(userRegisterInfo.getNickname());
-		user.setTelNum(userRegisterInfo.getTelNum());
+		user.setNickname(userRegisterInfo.getUserName());
+		user.setTelNum(userRegisterInfo.getTelnum());
 		user.setCreateDate(LocalDateTime.now());
 
 		return userRepository.save(user);
@@ -269,6 +273,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<?> findUserReviewRatingCnt(User user) {
 		List<?> result=reviewRepository.findReviewRatingCnt(user.getId());
+		
+		return result;
+	}
+
+	@Override
+	public List<?> findFavoriteShowTagCnt(User user) {
+		List<?> result=showTagRepository.findFavoriteShowTagCnt(user.getId());
 		
 		return result;
 	}
