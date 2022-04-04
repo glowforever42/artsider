@@ -38,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -284,6 +285,16 @@ public class UserServiceImpl implements UserService {
 		List<?> result=showTagRepository.findFavoriteShowTagCnt(user.getId());
 		
 		return result;
+	}
+
+	@Override
+	public boolean findFavoriteByShowAndUser(Long userId, Long showId) {
+		Favorite favorite=favoriteRepository.findByUserAndShow(userRepository.findById(userId).get(), showRepository.findById(showId).get());
+		if(favorite==null) {
+			return false;
+		}
+		return true;
+		
 	}
 
 
