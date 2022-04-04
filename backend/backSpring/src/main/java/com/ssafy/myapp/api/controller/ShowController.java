@@ -127,7 +127,6 @@ public class ShowController {
         }
     }
 
-    // 카테고리별 종료 임박 공연 목록
     @GetMapping("/{category}/endDate")
     @ApiOperation(value = "카테고리별 종료 임박 공연 목록 조회", notes = "종료임박 순으로 해당 카테고리의 공연을 조회한다.")
     @ApiResponses({
@@ -150,7 +149,7 @@ public class ShowController {
     @ApiOperation(value = "사용자간의 유사도 공연 추천", notes = "사용자간의 유사도를 통해(리뷰 평점) 추천하는 공연 목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "추천 목록 조회 성공"),
-            @ApiResponse(code = 401, message = "추천록 조회 실패"),
+            @ApiResponse(code = 401, message = "추천 목록 조회 실패"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
     public ResponseEntity<Map<String, List<ShowListGetRes>>> showRecommendationList(@ApiIgnore Authentication authentication) {
@@ -158,6 +157,19 @@ public class ShowController {
         Long userId =userDetails.getUser().getId();
         Map<String, List<ShowListGetRes>> resultMap = new HashMap<>();
         resultMap.put("items", showService.findShowRecommendationList(userId));
+        return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/recommend/{showId}/relatedShow")
+    @ApiOperation(value = "연관 공연 목록", notes = "해당 공연에 연관된 공연을 가져온다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "연관 공연 목록 조회 성공"),
+            @ApiResponse(code = 401, message = "연관 공연 목록 조회 실패"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    public ResponseEntity<Map<String, List<ShowListGetRes>>> relatedShowList(@PathVariable Long showId) {
+        Map<String, List<ShowListGetRes>> resultMap = new HashMap<>();
+        resultMap.put("items", showService.findShowRelatedList(showId));
         return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
     }
 
