@@ -1,6 +1,9 @@
 package com.ssafy.myapp.api.controller;
 
 import java.util.HashMap;
+
+
+
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -19,10 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.myapp.api.request.UserRegisterPostReq;
 import com.ssafy.myapp.api.service.KakaoAuthService;
 import com.ssafy.myapp.api.service.RecommendationService;
+import com.ssafy.myapp.api.service.ShowService;
 import com.ssafy.myapp.api.service.UserService;
 import com.ssafy.myapp.common.util.JwtTokenUtil;
 import com.ssafy.myapp.db.entity.User;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
+
+@Api(value = "추천 API", tags = {"Recommend"})
 @RestController
 @RequestMapping("/api/show/recommend")
 public class RecommendController {
@@ -37,6 +48,12 @@ public class RecommendController {
 	
 	@ResponseBody
     @PostMapping("/{userId}/probability")
+	@ApiOperation(value = "예상 평점 분석 실행  ", notes = "사용자의 공연 예상 평점분석을 실행한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "실행 성공"),
+            @ApiResponse(code = 401, message = "실행 실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
     public ResponseEntity<Map<String, Object>> expectRatingRun(@PathVariable String userId) {
         String msg=recommendService.runExpectRating(userId);
         

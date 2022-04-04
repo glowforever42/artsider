@@ -220,7 +220,7 @@ public class ShowController {
         }
     }
     
- // 공연 상세 조회
+ // 공연을 좋아할 확률 제공
     @GetMapping("recommend/{showId}/probability")
     @ApiResponses({
             @ApiResponse(code = 200, message = "사용자와 공연을 좋아할 확률 제공 "),
