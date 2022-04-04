@@ -20,7 +20,7 @@
           style="height: 100%;"
         >
           <v-col
-            v-for="(poster, i) in posters"
+            v-for="(poster, i) in preferencePosters"
             :key="i"
             class="col-3 py-4"
             style="height: 80%;"
@@ -33,8 +33,6 @@
             >
             </v-card>
           </v-col>
-
-
         </v-row>
       </v-container>
     </div>
@@ -49,7 +47,7 @@
           style="height: 100%;"
         >
           <v-col
-            v-for="(poster, i) in posters"
+            v-for="(poster, i) in historyPosters"
             :key="i"
             class="col-3 py-4"
             style="height: 80%; "
@@ -75,19 +73,26 @@ export default {
   name: 'ProfileDefault',
   data(){
     return{
+      preferencePosters : [],
+      historyPosters : [],
     }
   },
 
-  computed:{
-    preferencePosters(){
-      return this.$store.state.preferencePosters
-    },
-  },  
-
-
   created(){
     this.$store.dispatch('getMyPreference')
+    .then((res) => {
+        this.preferencePosters = res.data.items
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+
+
     this.$store.dispatch('getMyHistory')
+    .then((res) => {
+      this.historyPosters = res.data.items
+    })
   }
 }
 </script>
