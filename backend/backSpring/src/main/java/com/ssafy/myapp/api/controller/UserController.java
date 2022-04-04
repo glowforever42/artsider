@@ -328,9 +328,11 @@ public class UserController {
         User user =userDetails.getUser();
         
         Favorite favorite=null;
+        System.out.println(user.getId()+"   "+ showId);
         try {
 			userService.removeFavorite(user.getId(), showId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultMap.put("message", "fail");
             return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 		}
