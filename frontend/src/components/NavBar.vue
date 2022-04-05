@@ -117,11 +117,11 @@
         <li
           v-for="result in searchResult"
           :key="result.id"
-          style="height: 25%;"
+          style="height: 25%;  cursor:pointer;"
+          @click="$router.push({name: 'ShowDetail', params: {showId: result.id}})"
         >
           <v-img
             :src="result.posterPath"
-            @click="$router.push({name: 'ShowDetail', params: {showId: result.id}})"
             max-width="25%"
             min-width="25%"
             style="display:inline-block; vertical-align:top;"
