@@ -5,8 +5,8 @@
     >
       <div class="profile-info d-flex flex-wrap">
         <v-card
-          width="300"
-          height="300"
+          width="20%"
+          height="40%"
           flat
           class="d-inline-block"
         >
@@ -21,8 +21,9 @@
            <input @change="uploadImage" style="display: none;" accept="image/*" ref="image" type="file">
         </v-card>
         <div class="profile-detail d-inline-block ms-5">
-          <h1> {{ userInfo.nickname }} </h1>
+          <h1 class="d-inline-block"> {{ userInfo.nickname }} </h1>
           <v-text-field
+            class="d-inlie-block"
             v-show="updateTrigger === true"
             v-model="updatedName"
             solo
@@ -30,21 +31,32 @@
             :label="userInfo.nickname"
             clearable
           >
+          </v-text-field>
             <v-btn
+              v-show="!updateTrigger"
+              icon
+              @click="() => { updateTrigger = true}"
+            >
+              <v-icon>
+                mdi-account-cog-outline
+              </v-icon>
+            </v-btn>
+            <v-btn
+              v-show="updateTrigger"
               text
-              slot="append"
+              @click="() => { putUserName(), updateTrigger = false}"
+            >
+              수정
+            </v-btn>
+             <v-btn
+             v-show="updateTrigger"
+              text
               @click="() => { updateTrigger = false }"
             >
               취소
             </v-btn>
-          </v-text-field>
-            <v-btn
-              @click="() => { putUserName(), updateTrigger = true}"
-            >
-              이름 수정하기
-            </v-btn>
 
-          <div class="profile-tag-wrapper">
+          <div class="profile-tag-wrapper mt-4">
             <h2> 선호 태그 </h2>
             <v-chip-group
               column
@@ -62,9 +74,18 @@
         </div>
       </div>
 
-      <div>
-        <router-link :to="{name: 'ProfileDefault'}"> 공연 보관함 </router-link>
-        <router-link :to="{name: 'ProfileMyReviews'}"> 리뷰 보관함 </router-link> 
+      <div class="mt-5">
+        <!-- <v-btn text x-large @click="$router.push({name: 'ProfileDefault'})" > 공연 보관함 </v-btn>
+        <v-btn text x-large @click="$router.push({name: 'ProfileMyReviews'})" > 리뷰 보관함 </v-btn>
+     -->
+        <router-link 
+          style="color:black; font-size: 1.3rem; font-weight: bold;" 
+          class="profile-page mr-3" 
+          :to="{name: 'ProfileDefault'}"> 공연 보관함 </router-link>
+        <router-link 
+          style="color:black; font-size: 1.3rem; font-weight: bold;" 
+          class="profile-page mr-3" 
+          :to="{name: 'ProfileMyReviews'}"> 리뷰 보관함 </router-link>
         <!-- <router-link :to="{name: 'ProfileCalendar'}"> 캘린더 </router-link>   -->
       </div>
 
@@ -86,7 +107,7 @@ export default {
     return{
       userInfo: {},
       userImgName: null,
-      userImgSrc : defaultImage,
+      userImgSrc : null,
 
       updatedName : '',
 
@@ -151,6 +172,8 @@ export default {
           // console.log('이미지 조회: ', res.config.baseURL + res.config.url)
           this.userImgSrc = res.config.baseURL + res.config.url
         })
+      } else{
+        this.userImgSrc = defaultImage
       }
     },
 
@@ -175,4 +198,11 @@ export default {
   height: 100%;
 }
 
+.profile-page{
+  text-decoration: none;
+}
+
+.profile-page:hover{
+  background-color: rgb(216, 211, 211);
+}
 </style>
