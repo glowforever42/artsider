@@ -25,7 +25,7 @@ public class ShowServiceImpl implements ShowService{
     private final CastingListRepository castingListRepository;
     private final NoticeImgRepository noticeImgRepository;
     private final PopularShowRepository popularShowRepository;
-    private final RecommendationRepository recommendationRepository;
+    private final UserBasedRepository userBasedRepository;
     private final RelatedShowRepository relatedShowRepository;
     private final ShowRepository showRepository;
     private final ShowDetailImgRepository showDetailImgRepository;
@@ -181,13 +181,13 @@ public class ShowServiceImpl implements ShowService{
 
     // 공연 추천(사용자간의 유사도 추천)
     @Override
-    public List<ShowListGetRes> findShowRecommendationList(Long userId) {
+    public List<ShowListGetRes> findShowRecommendationList(User user) {
 
         List<ShowListGetRes> showRecommendationList = new ArrayList<>();
-        List<Recommendation> recommendationList = recommendationRepository.findByUserId(userId);
+        List<UserBased> recommendationList = userBasedRepository.findByUserId(user);
 
-        for (Recommendation recommendation : recommendationList) {
-            ShowListMapping show = showRepository.findByIdEquals(recommendation.getShowId());
+        for (UserBased recommendation : recommendationList) {
+            ShowListMapping show = showRepository.findByIdEquals(recommendation.getShow().getId());
             ShowListGetRes recommendationShowInfo = new ShowListGetRes(show);
             showRecommendationList.add(recommendationShowInfo);
 
@@ -200,7 +200,6 @@ public class ShowServiceImpl implements ShowService{
     public List<ShowListGetRes> findShowRelatedList(Long showId) {
         List<ShowListGetRes> showRelatedList = new ArrayList<>();
         List<RelatedShow> showList = relatedShowRepository.findByShowId(showId);
-        System.out.println("showList = " + showList.toString());
         for (RelatedShow show : showList) {
             ShowListMapping showInfo = showRepository.findByIdEquals(show.getRelatedShowId());
             ShowListGetRes relatedShowInfo = new ShowListGetRes(showInfo);
