@@ -201,7 +201,7 @@ public class ShowServiceImpl implements ShowService{
         List<ShowListGetRes> showRelatedList = new ArrayList<>();
         List<RelatedShow> showList = relatedShowRepository.findByShowId(showId);
         for (RelatedShow show : showList) {
-            ShowListMapping showInfo = showRepository.findByIdEquals(show.getRelatedShowId());
+            ShowListMapping showInfo = showRepository.findByIdEquals(show.getRelatedShowId().getId());
             ShowListGetRes relatedShowInfo = new ShowListGetRes(showInfo);
             showRelatedList.add(relatedShowInfo);
         }
