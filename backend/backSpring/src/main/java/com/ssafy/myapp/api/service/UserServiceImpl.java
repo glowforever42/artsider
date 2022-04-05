@@ -14,7 +14,9 @@ import com.ssafy.myapp.api.request.UserRegisterPostReq;
 import com.ssafy.myapp.db.entity.Favorite;
 import com.ssafy.myapp.db.entity.Review;
 import com.ssafy.myapp.db.entity.Show;
+import com.ssafy.myapp.db.entity.ShowTag;
 import com.ssafy.myapp.db.entity.User;
+import com.ssafy.myapp.db.entity.UserTag;
 import com.ssafy.myapp.db.entity.Viewed;
 import com.ssafy.myapp.db.mapping.ShowMapping;
 import com.ssafy.myapp.db.mapping.UserReviewMapping;
@@ -23,6 +25,7 @@ import com.ssafy.myapp.db.repository.ReviewRepository;
 import com.ssafy.myapp.db.repository.ShowRepository;
 import com.ssafy.myapp.db.repository.ShowTagRepository;
 import com.ssafy.myapp.db.repository.UserRepository;
+import com.ssafy.myapp.db.repository.UserTagRepository;
 import com.ssafy.myapp.db.repository.ViewedRepository;
 
 import java.io.File;
@@ -70,6 +73,9 @@ public class UserServiceImpl implements UserService {
 	FavoriteRepository favoriteRepository;
 	
 	@Autowired
+	UserTagRepository userTagRepository;
+	
+	@Autowired
 	PasswordEncoder passwordEncoder;
 
 	@Autowired
@@ -79,6 +85,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUserByEmail(String email) {
 		User user = userRepository.findUserByEmail(email).get();
+		List<UserTag> userTag=userTagRepository.findTop3ByUserIdOrderByWeightDesc(user.getId());
+		user.setUserTag(userTag); 
 		return user;
 	}
 
@@ -233,6 +241,7 @@ public class UserServiceImpl implements UserService {
 	        }
 		
 	}
+
 	
 	public String saveUploadedFiles(final MultipartFile thumbnail) throws IOException {
 		String absolutePath = new File("").getAbsolutePath() + "\\images\\";
