@@ -4,22 +4,29 @@ import Intro from '../views/home/Intro.vue'
 import Home from './home'
 import Main from './main'
 
+// 카테고리별 컴포넌트
+// import Classic from './category/Classic'
+// import Concert from './category/Concert'
+// import Family from './category/Family'
+// import Theatre from './category/Theatre'
+// import Musical from './category/Musical'
+
+
 // 에티켓
-// import Etiquette from './etiquette'
-// import Classic from './etiquettes/etiquetteClassic'
-// import KTraditionalMusic from './etiquettes/etiquetteKTraditionalMusic'
-// import Musical from './etiquettes/etiquetteMusical'
-// import Opera from './etiquettes/etiquetteOpera'
-// import Theatre from './etiquettes/etiquetteTheatre'
-
-/// 에티켓 디테일
-// import EtiquetteDetail from './etiquettes/etiquetteDetail'
-
+import Etiquette from './etiquette'
 
 // 추천 목록
 
 import ShowDetail from './showDetail'
 import Profile from './profile'
+
+// 카테고리별
+import Classic from './category/Classic'
+import Concert from './category/Concert'
+import Family from './category/Family'
+import Musical from './category/Musical'
+import Theatre from './category/Theatre'
+
 
 
 Vue.use(VueRouter)
@@ -30,30 +37,35 @@ const routes = [
     name: 'Intro',
     component: Intro
   },
-  // ...Etiquette,
+  ...Etiquette,
   ...Main,
+  
   // ...Classic,
-  // ...KTraditionalMusic,
+  // ...Concert,
+  // ...Family,
   // ...Musical,
-  // ...Opera,
   // ...Theatre,
-
-  // ...EtiquetteDetail,
 
   ...Home,
   ...ShowDetail,
-
-
   //profile
-  ...Profile
-  
+  ...Profile,
+  //category
+  ...Classic,
+  ...Concert,
+  ...Family,
+  ...Musical,
+  ...Theatre,
 ]
 
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+}
 })
 
 
