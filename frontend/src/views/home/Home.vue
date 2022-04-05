@@ -3,7 +3,7 @@
     <HomeCarousel 
     :num=0
     />
-    <v-container>
+    <v-container class="poster-wrapper">
       <p class="text-center">
         <span class="text-h2"> Poster </span>
       </p>
@@ -82,7 +82,7 @@ export default {
   position: relative;
   width: 100%;
   height: fit-content;
-  background-color: #FEFEF4;
 }
+
 
 </style>
