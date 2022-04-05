@@ -272,31 +272,14 @@ public class ShowServiceImpl implements ShowService{
     @Override
     public List<ShowDetailsGetRes> findShowDetails(Long id) throws NoSuchElementException {
 
-        Show show = showRepository.findById(id).get();
+        ShowListMapping show = showRepository.findByIdEquals(id);
         ArtCenter artCenter = artCenterRepository.findByArtCenterName(show.getArtCenterName());
         List<CastingList> casting = castingListRepository.findByShowId(show.getShowId());
         List<NoticeImg> notice = noticeImgRepository.findByShowId(show.getShowId());
         List<ShowDetailImg> showDetail = showDetailImgRepository.findByShowId(show.getShowId());
-
         List<ShowDetailsGetRes> showList = new ArrayList<>();
-        ShowDetailsGetRes showInfo = new ShowDetailsGetRes();
+        ShowDetailsGetRes showInfo = new ShowDetailsGetRes(show);
 
-        showInfo.setId(show.getId());
-        showInfo.setShowId(show.getShowId());
-        showInfo.setShowName(show.getShowName());
-        showInfo.setStartDate(show.getStartDate());
-        showInfo.setEndDate(show.getEndDate());
-        showInfo.setOpenRun(show.getOpenRun());
-        showInfo.setProducer(show.getProducer());
-        showInfo.setAge(show.getAge());
-        showInfo.setRuntime(show.getRuntime());
-        showInfo.setPrice(show.getPrice());
-        showInfo.setPosterPath(show.getPosterPath());
-        showInfo.setShowDay(show.getShowDay());
-        showInfo.setCategory(show.getCategory());
-        showInfo.setArtCenterName(show.getArtCenterName());
-        showInfo.setMenRate(show.getMenRate());
-        showInfo.setWomenRate(show.getWomenRate());
         showInfo.setCastingLists(casting);
         showInfo.setNoticeImg(notice);
         showInfo.setShowDetailImg(showDetail);
