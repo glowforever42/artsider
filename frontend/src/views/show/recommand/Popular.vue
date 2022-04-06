@@ -10,9 +10,9 @@
     v-for="popular in popularList" 
     :key="popular.id"
     > 
-    <v-card elevation="12" style="width:100%;height:50%; max-height:600px">
+    <v-card elevation="12" style="width:100%;height:100%;">
       <v-img
-            @click="addInquire(popular.id)"
+            @click="moveShowDetail(popular.id)"
             :aspect-ratio="3/4"
             :src="popular.posterPath"
             style="width:100%;height:100%;"
@@ -57,11 +57,8 @@ export default {
         this.popularList = res.data.items
       })
     },
-    addInquire: function (id) {
-      this.$store.dispatch('addInquire',{id:id})
-      .then(() => {
-        this.$router.push({name: `ShowDetail`, params: { showId: id}})
-      })
+    moveShowDetail: function (id) {
+      this.$router.push({name: `ShowDetail`, params: { showId: id}})
     }
   },
   created: function() {
