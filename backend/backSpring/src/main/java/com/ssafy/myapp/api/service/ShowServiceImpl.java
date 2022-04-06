@@ -23,13 +23,14 @@ public class ShowServiceImpl implements ShowService{
 
     private final ArtCenterRepository artCenterRepository;
     private final CastingListRepository castingListRepository;
+    private final ExpectRatingRepository expectRatingRepository;
     private final NoticeImgRepository noticeImgRepository;
     private final PopularShowRepository popularShowRepository;
-    private final UserBasedRepository userBasedRepository;
     private final RelatedShowRepository relatedShowRepository;
-    private final ShowRepository showRepository;
     private final ShowDetailImgRepository showDetailImgRepository;
-    private final ExpectRatingRepository expectRatingRepository;
+    private final ShowRepository showRepository;
+    private final ShowTagRepository showTagRepository;
+    private final UserBasedRepository userBasedRepository;
     private final UserRepository userRepository;
 
 
@@ -276,6 +277,11 @@ public class ShowServiceImpl implements ShowService{
         List<CastingList> casting = castingListRepository.findByShowId(show.getShowId());
         List<NoticeImg> notice = noticeImgRepository.findByShowId(show.getShowId());
         List<ShowDetailImg> showDetail = showDetailImgRepository.findByShowId(show.getShowId());
+        List<ShowTag> showTagList = showTagRepository.findByShowId(show.getId());
+        showTagList.sort(Comparator.comparing(ShowTag::getWeight, Comparator.reverseOrder()));
+        List<ShowTag> showTag = showTagList.subList(0, 4);
+
+
         List<ShowDetailsGetRes> showList = new ArrayList<>();
         ShowDetailsGetRes showInfo = new ShowDetailsGetRes(show);
 
@@ -283,6 +289,7 @@ public class ShowServiceImpl implements ShowService{
         showInfo.setNoticeImg(notice);
         showInfo.setShowDetailImg(showDetail);
         showInfo.setArtCenter(artCenter);
+        showInfo.setShowTags(showTag);
 
         showList.add(showInfo);
         return showList;
