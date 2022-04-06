@@ -11,7 +11,7 @@
         class="preference-contents-box"
       >
         <v-row
-          style="height: 100%;"
+          style="height: 100%;  max-height: 800px;"
         >
           <v-col
             v-for="(poster, i) in preferencePosters"
@@ -90,13 +90,13 @@
         class="history-contents-box"
       >
         <v-row
-          style="height: 100%;"
+          style="height: 100%; max-height: 800px;"
         >
           <v-col
             v-for="(poster, i) in historyPosters"
             :key="i"
             class="col-3 py-4"
-            style="height: 80%; "
+            style="height: 80%;"
           >
             <v-card
               max-width="180"

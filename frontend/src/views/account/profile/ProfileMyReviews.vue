@@ -2,7 +2,7 @@
   <div>
     <v-row
       class="mt-5"
-      style="height: 80vh;"
+      style="height: 80vh; min-height: 400px; max-height: 800px;"
     >
       <v-col
         cols="6"
@@ -55,7 +55,7 @@
     </v-row>
 
     <v-row
-      style="height: 70vh;"
+      style="height: 70vh; min-height: 400px;"
     >
       <v-col
         cols="12"
