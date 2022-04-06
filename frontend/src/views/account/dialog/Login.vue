@@ -11,7 +11,7 @@
       </v-card-title>
 
       <v-container>
-        <v-form @submit="(e) => { e.preventDefault(), getToken()}">
+        <div>
           <v-text-field
             v-model="userEmail"
             label="이메일"
@@ -41,11 +41,11 @@
           <v-btn
             outlined
             width="100%"
-            type="submit"
+            @click="() => { getToken()}"
           >
             로그인
           </v-btn>
-        </v-form>
+        </div>
       </v-container>
     </v-card>
 
