@@ -10,13 +10,15 @@
     v-for="popular in popularList" 
     :key="popular.id"
     > 
-    <v-img
-          @click="addInquire(popular.id)"
-          :aspect-ratio="3/4"
-          :src="popular.posterPath"
-          style="width:50%;height:50%;"
-          >
-    </v-img>
+    <v-card elevation="12" style="width:100%;height:50%; max-height:600px">
+      <v-img
+            @click="addInquire(popular.id)"
+            :aspect-ratio="3/4"
+            :src="popular.posterPath"
+            style="width:100%;height:100%;"
+            >
+      </v-img>
+    </v-card>
     </swiper-slide>
     <div class="swiper-button-prev" slot="button-prev"></div> 
     <div class="swiper-button-next" slot="button-next"></div>
