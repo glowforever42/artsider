@@ -47,7 +47,9 @@
         class="word-map-wrapper"
         style="height: 75vh;"
       >
-        <WordCloud :words="userTagsCloud" />
+        <div 
+          id="word-cloud" class="word-cloud-wrapper">
+        </div>
       </div>
     </v-col>
   </v-row>
@@ -55,44 +57,26 @@
 
 <script>
 import BarChart from './components/BarChart'
-import WordCloud from './components/WordCloud'
+
+const d3 = require('d3')
 
 export default {
   name: 'ProfileMyReviews',
   components:{
     BarChart,
-    WordCloud
   },
   data(){
     return{
       myReviews : [],
       myScores: [],
-      myTags : [],
       loading: true,
 
-      chartRender : false
-    }
-  },
+      chartRender : false,
 
-  computed:{
-    userTagsCloud(){
-      const newWords = []
-      const wordsObject = this.myTags
-      const keysList = Object.keys(wordsObject)
-      for(let i = 0; i < keysList.length; i++){
-        const key = keysList[i]
-        const value = wordsObject[key]
-        console.log('단어: ', key, '갯수: ', value)
-        newWords.push({text: key, size: value })
-      }
-      return newWords 
-    }
-
-  },
-
-  watch:{
-    myScores: function(){
-      this.chartRender = true
+      
+      words : [],
+      width : null,
+      height : null
     }
   },
 
@@ -103,8 +87,78 @@ export default {
         scoresData[elem.rating - 1] = elem.cnt
       })
       return scoresData
-    }
+    },
+
+    getLayout(){
+      const cloud = require('d3-cloud')
+      const wordScale = d3.scaleLinear().domain([0, 2]).range([0, 100]).clamp(true)
+      cloud()
+        .words(this.words)
+        .rotate(function(d){ return d.size >= 1 ? 0 : 90})
+        .size([this.width, this.height])
+        .font('Impact')
+        .fontSize(function(d){
+          return wordScale(d.size)
+        })
+        .on('end', this.draw)
+        .start()
+    },
+
+    draw(words){
+      const cloud =  d3.select('#word-cloud')
+          .append('svg')
+          .attr("preserveAspectRatio", "xMinYMin meet")
+          .attr("viewBox", `0 0 ${this.width} ${this.height}`)
+          .style('background', '#FFF0E2')
+          .append('g')
+          .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')')
+          .selectAll('text')
+          .data(words)
+          .enter()
+          .append('text')
+          .style('fill', function(d){
+            if(d.size < 2 ){ return '#626208'}
+            else if(d.size < 5 ) { return '#DD9933'}
+            else if(d.size < 10) { return  '#1E73BE'}
+            else if(d.size < 30 ){return '#DD3333'}
+          })
+          .style('fill-opacity', 5)
+          .style('font-size', 1)
+          .text((d) => d.text)
+          .style('font-family', 'impact')
+          .attr('text-anchor', 'middle')
+
+        cloud
+          .transition()
+          .duration(600)
+          .style('font-size', function(d){
+            return d.size + 'px'
+          })    
+          .attr('transform', (d) => {
+            return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')'
+          })
+          .style('fill-opacity', 1)
+    },
+
+
+    getFilterWords(myTags){
+      if(myTags.length !== 0){
+        const newWords = []
+        const wordsObject = myTags
+        const keysList = Object.keys(wordsObject)
+        for(let i = 0; i < keysList.length; i++){
+          const key = keysList[i]
+          const value = wordsObject[key]
+          const text = value.tag
+          const cnt = value.cnt
+          // console.log('단어: ', text, '갯수: ', cnt)
+          newWords.push({text: text, size: cnt })
+        }
+        return newWords 
+      }
+    },
   },
+
 
   created(){
     this.$store.dispatch('getUserReviews')
@@ -118,13 +172,34 @@ export default {
           this.myScores = this.getData(res.data.items)
         })
         .then(() => {
-          this.$store.dispatch('getUserTags')
-          .then((res) => {
-            this.myTags = res.items
-          })
+            this.$store.dispatch('getUserTags')
+            .then((res) => {
+              // console.log( '유저 태그', res.data)
+              this.words= this.getFilterWords(res.data.items)
+            })       
         })
-    })
-  }
+      })
+    },
+
+    mounted(){
+      const wrapper = document.querySelector('#word-cloud')
+      const wrapperHeight = wrapper.clientHeight
+      const wrapperWidth = wrapper.clientWidth
+      this.width = wrapperWidth
+      this.height = wrapperHeight
+  },
+
+  watch: {
+    myScores: function(){
+      this.chartRender = true
+    },
+
+    words : function(){
+      if(this.words.length !== 0){
+        this.getLayout()
+      }
+    }
+  },
 
 }
 </script>
@@ -150,5 +225,13 @@ export default {
 .opacity-text {
     opacity: 0.6;
   }
+
+.word-cloud-wrapper{
+    position: relative;
+    height: 100%;
+    vertical-align: top;
+    overflow: hidden;
+}
+
 
 </style>
