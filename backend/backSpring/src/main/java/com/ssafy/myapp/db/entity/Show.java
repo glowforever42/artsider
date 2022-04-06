@@ -18,7 +18,7 @@ import java.util.List;
 @Getter    // getter 자동 추가
 @Entity    // entity
 @NoArgsConstructor    // 기본생성자 자동 추가
-@Table(name = "performance")
+@Table(name = "performance",indexes = @Index(columnList = "showId"))
 public class Show {
 
     // 공연정보는 수정하지 않기 때문에 setter 생성x
@@ -31,7 +31,7 @@ public class Show {
     private String showName;    // 공연이름
 
     @Column(nullable = false)
-    private String showId;    // 인터파크 기준 공연 id => 리뷰, 출연진 join 하기 위함.
+    private String showId;    // 인터파크 기준 공연 id => 출연진, 주의사항 이미지, 상세정보 이미지 찾기 위함
 
     @Column(nullable = false)
     private String startDate;    // 공연시작일

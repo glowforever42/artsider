@@ -82,9 +82,16 @@ public class UserServiceImpl implements UserService {
 	public User findUserByEmail(String email) {
 		User user = userRepository.findUserByEmail(email).get();
 		List<UserTag> userTag=userTagRepository.findTop3ByUserIdOrderByWeightDesc(user.getId());
-		user.setUserTag(userTag); 
+//		user.setUserTag(userTag); 
 		return user;
 	}
+	
+	@Override
+	public List<UserTag> findUserTagByUserId(Long userId) {
+		List<UserTag> userTag=userTagRepository.findTop3ByUserIdOrderByWeightDesc(userId);
+		return userTag;
+	}
+	
 
 	public boolean chkDplByEmail(String email) {
 		if(userRepository.findUserByEmail(email).isPresent())
@@ -227,8 +234,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<ShowMapping> findViewedShow(User user) {
-		List<ShowMapping> Viewed =viewedRepository.findByUser(user);
+	public List<?> findViewedShow(User user) {
+//		List<ShowMapping> Viewed =viewedRepository.findByUser(user);
+		List<?> Viewed = viewedRepository.findByUserIdDistinctOderById(user.getId());
 		return Viewed;
 	}
 
@@ -281,8 +289,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserReviewMapping> findUserReview(User user) {
-		List<UserReviewMapping> reviews=reviewRepository.findByUser(user);
+	public List<UserReviewMapping> findUserReview(Long userId) {
+		List<UserReviewMapping> reviews=reviewRepository.findTop20ByUserIdOrderByIdDesc(userId);
 		return reviews;
 	}
 
