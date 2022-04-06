@@ -44,7 +44,6 @@
             outlined
             width="400px"
             type="submit"
-            @click="getToken"
           >
             로그인
           </v-btn>

@@ -20,7 +20,7 @@
               class="preference-content"
             >
               <v-img
-                :src="poster.show.posterPath"
+                :src="poster.posterPath"
                 :aspect-ratio="3/4"
                 width="100%"
                 height="100%"
@@ -49,13 +49,13 @@
             style="height: 80%; "
           >
             <v-card
-              width="70%"
-              height="100%"
+              max-width="180"
+              max-height="240"
               class="history-content mx-auto"
               style="background-color:gray;"
             >
               <v-img
-                :src="poster.show.posterPath"
+                :src="poster.posterPath"
                 :aspect-ratio="3/4"
                 width="100%"
                 height="100%"
