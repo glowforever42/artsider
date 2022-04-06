@@ -4,7 +4,7 @@ import axios from 'axios'
 import router from '@/router'
 
 Vue.use(Vuex)
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = 'http://j6b202.p.ssafy.io'
 
 export default new Vuex.Store({
   state: {
