@@ -185,8 +185,7 @@ public class ShowServiceImpl implements ShowService{
     public List<ShowListGetRes> findShowRecommendationList(User user) {
 
         List<ShowListGetRes> showRecommendationList = new ArrayList<>();
-        List<UserBased> recommendationList = userBasedRepository.findByUserId(user);
-
+        List<UserBased> recommendationList = userBasedRepository.findByUserId(user.getId());
         for (UserBased recommendation : recommendationList) {
             ShowListMapping show = showRepository.findByIdEquals(recommendation.getShow().getId());
             ShowListGetRes recommendationShowInfo = new ShowListGetRes(show);
