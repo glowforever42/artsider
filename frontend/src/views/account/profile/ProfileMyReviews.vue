@@ -91,10 +91,10 @@ export default {
 
     getLayout(){
       const cloud = require('d3-cloud')
-      const wordScale = d3.scaleLinear().domain([0, 2]).range([0, 100]).clamp(true)
+      const wordScale = d3.scaleLinear().domain([0, 5]).range([40, 100]).clamp(true)
       cloud()
         .words(this.words)
-        .rotate(function(d){ return d.size >= 1 ? 0 : 90})
+        .rotate(function(){ return 0 })
         .size([this.width, this.height])
         .font('Impact')
         .fontSize(function(d){
@@ -116,11 +116,11 @@ export default {
           .data(words)
           .enter()
           .append('text')
-          .style('fill', function(d){
-            if(d.size < 2 ){ return '#626208'}
-            else if(d.size < 5 ) { return '#DD9933'}
-            else if(d.size < 10) { return  '#1E73BE'}
-            else if(d.size < 30 ){return '#DD3333'}
+          .style('fill', function(){
+            const r = parseInt(Math.random() * 255);
+            const g = parseInt(Math.random() * 255);
+            const b = parseInt(Math.random() * 255);
+            return `rgb(${r}, ${g}, ${b})`;
           })
           .style('fill-opacity', 5)
           .style('font-size', 1)
@@ -151,7 +151,6 @@ export default {
           const value = wordsObject[key]
           const text = value.tag
           const cnt = value.cnt
-          // console.log('단어: ', text, '갯수: ', cnt)
           newWords.push({text: text, size: cnt })
         }
         return newWords 
@@ -174,7 +173,6 @@ export default {
         .then(() => {
             this.$store.dispatch('getUserTags')
             .then((res) => {
-              // console.log( '유저 태그', res.data)
               this.words= this.getFilterWords(res.data.items)
             })       
         })
