@@ -154,9 +154,9 @@ public class ShowController {
     })
     public ResponseEntity<Map<String, List<ShowListGetRes>>> showRecommendationList(@ApiIgnore Authentication authentication) {
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-        User userId =userDetails.getUser();
+        User user =userDetails.getUser();
         Map<String, List<ShowListGetRes>> resultMap = new HashMap<>();
-        resultMap.put("items", showService.findShowRecommendationList(userId));
+        resultMap.put("items", showService.findShowRecommendationList(user));
         return new ResponseEntity<Map<String, List<ShowListGetRes>>>(resultMap, HttpStatus.OK);
     }
 
