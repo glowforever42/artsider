@@ -297,7 +297,7 @@ public class ShowServiceImpl implements ShowService{
     @Override
     public Object findUserBasedRecommend(Long userId, String category) {
         WebClient webClient = WebClient.builder()
-                .baseUrl("http://127.0.0.1:8000")
+                .baseUrl("http://j6b202.p.ssafy.io:8000")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
