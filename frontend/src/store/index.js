@@ -244,8 +244,9 @@ export default new Vuex.Store({
     getRelatedTagShow({state}, data){
       state
       var category = ''
-      console.log(data)
-      if ( data.num == 1) {
+      if (data.num == 0) {
+        category = 'ALL'
+      } else if ( data.num == 1) {
         category = 'CL'
       } else if ( data.num == 2) {
         category = 'CO'
@@ -256,14 +257,12 @@ export default new Vuex.Store({
       } else if ( data.num == 5) {  
         category = 'DR'
       }
-      console.log(data)
       const url = `/api/show/recommend/user/${category}/tag`
       return axios({
         method: 'get',
         url: url,
         headers: { Authorization : `Bearer ${state.token}`},
       })
-      
     },
     // 공연의 연관 공연 조회
     getRelatedShow: function ({state}, data) {
@@ -608,7 +607,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
 
@@ -621,7 +619,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
     // getCategorySimilarShow({commit, }){
@@ -632,7 +629,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
 
@@ -644,7 +640,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
 
@@ -656,7 +651,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
   },
