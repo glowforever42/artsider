@@ -3,7 +3,6 @@ package com.ssafy.myapp.api.controller;
 import com.ssafy.myapp.api.request.ReviewRegisterReq;
 import com.ssafy.myapp.api.response.ReviewListGetRes;
 import com.ssafy.myapp.api.service.ReviewService;
-import com.ssafy.myapp.db.entity.Review;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,9 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Api(value = "리뷰 API", tags = {"Review"})
 @RestController
