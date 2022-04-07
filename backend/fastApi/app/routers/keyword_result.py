@@ -12,10 +12,10 @@ router = APIRouter()
 @router.get("/recommand/keyword", status_code=200)
 def show_keyword():
 
-    password = 'bigdata@202'
+    password = 'artsider202!'
     pwd = parse.quote_plus(password)
 
-    db_connection_str = 'mysql+pymysql://root:'+pwd+'@j6b202.p.ssafy.io/artsider'
+    db_connection_str = 'mysql+pymysql://artsider:'+pwd+'@j6b202.p.ssafy.io/artsider'
     db_connection_engine = create_engine(db_connection_str, encoding='utf-8')
 
 
