@@ -4,8 +4,8 @@ import axios from 'axios'
 import router from '@/router'
 
 Vue.use(Vuex)
-// axios.defaults.baseURL = 'http://j6b202.p.ssafy.io:8080'
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = 'http://j6b202.p.ssafy.io:8080'
+// axios.defaults.baseURL = 'http://localhost:8080'
 
 
 export default new Vuex.Store({
@@ -411,8 +411,7 @@ export default new Vuex.Store({
     },
 
     // 관심 공연 목록 조회
-    getMyPreference({commit, state}){
-      commit
+    getMyPreference({state}){
       const url = '/api/users/profile/preference'
       return axios.get(url, {
         headers: {
@@ -442,7 +441,7 @@ export default new Vuex.Store({
       })
     },
 
-    // 내가 작성한 리뷰 목록 조회
+    // 내가 작성한 후기 목록 조회
     getUserReviews({state}){
       const url = '/api/users/profile/reviewList'
       return axios.get(url, {
