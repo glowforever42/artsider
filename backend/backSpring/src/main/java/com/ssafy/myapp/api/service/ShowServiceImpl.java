@@ -34,7 +34,6 @@ public class ShowServiceImpl implements ShowService{
     private final RelatedShowRepository relatedShowRepository;
     private final ShowDetailImgRepository showDetailImgRepository;
     private final ShowRepository showRepository;
-    private final ShowTagRepository showTagRepository;
     private final UserBasedRepository userBasedRepository;
     private final UserRepository userRepository;
 
