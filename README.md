@@ -1,6 +1,6 @@
 # 😎 ArtSider
 
-![제목 없음 2](C:\Users\multicampus\Downloads\제목 없음 2.png)
+![제목 없음 2](README.assets/제목 없음 2.png)
 
 ------
 
@@ -16,7 +16,7 @@ http://j6b202.p.ssafy.io/
 
 ⬛ UCC 영상
 
-[![img](README.assets/youtuve-16493734778632.PNG)](https://youtu.be/x4CHwLoQ7ks)
+[![youtuve](README.assets/youtuve.PNG)](https://youtu.be/x4CHwLoQ7ks)
 
 ------
 
@@ -46,7 +46,7 @@ http://j6b202.p.ssafy.io/
 
 ### 🌟 사용자간의 유사도 추천
 
-![사용자간의_유사도_추천](README.assets/사용자간의_유사도_추천-16493734830633.gif)
+![사용자간의_유사도_추천](README.assets/사용자간의_유사도_추천.gif)
 
 👩  사용자와 비슷한 선호 작품을 가진 다른 사용자의 선호 작품을 공연 목록을 제공합니다.
 
@@ -54,7 +54,7 @@ http://j6b202.p.ssafy.io/
 
 ### 🌟 일반 추천 및 유저 선호 태그와 유사도가 높은 공연 추천 
 
-![일반 추천 및 유저 선호태그와 유사도가 높은 공연 추천](README.assets/일반 추천 및 유저 선호태그와 유사도가 높은 공연 추천-16493734858334.gif)
+![일반 추천 및 유저 선호태그와 유사도가 높은 공연 추천](README.assets/일반 추천 및 유저 선호태그와 유사도가 높은 공연 추천.gif)
 
 👩  사용자가 선호하는 태그를 바탕으로 유사도가 높은 공연을 추천합니다.
 
@@ -72,7 +72,7 @@ http://j6b202.p.ssafy.io/
 
 ### 🌟 공연 관련 상세정보
 
-![공연관련 상세정보](README.assets/공연관련 상세정보-16493734903665.gif)
+![공연관련 상세정보](README.assets/공연관련 상세정보.gif)
 
 #### - 사용자가 해당공연을 좋아할 확률 제공
 
@@ -209,7 +209,7 @@ http://j6b202.p.ssafy.io/
 
 ### ⭐ 아키텍처
 
-![sub2 발표자료](Readme.assets/sub2 발표자료.jpg)
+![sub2 발표자료](README.assets/sub2 발표자료.jpg)
 
 ### ⭐공연/유저별 태그정보 기반 추천
 
@@ -248,7 +248,7 @@ http://j6b202.p.ssafy.io/
 
 - 결과
 
-![사전화작업](Readme.assets/\사전화작업.jpg)
+![사전화작업](README.assets/사전화작업-164937482780916.jpg)
 
 
 
@@ -271,7 +271,7 @@ http://j6b202.p.ssafy.io/
 
 - scikit-learn
 
-  <img src="\Readme.assets\scikit-learn.jpg" alt="scikit-learn" style="zoom: 25%;" />
+  <img src="README.assets/scikit-learn-164937484915017.jpg" alt="scikit-learn" style="zoom: 25%;" />
 
   - 데이터 마이닝 및 분석에 필요한 효과적인 기능을 제공합니다.
   - Numpy 및 Scipy로 만들어졌으며, 분류, 클러스터링, 차원 축소, 회귀 등 다양한 머신러닝 기법을 제공합니다.
@@ -279,7 +279,7 @@ http://j6b202.p.ssafy.io/
 
 - 코사인 유사도
   
-  ![코사인 유사도 수식](Readme.assets/코사인 유사도 수식.svg)
+  ![코사인 유사도 수식](README.assets/코사인 유사도 수식-164937489509618.svg)
   
   - 두 벡터 사이의 코사인 각도를 구해 서로의 유사도를 구하는 방식이며 데이터 크기의 차이에 관계없이 유사도를 비교할 수 있습니다.
   - 데이터의 크기에 관계없이 각도로만 판단하기 때문에 데이터셋 의 차이가 나더라도 유사도를 판단 할 수 있다.
@@ -300,7 +300,7 @@ http://j6b202.p.ssafy.io/
 
 #### KNN(K- 최근접 이웃)
 
-<img src="\Readme.assets\knn algorithm.png" alt="knn algorithm" style="zoom: 50%;" />
+<img src="README.assets/knn algorithm-164937497873620.png" alt="knn algorithm" style="zoom: 50%;" />
 
 : 어떤 데이터가 주어지면 그 주변의 데이터를 살펴본 뒤 많은 데이터가 포함되어있는 범주로 분류하는 방식
 
@@ -317,16 +317,16 @@ http://j6b202.p.ssafy.io/
 - 노이즈가 많은 데이터의 경우 k가 클수록 좋다.
 - 보통 1-20사이에 놓으며 동률이 나오는 경우를 막기 위해 보통은 홀수 사용
 
-<img src="Readme.assets/\k2.jpg" alt="k2" style="zoom:80%;" />
+<img src="README.assets/k2-164937501208621.jpg" alt="k2" style="zoom:80%;" />
 
 - 적합한 K값을 구하기 위해 1-50까지의 k값을 넣은 후 결과값의 차이를 시각화하여 적합한 K값 선정.
 - 위의 그래프는 결과값의 차이값을 시각화한 그래프로 하강한후 비교적 일정한 차이를 유지하는 15를 선정
 
 #### 피어슨 유사도와 예측확률 계산
 
-![피어슨 상관계수](Readme.assets/피어슨 상관계수.png)
+![피어슨 상관계수](README.assets/피어슨 상관계수-164937506012322.png)
 
-![피어슨 상관계수_수식](Readme.assets/피어슨 상관계수_수식.png)
+![피어슨 상관계수_수식](README.assets/피어슨 상관계수_수식.png)
 
 - 피어슨 유사도로 리뷰기준으로 유사한 사용자 15명(K) 선정
 - 유사도가 높은 사용자들의 각 공연별 평균평점계산
@@ -357,21 +357,21 @@ http://j6b202.p.ssafy.io/
 
 ## 6️⃣ 기능 명세 요구 사항 정의서
 
-![기능 명세서](Readme.assets/기능 명세서.jpg)
+![기능 명세서](README.assets/기능 명세서-164937510205624.jpg)
 
 ## 7️⃣ REST API
 
-![RestApi문서 ](Readme.assets/RestApi문서 .jpg)
+![RestApi문서 ](README.assets/RestApi문서 -164937509647423.jpg)
 
 ## 8️⃣ ERD
 
-![ERD](README.assets/ERD-16493733699701.jpg)
+![ERD-16493733699701](README.assets/ERD-16493733699701-164937511108225.jpg)
 
 
 
 ## 9️⃣ 와이어 프레임
 
-![와이어프레임](Readme.assets/와이어프레임.PNG)
+![와이어프레임](README.assets/와이어프레임-164937512646226.PNG)
 
 
 
