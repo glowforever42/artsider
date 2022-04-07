@@ -24,6 +24,7 @@ public class ShowServiceImpl implements ShowService{
     private final ArtCenterRepository artCenterRepository;
     private final CastingListRepository castingListRepository;
     private final NoticeImgRepository noticeImgRepository;
+    private final ShowTagRepository showTagRepository;
     private final PopularShowRepository popularShowRepository;
     private final RecommendationRepository recommendationRepository;
     private final RelatedShowRepository relatedShowRepository;
@@ -330,6 +331,17 @@ public class ShowServiceImpl implements ShowService{
 		ExpectRatingMapping rating=expectRatingRepository.findByUserAndShow(userRepository.findById(userId).get(), showRepository.findById(showId).get());
 		
 		return rating;
+	}
+
+	@Override
+	public List<?> findRandomShowExistTag() {
+		return showTagRepository.findRandomShowExistTag();
+	}
+
+	@Override
+	public List<?> findByShowIdLimit3Pageable(Long showId) {
+		
+		return showTagRepository.findByShowIdLimit3(showId);
 	}
 
 }

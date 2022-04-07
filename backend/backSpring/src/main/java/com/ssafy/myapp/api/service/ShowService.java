@@ -25,4 +25,6 @@ public interface ShowService {
     List<ShowDetailsGetRes> findShowDetails(Long id) throws NoSuchElementException;
     List<ArtCenterDetailsGetRes> findArtCenterDetails(String artCenterName) throws NoSuchElementException;
     ExpectRatingMapping findExpectRating(Long userId,Long showId);
+    List<?> findRandomShowExistTag();
+    List<?> findByShowIdLimit3Pageable(Long showId);
 }
