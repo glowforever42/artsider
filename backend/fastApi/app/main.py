@@ -1,6 +1,6 @@
 from fastapi import FastAPI, responses
 
-from app.routers import recommendations_data_analysys, user_based_CF, related_show, keyword_result, tag_based_rec_show
+from app.routers import user_based_CF, related_show, keyword_result, tag_based_rec_show
 
 app = FastAPI()
 
