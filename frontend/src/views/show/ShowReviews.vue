@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top:30px">
     <div class="d-flex align-center justify-space-between">
-      <p>총 {{ reviewLength }}개의 관람후기가 등록되었습니다.</p>
+      <p class="review-result">총 {{ reviewLength }}개의 관람후기가 등록되었습니다.</p>
       <v-btn color="black" style="float: right; color:white; opacity:0.8s; margin-left:25px" @click="drawUpReview" v-if="!isYet">관람후기 작성</v-btn>
       <v-btn color="black" style="float: right; color:white; opacity:0.8s; margin-left:25px" disabled v-if="isYet">미오픈된 공연입니다.</v-btn>
     </div>
@@ -59,13 +59,13 @@
         <span class="opacity-text">{{ showReview.createdDate.slice(0,10) }} | </span>
         <div>
           <br>
-          <strong>{{showReview.title}}</strong>
+          <strong class="review-title">{{showReview.title}}</strong>
           <v-btn style="float: right;" v-if="userId == showReview.userId" text @click="deleteShowReview(showReview.reviewId)">삭제</v-btn>
           <v-btn style="float: right;" v-if="userId == showReview.userId" text @click="openUpdate(showReview)">수정</v-btn>
         </div>
         <br>
         <!-- <span>{{$moment(showReview.created_date).format('YYYY-MM-DD hh:mm:ss')}}</span> -->
-        <span>{{showReview.contents}}</span>
+        <span class="review-content">{{showReview.contents}}</span>
         <br>
         <!-- 수정버튼을 누르면 나오는 수정창 -->
         <div v-if="reviewNum == showReview.reviewId" class="container d-flex flex-column align-center">

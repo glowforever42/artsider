@@ -355,6 +355,8 @@ export default {
 </script>
 
 <style>
+@import '../../../src/assets/css/font.css';
+
   .li-info {
     list-style: none;
     margin-top: 16px;

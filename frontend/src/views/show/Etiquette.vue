@@ -7,6 +7,7 @@
         :class="{'is-state': num == '1' }"
         @click="go(1)"
         text
+        x-large
       >클래식</v-btn>
       <v-btn
         text
@@ -133,6 +134,7 @@ export default {
 
 .etiquette-description {
   justify-content: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .is-state {

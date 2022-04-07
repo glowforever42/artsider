@@ -75,8 +75,8 @@
               outlined
               style="background-color: pink;"
               tile
-              :elevation="3" 
-              
+              :elevation="3"
+              height="12rem"
             >
               <div>
                 <p v-if="num==1" style><Covid19 /></p>
