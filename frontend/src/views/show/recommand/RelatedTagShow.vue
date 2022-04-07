@@ -3,7 +3,7 @@
   <div v-for="(value, key, idx) in RelatedTagShowList" :key="idx">
       <div v-if="value.length > 0">
         <br>
-        <h1 class="mom ml-4 mb-4 d-flex align-center"> <span class="tag" style="margin-right:5px">{{ key }} </span> 태그와 관련된 공연</h1>
+        <h1 class="recommend-title mom ml-4 mb-4 d-flex align-center"> <span class="tag" style="margin-right:5px">{{ key }} </span> 태그와 관련된 공연</h1>
         <swiper class="swiper" 
           :options="swiperOption">
           <swiper-slide

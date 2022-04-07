@@ -1,6 +1,6 @@
 <template>
 <div style="margin-bottom:100px" v-if="isShow">
-  <div class="d-flex justify-space-around">
+  <div class="near-place d-flex justify-space-around">
     <div @click="changeCategory(0)" class="d-flex flex-column justify-center align-center">
       <v-icon size="48px" color="red">mdi-run</v-icon>
       <p>주변 문화시설</p>
@@ -20,7 +20,7 @@
   <br>
 </div>
 <div v-else>
-  <p class="d-flex justify-center align-center" style="margin-top: 50px">지도에 표시할 수 없어요! ㅠㅠ</p>
+  <p class="near-place d-flex justify-center align-center" style="margin-top: 50px">지도에 표시할 수 없어요! ㅠㅠ</p>
 </div>
 </template>
 
