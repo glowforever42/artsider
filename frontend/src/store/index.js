@@ -4,8 +4,8 @@ import axios from 'axios'
 import router from '@/router'
 
 Vue.use(Vuex)
-axios.defaults.baseURL = 'http://j6b202.p.ssafy.io:8080'
-// axios.defaults.baseURL = 'http://localhost:8080'
+// axios.defaults.baseURL = 'http://j6b202.p.ssafy.io:8080'
+axios.defaults.baseURL = 'http://localhost:8080'
 
 
 export default new Vuex.Store({
@@ -358,17 +358,36 @@ export default new Vuex.Store({
       state.token = null
     },
 
-    getToken({commit}, inputData){
+    
+    // 로그인
+    getToken({commit, dispatch}, inputData){
       const url = '/api/auth/login'
       axios.post(url, {...inputData})
       .then((res) => {
         localStorage.setItem('accessToken', res.data.accessToken)
         commit('SET_MY_TOKEN', res.data.accessToken)
-        router.push({name: 'Home'}).catch(()=>{})
       })
-
+      .then(() => {
+        dispatch('getUserInfo')
+        .then((res) => {
+          commit('SET_USER_INFO', res.data)
+        })
+        .then(() => {
+          router.push({name: 'Home'}).catch(()=>{})
+        })
+      })
     },
-    // 이공연이 선호 목록인지 조회
+
+    // 초기 유저 공연 리스트업
+    getInitPoster(){
+      const url = '/api/show/random'
+      return axios({
+        method: 'get',
+        url: url
+      })
+    },
+
+    // 이 공연이 선호 목록인지 조회
     checkPreference({state}, data) {
       state
       const url = `/api/users/show/${data}/preference`
@@ -378,6 +397,7 @@ export default new Vuex.Store({
         headers: { Authorization : `Bearer ${state.token}`}
       })
     },
+
     // 선호 목록 추가
     addPreference({state}, data) {
       state
@@ -388,6 +408,7 @@ export default new Vuex.Store({
         headers: { Authorization : `Bearer ${state.token}`}
       })
     },
+
     // 선호 목록 제거
     deletePreference({state}, data) {
       state

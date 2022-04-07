@@ -29,8 +29,8 @@
               </v-icon>
             </v-btn>
             <v-card
-              max-width="180"
-              max-height="240"
+              max-width="75%"
+              max-height="100%"
               class="mx-auto"
               style="background-color: gray;"
               @click="$router.push({name: 'ShowDetail', params: {showId: poster.show.id}})"
@@ -99,8 +99,8 @@
             style="height: 80%;"
           >
             <v-card
-              max-width="180"
-              max-height="240"
+              max-width="75%"
+              max-height="100%"
               class="history-content mx-auto"
               style="background-color:gray;"
               @click="$router.push({name: 'ShowDetail', params: {showId: poster.id}})"
