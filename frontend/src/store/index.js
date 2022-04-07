@@ -243,16 +243,26 @@ export default new Vuex.Store({
     // 유저 선호 태그 별 추천 공연 조회
     getRelatedTagShow({state}, data){
       state
-      const url = `/api/show/recommend/user/tag`
+      var category = ''
+      if (data.num == 0) {
+        category = 'ALL'
+      } else if ( data.num == 1) {
+        category = 'CL'
+      } else if ( data.num == 2) {
+        category = 'CO'
+      } else if ( data.num == 3) {
+        category = 'FA'
+      } else if ( data.num == 4) {
+        category = 'MU'
+      } else if ( data.num == 5) {  
+        category = 'DR'
+      }
+      const url = `/api/show/recommend/user/${category}/tag`
       return axios({
         method: 'get',
         url: url,
         headers: { Authorization : `Bearer ${state.token}`},
-        data: {
-          userTag: data.userTag
-        }
       })
-      
     },
     // 공연의 연관 공연 조회
     getRelatedShow: function ({state}, data) {
@@ -627,7 +637,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
 
@@ -640,7 +649,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
     // getCategorySimilarShow({commit, }){
@@ -651,7 +659,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
 
@@ -663,7 +670,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
 
@@ -675,7 +681,6 @@ export default new Vuex.Store({
     //       commit(res.data)
     //     })
     //     .catch(err => {
-    //       console.log(err)
     //     })
     // },
   },

@@ -84,7 +84,7 @@
     >
       <div class="d-flex align-center">
         <v-icon size="48px" color="green" > mdi-cart </v-icon>
-        <h1 >  조회한 공연 </h1>
+        <h1>  조회한 공연 </h1>
       </div>
       <v-container
         class="history-contents-box"
