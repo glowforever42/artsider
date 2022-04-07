@@ -10,8 +10,12 @@ import com.ssafy.myapp.db.mapping.ExpectRatingMapping;
 import com.ssafy.myapp.db.mapping.ShowListMapping;
 import com.ssafy.myapp.db.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,14 +27,15 @@ public class ShowServiceImpl implements ShowService{
 
     private final ArtCenterRepository artCenterRepository;
     private final CastingListRepository castingListRepository;
+    private final ExpectRatingRepository expectRatingRepository;
     private final NoticeImgRepository noticeImgRepository;
     private final ShowTagRepository showTagRepository;
     private final PopularShowRepository popularShowRepository;
-    private final RecommendationRepository recommendationRepository;
     private final RelatedShowRepository relatedShowRepository;
-    private final ShowRepository showRepository;
     private final ShowDetailImgRepository showDetailImgRepository;
-    private final ExpectRatingRepository expectRatingRepository;
+    private final ShowRepository showRepository;
+    private final ShowTagRepository showTagRepository;
+    private final UserBasedRepository userBasedRepository;
     private final UserRepository userRepository;
 
 
@@ -180,36 +185,6 @@ public class ShowServiceImpl implements ShowService{
         return showList;
     }
 
-    // 공연 추천(사용자간의 유사도 추천)
-    @Override
-    public List<ShowListGetRes> findShowRecommendationList(Long userId) {
-
-        List<ShowListGetRes> showRecommendationList = new ArrayList<>();
-        List<Recommendation> recommendationList = recommendationRepository.findByUserId(userId);
-
-        for (Recommendation recommendation : recommendationList) {
-            ShowListMapping show = showRepository.findByIdEquals(recommendation.getShowId());
-            ShowListGetRes recommendationShowInfo = new ShowListGetRes(show);
-            showRecommendationList.add(recommendationShowInfo);
-
-        }
-        return showRecommendationList;
-    }
-
-    // 연관 공연 추천
-    @Override
-    public List<ShowListGetRes> findShowRelatedList(Long showId) {
-        List<ShowListGetRes> showRelatedList = new ArrayList<>();
-        List<RelatedShow> showList = relatedShowRepository.findByShowId(showId);
-        System.out.println("showList = " + showList.toString());
-        for (RelatedShow show : showList) {
-            ShowListMapping showInfo = showRepository.findByIdEquals(show.getRelatedShowId());
-            ShowListGetRes relatedShowInfo = new ShowListGetRes(showInfo);
-            showRelatedList.add(relatedShowInfo);
-        }
-        return showRelatedList;
-    }
-
     // 전체 인기 공연 목록
     @Override
     public List<PopularShowListGetRes> findPopularShowList() {
@@ -273,35 +248,27 @@ public class ShowServiceImpl implements ShowService{
     @Override
     public List<ShowDetailsGetRes> findShowDetails(Long id) throws NoSuchElementException {
 
-        Show show = showRepository.findById(id).get();
+        ShowListMapping show = showRepository.findByIdEquals(id);
         ArtCenter artCenter = artCenterRepository.findByArtCenterName(show.getArtCenterName());
         List<CastingList> casting = castingListRepository.findByShowId(show.getShowId());
         List<NoticeImg> notice = noticeImgRepository.findByShowId(show.getShowId());
         List<ShowDetailImg> showDetail = showDetailImgRepository.findByShowId(show.getShowId());
+        List<ShowTag> showTagList = showTagRepository.findByShowId(show.getId());
 
         List<ShowDetailsGetRes> showList = new ArrayList<>();
-        ShowDetailsGetRes showInfo = new ShowDetailsGetRes();
-
-        showInfo.setId(show.getId());
-        showInfo.setShowId(show.getShowId());
-        showInfo.setShowName(show.getShowName());
-        showInfo.setStartDate(show.getStartDate());
-        showInfo.setEndDate(show.getEndDate());
-        showInfo.setOpenRun(show.getOpenRun());
-        showInfo.setProducer(show.getProducer());
-        showInfo.setAge(show.getAge());
-        showInfo.setRuntime(show.getRuntime());
-        showInfo.setPrice(show.getPrice());
-        showInfo.setPosterPath(show.getPosterPath());
-        showInfo.setShowDay(show.getShowDay());
-        showInfo.setCategory(show.getCategory());
-        showInfo.setArtCenterName(show.getArtCenterName());
-        showInfo.setMenRate(show.getMenRate());
-        showInfo.setWomenRate(show.getWomenRate());
+        ShowDetailsGetRes showInfo = new ShowDetailsGetRes(show);
         showInfo.setCastingLists(casting);
         showInfo.setNoticeImg(notice);
         showInfo.setShowDetailImg(showDetail);
         showInfo.setArtCenter(artCenter);
+
+        if (showTagList.isEmpty()) {
+            showInfo.setShowTags(showTagList);
+        } else {
+            showTagList.sort(Comparator.comparing(ShowTag::getWeight, Comparator.reverseOrder()));
+            List<ShowTag> showTag = showTagList.subList(0, 4);
+            showInfo.setShowTags(showTag);
+        }
 
         showList.add(showInfo);
         return showList;
@@ -325,7 +292,58 @@ public class ShowServiceImpl implements ShowService{
         return artCenterList;
     }
 
-	@Override
+    // =========== 추천 기능 ==========
+
+    // 유저 선호 태그 별 추천 공연
+    @Override
+    public Object findUserBasedRecommend(Long userId, String category) {
+        WebClient webClient = WebClient.builder()
+                .baseUrl("http://j6b202.p.ssafy.io:8000")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        //Map<String, List<UserTagBasedRecGetRes>>
+        ResponseEntity<Object> result = webClient.get().
+                uri("/recommand/userTag/" + userId + "/" + category)
+                .retrieve()
+                .toEntity(Object.class)
+                .block();
+
+        System.out.println(result.getStatusCode());
+        System.out.println(result.getBody());
+
+        return result.getBody();
+    }
+
+    // 공연 추천(사용자간의 유사도 추천)
+    @Override
+    public List<ShowListGetRes> findShowRecommendationList(User user) {
+
+        List<ShowListGetRes> showRecommendationList = new ArrayList<>();
+        List<UserBased> recommendationList = userBasedRepository.findByUserId(user.getId());
+        for (UserBased recommendation : recommendationList) {
+            ShowListMapping show = showRepository.findByIdEquals(recommendation.getShow().getId());
+            ShowListGetRes recommendationShowInfo = new ShowListGetRes(show);
+            showRecommendationList.add(recommendationShowInfo);
+
+        }
+        return showRecommendationList;
+    }
+
+    // 연관 공연 추천
+    @Override
+    public List<ShowListGetRes> findShowRelatedList(Long showId) {
+        List<ShowListGetRes> showRelatedList = new ArrayList<>();
+        List<RelatedShow> showList = relatedShowRepository.findByShowId(showId);
+        for (RelatedShow show : showList) {
+            ShowListMapping showInfo = showRepository.findByIdEquals(show.getRelatedShowId().getId());
+            ShowListGetRes relatedShowInfo = new ShowListGetRes(showInfo);
+            showRelatedList.add(relatedShowInfo);
+        }
+        return showRelatedList;
+    }
+
+    @Override
 	public ExpectRatingMapping findExpectRating(Long userId, Long showId) {
 		
 		ExpectRatingMapping rating=expectRatingRepository.findByUserAndShow(userRepository.findById(userId).get(), showRepository.findById(showId).get());
