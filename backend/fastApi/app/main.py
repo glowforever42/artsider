@@ -8,7 +8,6 @@ app = FastAPI()
 def main():
     return responses.RedirectResponse(url="/docs/")
 
-app.include_router(recommendations_data_analysys.router)
 app.include_router(user_based_CF.router)
 app.include_router(related_show.router)
 app.include_router(keyword_result.router)
