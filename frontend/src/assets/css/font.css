@@ -24,6 +24,18 @@
   font-size: 3rem;
 }
 
+.show-name {
+  font-family: 'ROKAFSlabSerifBold';
+}
+
+.main-label {
+  font-family: 'ROKAFSlabSerifMedium';
+}
+
+.sub-label {
+  font-family: 'SUIT-Medium';
+}
+
 .more-btn {
   font-family: 'SUIT-Medium';
 }
@@ -71,6 +83,9 @@
   font-family: 'SUIT-Medium';
 }
 
+.expect-result{
+  font-family: 'SUIT-Medium';
+}
 .opacity-text {
   font-family: 'SUIT-Medium';
 }
@@ -81,4 +96,34 @@
 
 .review-content {
   font-family: 'SUIT-Medium';
+}
+
+.expect-title {
+  font-family: 'ROKAFSlabSerifBold';
+}
+
+.expect-content {
+  font-family: 'SUIT-Medium';
+}
+
+.no-content {
+  font-family: 'ROKAFSlabSerifBold';
+}
+
+.near-place {
+  font-family: 'SUIT-Medium';
+}
+
+.artcenter-info {
+  font-family: 'SUIT-Medium';
+}
+
+.etiquette-title{
+  font-family: 'ROKAFSlabSerifBold';
+  font-size: 3rem;
+}
+
+
+.clap-detail{
+  font-family: 'ROKAFSlabSerifBold';
 }

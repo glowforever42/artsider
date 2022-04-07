@@ -50,7 +50,7 @@
       </v-menu>
     </div>
     <div v-if="showReviewsList.length == 0">
-      <h2 class="d-flex justify-center" style="margin: 150px 0px; ">리뷰가 없습니다.</h2> 
+      <h2 class="no-content d-flex justify-center" style="margin: 150px 0px; ">리뷰가 없습니다.</h2> 
     </div>
     <div v-else v-for="(showReview, idx) in showReviewsList" :key="idx" style="margin-top:50px;">
       <div class="container" style="border: 1px solid rgba(0, 0, 0, .3); border-radius:20px;">
