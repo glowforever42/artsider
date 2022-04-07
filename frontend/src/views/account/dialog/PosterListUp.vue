@@ -7,11 +7,27 @@
     >
     <v-card style="padding: 3rem;">
       <v-card-title class="d-flex justify-center">
-        <span class="text-h4"> 공연 추천 </span>
+        <span class="pick-title" style="font-size: 3rem;"> 공연 추천 </span>
       </v-card-title>
 
-      <v-container class="d-flex flex-column justify-center align-center" style="padding-bottom:50px">
-        <span style="font-weight: 600; line-height: 1.6; margin-top: 0; margin-bottom: 1rem;"> 끌리는 공연 포스터를 골라주세요! </span>
+      <v-container class="d-flex flex-column justify-center align-center sub-label" style="padding-bottom:50px">
+        <span 
+          style="
+            position:relative; 
+            text-align: center;
+            font-weight: 600; 
+            line-height: 1.6; 
+            margin-top: 0; 
+            margin-bottom: 1rem; width:100%;"> 끌리는 공연 포스터를 골라주세요!    
+          <v-icon
+            style="position: absolute; right:0;"
+            size="30"
+            color="black"
+            @click="() => { clickedItems = [],  $emit('renew-poster')}"  
+          >
+            mdi-refresh  
+          </v-icon>   
+        </span>
         <v-row class="init-posters-wrapper">
           <template v-for="poster in posters">
             <v-col
@@ -52,19 +68,16 @@
             </v-col>
           </template>
         </v-row>
-        <v-btn 
-          text
-          class="mt-5"
-          @click="() => { clickedItems = [],  $emit('renew-poster')}"  
-        >
-          새로고침
-        </v-btn>
         <v-btn
-          text
+          depressed
+          x-large
+          dark
+          style="width: 100%; margin-top: 60px;"
           @click="addContents"
         >
           완료
         </v-btn>
+
       </v-container>
     </v-card>
   </v-dialog>

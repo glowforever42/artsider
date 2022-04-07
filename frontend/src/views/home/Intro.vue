@@ -19,7 +19,7 @@
 
         </v-img>
         <h1 class="text-h3" style="font-weight: 800; margin-bottom:20px;">
-          아트사이더에 오신걸 환영합니다.
+          아트사이더에 오신 걸 환영합니다.
         </h1>
       <v-btn
         class ="login-btn"
