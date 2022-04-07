@@ -12,7 +12,7 @@ router = APIRouter()
 async def read_root():
     #  데이터 연결
     connection = pymysql.connect(host='j6b202.p.ssafy.io', port=3306,
-                                 user='root', password='bigdata@202', db='artsider', charset='utf8')
+                                 user='artsider', password='artsider202!', db='artsider', charset='utf8')
 
     shows = pd.read_sql("SELECT * FROM performance", connection)
     users = pd.read_sql("SELECT * FROM user", connection)

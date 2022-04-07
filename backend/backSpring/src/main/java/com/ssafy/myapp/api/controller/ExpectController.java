@@ -3,7 +3,6 @@ package com.ssafy.myapp.api.controller;
 import com.ssafy.myapp.api.request.ReviewRegisterReq;
 import com.ssafy.myapp.api.response.ExpectListGetRes;
 import com.ssafy.myapp.api.service.ExpectService;
-import com.ssafy.myapp.db.entity.Expectation;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Api(value = "기대평 API", tags = {"Expectation"})
