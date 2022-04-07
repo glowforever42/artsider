@@ -360,7 +360,7 @@ export default new Vuex.Store({
 
     
     // 로그인
-    getToken({commit, dispatch}, inputData){
+    getToken({commit, dispatch, state}, inputData){
       const url = '/api/auth/login'
       axios.post(url, {...inputData})
       .then((res) => {
@@ -373,6 +373,7 @@ export default new Vuex.Store({
           commit('SET_USER_INFO', res.data)
         })
         .then(() => {
+          console.log(state.userInfo)
           router.push({name: 'Home'}).catch(()=>{})
         })
       })
@@ -402,16 +403,24 @@ export default new Vuex.Store({
     addPreference({state}, data) {
       state
       const url = `/api/users/show/${data.id}/preference`
-      return axios({
-        method: 'post',
-        url: url,
-        headers: { Authorization : `Bearer ${state.token}`}
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'post',
+          url: url,
+          headers: { Authorization : `Bearer ${state.token}`}
+        })
+        .then(() => {
+          resolve('complete')
+        })
+        .catch(() => {
+          reject('network err')
+        })
       })
     },
+      
 
     // 선호 목록 제거
     deletePreference({state}, data) {
-      state
       const url = `/api/users/show/${data.id}/preference`
       return axios({
         method: 'delete',

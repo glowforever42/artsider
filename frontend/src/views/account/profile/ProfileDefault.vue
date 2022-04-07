@@ -141,13 +141,15 @@ export default {
         this.clickedId = null
         this.$router.go()
       })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   },
 
   created(){
     this.$store.dispatch('getMyPreference')
     .then((res) => {
-      console.log(res.data.items)
       this.preferencePosters = res.data.items 
       this.$store.dispatch('getMyHistory')
       .then((res) => {

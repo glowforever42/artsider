@@ -3,9 +3,7 @@
     :value="listDialog"
     max-width="1000px"
     max-height="70%"
-    @click:outside="() => {localStorage.removeItem('accessToken'), 
-    $store.dispatch('deleteToken'), 
-    $emit('close-list') }"
+    @click:outside="() => {$emit('close-list') }"
     >
     <v-card style="padding: 3rem;">
       <v-card-title class="d-flex justify-center">
@@ -56,7 +54,9 @@
         </v-row>
         <v-btn 
           text
-          class="mt-5">
+          class="mt-5"
+          @click="() => { clickedItems = [],  $emit('renew-poster')}"  
+        >
           새로고침
         </v-btn>
         <v-btn
@@ -65,18 +65,13 @@
         >
           완료
         </v-btn>
-        <!-- <v-btn
-          text
-          @click="() => { $store.dispatch('deleteToken') ,$emit('close-list')}"
-        >
-          닫기
-        </v-btn> -->
       </v-container>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+
 export default {
   name: 'PosterListUp',
   props:{
@@ -99,17 +94,25 @@ export default {
       }
     },
 
-    addContents(){
+    async addContents(){
       if(this.clickedItems.length !== 0){
-        this.clickedItems.forEach((contentId) => {
-          this.$store.dispatch('addPreference', {id: contentId})
-        })
+        const tempItems = [...this.clickedItems]
+        for(let i = 0; i < tempItems.length; i++){
+          try{
+            const item = tempItems[i]
+            await this.$store.dispatch('addPreference', {id: item})
+          } catch(err) {
+            console.log(err)
+          }
+        }
+        this.$router.go()
       } else{
         localStorage.removeItem('accessToken')
         this.$store.dispatch('deleteToken')
         this.$emit('close-list')
       }
-    }
+    },
+
   },
 
   computed:{
