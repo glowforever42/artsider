@@ -285,7 +285,7 @@
 
 - `http://${ec2-public-dns}:9090`으로 Jenkins 접속
 
-  <img src="img/Jenkins초기화면.JPG" width="80%" height="50%"/>
+  ![Jenkins초기화면.JPG](img/Jenkins초기화면.JPG)
 
   - 초기 접속 비밀번호는 docker 컨테이너로 떠있는 jenkins의 **특정파일**안에 존재 (위 경로에 위치)
   - 실행 후 나온 패스워드를 복사해서 입력한 후 Continue 버튼 클릭
@@ -301,7 +301,7 @@
 
   - 계정은 반드시 생성해야 한다. 후에 재접속 시 필요함!
 
-  <img src="img/Jenkins_사용자계정.jpg" width="60%" height="50%"/>
+  ![Jenkins_사용자계정.jpg](img/Jenkins_사용자계정.jpg)
 
 ### 4.2 Jenkins 플러그인 추가 설치
 
