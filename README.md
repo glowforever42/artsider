@@ -84,63 +84,43 @@ http://j6b202.p.ssafy.io/
 
 
 
-
-
 ## 3️⃣ Install and Usage
 
 > Windows 10을 기준으로 개발 환경 구성 방법을 설명한다.
 
-### 1. OpenJDK 설치
+### 1. Java, Python 설치
 
-- JDK 다운로드 사이트에서 **11 GA 버전** 설치 파일 다운로드 및 실행
+- [JDK 다운로드 사이트](https://jdk.java.net/archive/)에서 **11 GA 버전** 설치 파일 다운로드 및 실행
 
-  - OpenJDK 공식 웹사이트 : https://jdk.java.net/archive/
+- **Python v3.8**로 설치
 
-- 명령 프롬프트(cmd) 확인
-
-  ```bash
-  $ java -version
-  openjdk version "11" 2018-09-25
-  OpenJDK Runtime Environment 18.9 (build 11+28)
-  OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
-  ```
+```bash
+$ java -version
+openjdk version "11" 2018-09-25
+$ python -V
+Python 3.8.10
+```
 
 
-## 2. DB 구성
+### 2. DB 구성
 
 > 이미 설치되어 있거나 원격 DB를 사용하는 경우 설치 부분 생략
 
-- MySQL 사이트에서 **Windows (x86, 32-bit), MSI Installer (435.7M)** 설치 파일 다운로드 및 실행
-
-  - MySQL 공식 웹사이트 : https://dev.mysql.com/downloads/mysql/
-
-- 명령 프롬프트(cmd) 확인
+- [MySQL 공식 사이트](https://dev.mysql.com/downloads/mysql/)에서 **Windows (x86, 32-bit), MSI Installer (435.7M)** 설치 파일 다운로드 및 실행
 
   ```bash
+  # 버전 확인
   $ mysql --version
   ```
 
 - dump.sql 파일 실행하여 DB 생성
-
-### 2. Python 설치
-
-- **Python v3.8**로 설치
-
-  - Python 공식 웹사이트 : https://www.python.org/downloads/
-
-- 명령 프롬프트(cmd) 확인
-
-  ```bash
-  $ python -V
-  Python 3.8.10
-  ```
 
 ### 3. 프로젝트 다운로드
 
 - 프로젝트 다운로드
 
   ```bash
-  git clone <repo URL>	
+  git clone <repo URL>
   ```
 
 - `{origin_DIR}/backend/backSpring/src/main/resources/application.properties`로 이동
@@ -157,10 +137,12 @@ http://j6b202.p.ssafy.io/
 - `{origin_DIR}/backend/fastApi/`로 이동
 
   ```bash
+  # 가상환경 생성
   $ pip3 install virtualenv
   $ python -m venv .venv
   $ source .venv/Scripts/activate
   
+  # Package 설치
   $ pip3 install --upgrade pip
   $ pip3 install -r requirements.txt
   ```
@@ -177,28 +159,16 @@ http://j6b202.p.ssafy.io/
 
 ### 5. Frontend 설치 및 실행
 
+- `{origin_DIR}/frontend/`로 이동
 
-1. frontend 폴더로 이동
+  ```bash
+  # 패키지 설치
+  npm install
+  # 프로젝트 실행
+  npm run serve
+  ```
 
-   ```bash
-   cd <folder-name>/frontend
-   ```
-
-2. 패키지 설치
-
-   ```bash
-   npm install
-   ```
-
-3. 프로젝트 실행
-
-   ```bash
-   npm run serve
-   ```
-
-
-
-
+  
 
 ## 4️⃣ 추천 서비스 개발 플로우
 
