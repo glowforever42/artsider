@@ -64,7 +64,7 @@ def hello(userId, category):
 
 
     # userId의 top3 선호 태그 리스트
-    user_tag_top3 = user_tag.sort_values('weight', ascending=False).head(3)
+    user_tag_top3 = user_tag.sort_values(['weight', 'id'], ascending=[False,True]).head(3)
     tag_top3_list = user_tag_top3['tag_content'].tolist()
 
 
