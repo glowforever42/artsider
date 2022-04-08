@@ -53,6 +53,14 @@ web server로 spring boot를 사용하며 데이터 처리는 fastApi에서 진�
   ```
 
 - dump.sql 파일 실행하여 DB 생성
+- DB.properties
+
+  ```bash
+  spring.datasource.url=jdbc:mysql://j6b202.p.ssafy.io:3306/artsider?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=UTF-8
+
+  spring.datasource.username=artsider
+  spring.datasource.password=artsider202!
+  ```
 
 ### 2. Python 설치
 
