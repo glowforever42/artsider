@@ -133,7 +133,7 @@ web server로 spring boot를 사용하며 데이터 처리는 fastApi에서 진�
          │              	├─mapping
          │              	└─respository
          └─ resources
-         	└─application.properties
+         	└─application.properties// db설정 properties 존재
 ```
 
 ### fastApi(빅데이터 관련)
