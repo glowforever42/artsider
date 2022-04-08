@@ -177,25 +177,20 @@ http://j6b202.p.ssafy.io/
 
 ### 5. Frontend 설치 및 실행
 
-1. 프로젝트 다운로드
 
-   ```bash
-   git clone <repo URL> <folder-name>
-   ```
-
-2. frontend 폴더로 이동
+1. frontend 폴더로 이동
 
    ```bash
    cd <folder-name>/frontend
    ```
 
-3. 패키지 설치
+2. 패키지 설치
 
    ```bash
    npm install
    ```
 
-4. 프로젝트 실행
+3. 프로젝트 실행
 
    ```bash
    npm run serve
